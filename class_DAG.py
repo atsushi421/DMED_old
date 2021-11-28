@@ -165,6 +165,25 @@ class DAG:
         return pred, succ, entry, exit
     
     
+    # -- DAG 内の timer-driven node の添え字のリストを返す --
+    def timer_list(self):
+        timer_list = []
+        for i in range(len(self.node)):
+            if(self.node[i].isTimer == True): timer_list.append(i)
+        
+        return timer_list
+    
+    
+    # -- ni~nj 間が update edge なら True を返す --
+    def isUpdate(self, i, j):
+        for edge in self.edge:
+            if(edge.FROM == i and edge.TO == j):
+                if(edge.isUpdate == True):
+                    return True
+                else:
+                    return False
+    
+    
     # -- 変数の表示 --
     def print_pred(self):
         print("pred = ", end = "")
