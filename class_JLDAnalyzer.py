@@ -41,7 +41,28 @@ class JLDAnalyzer:
                 self.dag.node[timer_index].ft_list.append(self.dag.node[timer_index].st_list[-1] + self.dag.node[timer_index].exec_time)
         
         # event-driven node
-        event_list = self.dag.get_event_list()
-        for event_index in event_list:
-            pred_list = self.dag.pred[event_index]
+        while(True):  # 全てのノードが計算できるまで
+            event_list = self.dag.get_event_list()
+            for event_index in event_list:
+                if(len(self.dag.node[event_index].st_list) != 0): continue  # 計算済みのノードはスキップ
+                
+                for trigger_index in self.dag.node[event_index].trigger_list:
+                    for i in range(len(self.dag.node[trigger_index].ft_list)):  # 前任ノードの発火回数分，後続の event-driven node も発火する
+                        tmp_st = self.dag.node[trigger_index].ft_list[i] + self.dag.edge[trigger_index][event_index][1]
+                        if(len(self.dag.node[event_index].st_list) <= i):  # trigger edge が 1 つの場合
+                            self.dag.node[event_index].st_list.append(tmp_st)
+                        else:  # trigger edge が複数ある場合
+                            if(tmp_st > self.dag.node[event_index].st_list[i]):
+                                self.dag.node[event_index].st_list[i] = tmp_st
+                
+                # ft_list の計算
+                for i in range(len(self.dag.node[event_index].st_list)):        
+                    self.dag.node[event_index].ft_list.append(self.dag.node[event_index].st_list[i] + self.dag.node[event_index].exec_time)
             
+            # 終了判定
+            finish_flag = True
+            for event_index in event_list:
+                if(len(self.dag.node[event_index].st_list) == 0):  # 計算できていないノードがある
+                    finish_flag = False
+            
+            if(finish_flag == True): break

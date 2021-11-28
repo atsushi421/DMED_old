@@ -9,7 +9,7 @@ class Node:
         '''
         isJoin : Join node なら True
         isEvent : event-driven node なら True
-        trigger_index : event-driven node の場合のトリガーされるノードの添え字
+        trigger_list : event-driven node の場合のトリガーされるノードの添え字のリスト
         isTimer : timer-driven node なら True
         period : timer-driven node の場合の周期
         offset : timer-driven node の場合のオフセット
@@ -19,7 +19,7 @@ class Node:
         '''
         self.isJoin = isJoin
         self.isEvent = isEvent
-        self.trigger_index = -1
+        self.trigger_list = []
         self.isTimer = isTimer
         self.period = period
         self.offset = offset
@@ -189,7 +189,7 @@ class DAG:
             pred_list = self.pred[event_index]
             for pred in pred_list:
                 if(self.edge[pred][event_index][0] == "Trigger"):
-                        self.node[event_index].trigger_index = pred
+                        self.node[event_index].trigger_list.append(pred)
     
     
     # -- ni~nj 間が update edge なら True を返す --
