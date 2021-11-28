@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from class_DAG import DAG
+from divide_subG import divide_subG
 
 
 dag = DAG("AutowareAuto")
-dag.print_all()
-print(dag.node[1].isTimer)
-print(dag.node[1].isEvent)
+g = divide_subG(dag)
+
+print(g)
