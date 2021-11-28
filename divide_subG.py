@@ -43,7 +43,7 @@ def divide_subG(dag):
     global subG
     
     # 全ての timer-driven node に対して，search_succs 関数を呼び出す
-    timer_list = dag.timer_list()
+    timer_list = dag.get_timer_list()
     for timer_index in timer_list:
         subG.append(timer_index)
         search_succs(dag, timer_index)

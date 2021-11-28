@@ -1,39 +1,32 @@
 # -*- coding: utf-8 -*-
 import pprint
+import math
 
 
 class Node:
     # <コンストラクタ>
-    def __init__(self, isJoin, isEvent, isTimer, period, exec_time):
+    def __init__(self, isJoin, isEvent, isTimer, period, offset, exec_time):
         '''
         isJoin : Join node なら True
         isEvent : event-driven node なら True
+        trigger_index : event-driven node の場合のトリガーされるノードの添え字
         isTimer : timer-driven node なら True
         period : timer-driven node の場合の周期
+        offset : timer-driven node の場合のオフセット
         exec_time : 実行時間
+        st_list : HP 内の各ジョブの開始時間のリスト
+        ft_list : HP 内の各ジョブの終了時間のリスト
         '''
         self.isJoin = isJoin
         self.isEvent = isEvent
+        self.trigger_index = -1
         self.isTimer = isTimer
         self.period = period
+        self.offset = offset
         self.exec_time = exec_time
+        self.st_list = []
+        self.ft_list = []
         
-        
-class Edge:
-    # <コンストラクタ>
-    def __init__(self, isTrigger, isUpdate, FROM, TO,  comm_time):
-        '''
-        isTrigger : Trigger edge なら True
-        isUpdate : Update edge なら True
-        FROM : エッジを出力するノードの添え字
-        TO : エッジが入力されるノードの添え字
-        comm_time : 通信時間
-        '''
-        self.isTrigger = isTrigger
-        self.isUpdate = isUpdate
-        self.FROM = FROM
-        self.TO = TO
-        self.comm_time = comm_time
 
 
 class DAG:
@@ -42,19 +35,18 @@ class DAG:
         '''
         dag_file : .dag ファイルの名前
         node[] : DAG 内のノード
-        edge[] : DAG 内のエッジ
+        edge[i][j] : ni~nj 間の通信時間
         pred[i] : ni の前任ノードのリスト
         succ[i] : ni の後続ノードのリスト
         entry[i]=1 : niはentryノード. entry[i]=0 : niはentryノードではない
         exit[i]=1 : niはexitノード. exit[i]=0 : niはexitノードではない
         HP : ハイパーピリオド
         '''
-        
         self.dag_file = dag_file
         self.node = []
-        self.edge = []
-        self.pred, self.succ, self.entry, self.exit = self.read_dag_file(self.dag_file)
-        # self.HP = self.calc_hp(self)
+        self.edge, self.pred, self.succ, self.entry, self.exit = self.read_dag_file(self.dag_file)
+        self.HP = int(self.calc_hp())
+        self.set_trigger_index()
 
 
 
@@ -111,13 +103,15 @@ class DAG:
                 if(line_list[4] == 'EVENT'): isEvent = True
                 if(line_list[4] == 'TIMER'):
                     isTimer = True
-                    period = line_list[5]
+                    period = int(line_list[5])
+                    offset = 0
                 
-                self.node.append(Node(isJoin, isEvent, isTimer, period, exec_time))
+                self.node.append(Node(isJoin, isEvent, isTimer, period, offset, exec_time))
         dag_file.close()
 
         
         # ARC 情報の取得
+        edge = [[["None", 0] for j in range(len(self.node))] for i in range(len(self.node))]
         dag_file = open(path, "r")
         for line in dag_file:
             if(line == "\n"):
@@ -125,30 +119,35 @@ class DAG:
             
             line_list = line.split()  # 文字列の半角スペース・タブ区切りで区切ったリストを取得
             
-            if(line_list[0] == 'ARC'):
-                isTrigger = isUpdate = False
-                
+            if(line_list[0] == 'ARC'):                
                 # 各パラメータの判定・格納
-                if(line_list[-1] == 'TRIGGER'): isTrigger = True
-                if(line_list[-1] == 'UPDATE') : isUpdate = True
                 from_n = int(line_list[3][2:])  # エッジを出力するノードの添え字
                 to_n = int(line_list[5][2:])  # エッジが入力されるノードの添え字
                 comm_time = int(type_cost[int(line_list[7])])  # TYPE に書かれている時間を通信時間とする
                 
-                self.edge.append(Edge(isTrigger, isUpdate, from_n, to_n, comm_time))
-                
+                if(line_list[-1] == 'TRIGGER'):
+                    edge[from_n][to_n][0] = "Trigger"
+                    edge[from_n][to_n][1] = comm_time
+                else:
+                    edge[from_n][to_n][0] = "Update"
+                    edge[from_n][to_n][1] = comm_time
+
         dag_file.close()
         
         
         # pred を求める
         pred = [[] for i in range(len(self.node))]
-        for edge in self.edge:
-            pred[edge.TO].append(edge.FROM)
+        for in_node in range(len(self.node)):
+            for out_node in range(len(self.node)):
+                if(edge[in_node][out_node][0] != "None"):  # エッジがあれば
+                    pred[out_node].append(in_node)
         
         # succ を求める
         succ = [[] for i in range(len(self.node))]
-        for edge in self.edge:
-            succ[edge.FROM].append(edge.TO)
+        for in_node in range(len(self.node)):
+            for out_node in range(len(self.node)):
+                if(edge[in_node][out_node][0] != "None"):  # エッジがあれば
+                    succ[in_node].append(out_node)
                     
         # entry node を求める
         entry = [0] * len(self.node)
@@ -162,11 +161,11 @@ class DAG:
             if(len(succ[i]) == 0):
                 exit[i] = 1
         
-        return pred, succ, entry, exit
+        return edge, pred, succ, entry, exit
     
     
     # -- DAG 内の timer-driven node の添え字のリストを返す --
-    def timer_list(self):
+    def get_timer_list(self):
         timer_list = []
         for i in range(len(self.node)):
             if(self.node[i].isTimer == True): timer_list.append(i)
@@ -174,14 +173,41 @@ class DAG:
         return timer_list
     
     
+    # -- DAG 内の event-driven node の添え字のリストを返す --
+    def get_event_list(self):
+        event_list = []
+        for i in range(len(self.node)):
+            if(self.node[i].isEvent == True): event_list.append(i)
+        
+        return event_list
+    
+    
+    # -- event-driven node の trigger_index を設定 --
+    def set_trigger_index(self):
+        event_list = self.get_event_list()
+        for event_index in event_list:
+            pred_list = self.pred[event_index]
+            for pred in pred_list:
+                if(self.edge[pred][event_index][0] == "Trigger"):
+                        self.node[event_index].trigger_index = pred
+    
+    
     # -- ni~nj 間が update edge なら True を返す --
     def isUpdate(self, i, j):
-        for edge in self.edge:
-            if(edge.FROM == i and edge.TO == j):
-                if(edge.isUpdate == True):
-                    return True
-                else:
-                    return False
+        if(self.edge[i][j][0] == "Update"):
+            return True
+        else:
+            return False
+    
+    
+    # -- HP を返す --
+    def calc_hp(self):
+        period_list = []
+        for i in range(len(self.node)):
+            if(self.node[i].isTimer == True):
+                period_list.append(self.node[i].period)
+        
+        return math.lcm(*period_list)
     
     
     # -- 変数の表示 --
