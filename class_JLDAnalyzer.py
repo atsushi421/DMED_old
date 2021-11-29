@@ -18,6 +18,7 @@ class JLDAnalyzer:
         self.calc_ideal_st_ft()
         self.calc_duration()
         self.analyze_in_subG()
+        self.analyze_tail_to_join()
         
         
     # <メソッド>
@@ -213,11 +214,50 @@ class JLDAnalyzer:
         join_list = self.get_join_list()
         
         for tail_index in tail_list:
-            tail_succ_list = self.dag.succ[tail_index]
-            succ_join = list(set(tail_succ_list) & set(join_list))  # 見ている tail node の後続の join node の添え字のリスト. 一旦 1 つと仮定
+            if(self.dag.exit[tail_index] == 1): continue  # exit node は後続が無いのでスキップ
             
-            for k in range(len(self.dag.node[tail_index].ft_list)):
-                for s in range(len(self.dag.node[succ_join[0]].st_list)):
-                    if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join[0]][1]) <= self.dag.node[succ_join[0]].st_list[s] and (self.dag.node[tail_index].ft_list[k+1] + self.dag.edge[tail_index][succ_join[0]][1]) >= self.dag.node[succ_join[0]].st_list[s]):  # Definition 1
-                        self.job_pred[succ_join[0]][s].append([tail_index, k])
-                        self.job_succ[tail_index][k].append([succ_join[0], s])
+            tail_succ_list = self.dag.succ[tail_index]
+            succ_join_list = list(set(tail_succ_list) & set(join_list))  # 見ている tail node の後続の join node の添え字のリスト
+            
+            for succ_join in succ_join_list:
+                for k in range(len(self.dag.node[tail_index].ft_list)):
+                    if(k == len(self.dag.node[tail_index].ft_list) - 1):  # k の最後は条件式の範囲を超えるので，別の処理を行う
+                        join_last_index = len(self.dag.node[succ_join].st_list) - 1
+                        
+                        if(len(self.job_pred[succ_join]) <= join_last_index):
+                            self.job_pred[succ_join].append([[tail_index, k]])
+                        else:  # 後続ノードが複数ある場合
+                            self.job_pred[succ_join][join_last_index].append([tail_index, k])
+                        
+                        if(len(self.job_succ[tail_index]) <= k):
+                            self.job_succ[tail_index].append([[succ_join, join_last_index]])
+                        else:  # 前任ノードが複数ある場合
+                            self.job_succ[tail_index][k].append([succ_join, join_last_index])
+                            
+                        break
+                    
+                    for s in range(len(self.dag.node[succ_join].st_list)):
+                        if(s == 0):  # s の最初は条件式の範囲を超えるので，別の処理を行う
+                            if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s]):  # 1 つ目の条件のみ
+                                if(len(self.job_pred[succ_join]) <= s):
+                                    self.job_pred[succ_join].append([[tail_index, k]])
+                                else:  # 後続ノードが複数ある場合
+                                    self.job_pred[succ_join][s].append([tail_index, k])
+                                
+                                if(len(self.job_succ[tail_index]) <= k):
+                                    self.job_succ[tail_index].append([[succ_join, s]])
+                                else:  # 前任ノードが複数ある場合
+                                    self.job_succ[tail_index][k].append([succ_join, s])
+                                    
+                                continue
+                        
+                        if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s] and (self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) > self.dag.node[succ_join].st_list[s-1]):  # Definition 1
+                            if(len(self.job_pred[succ_join]) <= s):
+                                self.job_pred[succ_join].append([[tail_index, k]])
+                            else:  # 後続ノードが複数ある場合
+                                self.job_pred[succ_join][s].append([tail_index, k])
+                            
+                            if(len(self.job_succ[tail_index]) <= k):
+                                self.job_succ[tail_index].append([[succ_join, s]])
+                            else:  # 前任ノードが複数ある場合
+                                self.job_succ[tail_index][k].append([succ_join, s])

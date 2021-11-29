@@ -24,10 +24,12 @@ class subDAG:
     def init_set_param(self, dag):
         # tail node
         for node_index in self.node_list:
+            # subG 外のノードへエッジを持つなら，tail node
             succ_list = dag.succ[node_index]
-            matched = set(succ_list) & set(self.node_list)
-            if(len(matched) == 0):
-                self.tail_list.append(node_index)
+            for succ in succ_list:
+                if(succ not in self.node_list):
+                    self.tail_list.append(node_index)
+                    break
         
         # head node & period
         for node_index in self.node_list:
