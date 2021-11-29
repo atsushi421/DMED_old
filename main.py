@@ -9,6 +9,6 @@ dag = DAG("AutowareAuto")
 divg = divide_subG(dag)
 
 jdl_analyzer = JLDAnalyzer(dag, divg)
-laxity = Laxity(dag, jdl_analyzer.job_succ)
+laxity = Laxity(dag, jdl_analyzer)
 
 print("a")

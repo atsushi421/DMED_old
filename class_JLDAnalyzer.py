@@ -22,6 +22,20 @@ class JLDAnalyzer:
         
         
     # <メソッド>
+    # -- k 回目までのデッドラインのリストを返す --
+    def get_deadline_list(self, exit_node_index):
+        num_trigger_exit = len(self.dag.node[exit_node_index].ft_list)
+        deadline_list = [0 for i in range(num_trigger_exit)]
+        
+        for k in range(num_trigger_exit):
+            if(k == 0):
+                deadline_list[0] = self.dag.Deadline
+            else:
+                deadline_list[k] = deadline_list[k-1] + self.get_period(exit_node_index)
+
+        return deadline_list
+                
+    
     # -- ni が所属する subG の Duration を返す --
     def get_duration(self, node_index):
         return self.divG[self.get_subG_index(node_index)].duration
