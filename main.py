@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 from class_DAG import DAG
 from divide_subG import divide_subG
+from class_JLDAnalyzer import JLDAnalyzer
 
 
 dag = DAG("AutowareAuto")
-g = divide_subG(dag)
+divg = divide_subG(dag)
 
-print(g)
+jdl_analyzer = JLDAnalyzer(dag, divg)
+
+print("a")
