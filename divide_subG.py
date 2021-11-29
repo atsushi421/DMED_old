@@ -1,6 +1,48 @@
 # -*- coding: utf-8 -*-
 
 
+class subDAG:
+    # <コンストラクタ>
+    def __init__(self, node_list, dag):
+        '''
+        node_list : subG を構成するノードの添え字のリスト
+        tail_list : tail node の添え字のリスト
+        head_list : head node の添え字のリスト
+        period : subG の周期
+        duration : 考えるべき期間
+        '''
+        self.node_list = node_list
+        self.tail_list = []
+        self.head_list = []
+        self.period = 0
+        self.duration = dag.HP  # デフォルトは HP
+        self.init_set_param(dag)
+    
+    
+    # <メソッド>
+    # -- subG の各パラメータの設定 --
+    def init_set_param(self, dag):
+        # tail node
+        for node_index in self.node_list:
+            succ_list = dag.succ[node_index]
+            matched = set(succ_list) & set(self.node_list)
+            if(len(matched) == 0):
+                self.tail_list.append(node_index)
+        
+        # head node & period
+        for node_index in self.node_list:
+            pred_list = dag.pred[node_index]
+            matched = set(pred_list) & set(self.node_list)
+            if(len(matched) == 0):
+                self.head_list.append(node_index)
+                self.period = dag.node[node_index].period  # head node は timer-driven node
+    
+    # -- duration 内での subG の発火回数を返す --
+    def get_num_trigger(self):
+        return int(self.duration / self.period + 1)  # 0 ms でも発火するので，+ 1
+
+
+
 subG = []  # 全ての再帰関数からアクセスされるグローバル変数
 
 
@@ -63,5 +105,9 @@ def divide_subG(dag):
         subG.sort()
     tuple_list_G = list(set(list(map(tuple, G))))
     G = list(map(list, tuple_list_G))
+    
+    # subDAG インスタンスに変換
+    for subG_index in range(len(G)):
+        G[subG_index] = subDAG(G[subG_index], dag)
     
     return G
