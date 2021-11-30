@@ -9,13 +9,15 @@ class subDAG:
         tail_list : tail node の添え字のリスト
         head_list : head node の添え字のリスト
         period : subG の周期
-        duration : 考えるべき期間
+        HP : 元の DAG の HP
+        duration : HP 内の全てのジョブの laxity を計算するために考慮が必要な期間
         '''
         self.node_list = node_list
         self.tail_list = []
         self.head_list = []
         self.period = 0
-        self.duration = dag.HP  # デフォルトは HP
+        self.HP = dag.HP
+        self.duration = dag.HP  # デフォルトは HP. 必要になった際に延長
         self.init_set_param(dag)
     
     
@@ -40,8 +42,13 @@ class subDAG:
                 self.period = dag.node[node_index].period  # head node は timer-driven node
     
     # -- duration 内での subG の発火回数を返す --
-    def get_num_trigger(self):
-        return int(self.duration / self.period + 1)  # 0 ms でも発火するので，+ 1
+    def get_num_trigger_duration(self):
+        return int(self.duration / self.period)
+    
+    
+    # -- HP 内での subG の発火回数を返す --
+    def get_num_trigger_hp(self):
+        return int(self.HP / self.period)
 
 
 

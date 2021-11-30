@@ -1,0 +1,44 @@
+@TASK_GRAPH 0 {
+   TASK t_0 TYPE 0 TIMER 20 
+   TASK t_1 TYPE 1 TIMER 100
+   TASK t_2 TYPE 2 TIMER 30
+   TASK t_3 TYPE 3 EVENT
+   TASK t_4 TYPE 4 EVENT
+   TASK t_5 TYPE 5 EVENT
+   TASK t_6 TYPE 6 EVENT
+   TASK t_7 TYPE 7 TIMER 50 JOIN
+   TASK t_8 TYPE 8 EVENT JOIN
+
+
+   ARC a_0  FROM t_0  TO  t_3 TYPE 9 TRIGGER
+   ARC a_1  FROM t_1  TO  t_4 TYPE 10 TRIGGER
+   ARC a_2  FROM t_2  TO  t_5 TYPE 11 TRIGGER
+   ARC a_3  FROM t_3  TO  t_6 TYPE 12 TRIGGER
+   ARC a_4  FROM t_4  TO  t_7 TYPE 13 UPDATE
+   ARC a_5  FROM t_5  TO  t_7 TYPE 14 UPDATE
+   ARC a_6  FROM t_6  TO  t_8 TYPE 15 UPDATE
+   ARC a_7  FROM t_7  TO  t_8 TYPE 16 TRIGGER
+}
+
+
+
+@PE 0 {
+# type  exec_time  
+  0     26
+  1     41
+  2     23
+  3     12
+  4     10
+  5     16
+  6     15
+  7     35
+  8     32
+  9     7
+  10    21
+  11    6
+  12    8
+  13    12
+  14    9
+  15    10
+  16    34
+}

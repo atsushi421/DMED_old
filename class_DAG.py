@@ -41,12 +41,15 @@ class DAG:
         entry[i]=1 : niはentryノード. entry[i]=0 : niはentryノードではない
         exit[i]=1 : niはexitノード. exit[i]=0 : niはexitノードではない
         HP : ハイパーピリオド
+        Deadline : 一度目のデッドライン
         '''
         self.dag_file = dag_file
         self.node = []
         self.edge, self.pred, self.succ, self.entry, self.exit = self.read_dag_file(self.dag_file)
         self.HP = int(self.calc_hp())
         self.set_trigger_index()
+        
+        self.Deadline = int(120)  # 仮定
 
 
 
@@ -104,7 +107,7 @@ class DAG:
                 if(line_list[4] == 'TIMER'):
                     isTimer = True
                     period = int(line_list[5])
-                    offset = 0
+                    offset = 0  # offset は 0 とする
                 
                 self.node.append(Node(isJoin, isEvent, isTimer, period, offset, exec_time))
         dag_file.close()
@@ -162,6 +165,15 @@ class DAG:
                 exit[i] = 1
         
         return edge, pred, succ, entry, exit
+    
+    
+    # -- DAG 内の entry node の添え字のリストを返す --
+    def get_entry_list(self):
+        entry_list = []
+        for node_index in range(len(self.node)):
+            if(self.entry[node_index] == 1): entry_list.append(node_index)
+        
+        return entry_list
     
     
     # -- DAG 内の timer-driven node の添え字のリストを返す --
