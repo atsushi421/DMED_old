@@ -47,8 +47,9 @@ class DAG:
         self.node = []
         self.edge, self.pred, self.succ, self.entry, self.exit = self.read_dag_file(self.dag_file)
         self.HP = int(self.calc_hp())
-        self.Deadline = int(120)  # 120 ms と仮定
         self.set_trigger_index()
+        
+        self.Deadline = int(120)  # 120 ms と仮定
 
 
 
@@ -106,7 +107,7 @@ class DAG:
                 if(line_list[4] == 'TIMER'):
                     isTimer = True
                     period = int(line_list[5])
-                    offset = 0
+                    offset = 0  # offset は 0 とする
                 
                 self.node.append(Node(isJoin, isEvent, isTimer, period, offset, exec_time))
         dag_file.close()
