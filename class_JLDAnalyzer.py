@@ -236,12 +236,6 @@ class JLDAnalyzer:
             
             for succ_join in succ_join_list:
                 for k in range(len(self.dag.node[tail_index].ft_list)):
-                    if(k == len(self.dag.node[tail_index].ft_list) - 1):  # k の最後は条件式の範囲を超えるので，別の処理を行う
-                        join_last_index = len(self.dag.node[succ_join].st_list) - 1
-                        self.job_succ[tail_index][k].append([succ_join, join_last_index])
-                            
-                        break
-                    
                     for s in range(len(self.dag.node[succ_join].st_list)):
                         if(s == 0):  # s の最初は条件式の範囲を超えるので，別の処理を行う
                             if(self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1] <= self.dag.node[succ_join].st_list[s]) :  # 1 つ目の条件のみ
