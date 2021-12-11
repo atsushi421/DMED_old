@@ -237,10 +237,14 @@ class JLDAnalyzer:
             for succ_join in succ_join_list:
                 for k in range(len(self.dag.node[tail_index].ft_list)):
                     for s in range(len(self.dag.node[succ_join].st_list)):
-                        if(s == 0):  # s の最初は条件式の範囲を超えるので，別の処理を行う
-                            if(self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1] <= self.dag.node[succ_join].st_list[s]) :  # 1 つ目の条件のみ
+                        # k の最後は条件式の範囲を超えるので，別の処理を行う
+                        if(k == len(self.dag.node[tail_index].ft_list) - 1):
+                            next_ft = self.dag.node[tail_index].ft_list[k] + self.get_period(tail_index) + self.dag.edge[tail_index][succ_join][1]  # k+1 の ft を計算
+                            if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s] and next_ft >= self.dag.node[succ_join].st_list[s]):  # Definition 1
                                 self.job_succ[tail_index][k].append([succ_join, s])
+                            
+                            continue
                         
-                        if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s] and (self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) > self.dag.node[succ_join].st_list[s-1]):  # Definition 1
+                        # 通常処理
+                        if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s] and (self.dag.node[tail_index].ft_list[k+1] + self.dag.edge[tail_index][succ_join][1]) >= self.dag.node[succ_join].st_list[s]):  # Definition 1
                             self.job_succ[tail_index][k].append([succ_join, s])
-                            break

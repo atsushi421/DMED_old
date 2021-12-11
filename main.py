@@ -5,7 +5,7 @@ from class_JLDAnalyzer import JLDAnalyzer
 from class_Laxity import Laxity
 
 
-dag = DAG("AutowareAuto")
+dag = DAG("test2")
 divg = divide_subG(dag)
 
 jdl_analyzer = JLDAnalyzer(dag, divg)
