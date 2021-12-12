@@ -82,3 +82,43 @@ class Laxity:
         
         df = pd.DataFrame(self.laxity_table, index=ind, columns=col)
         df.to_csv(self.dag.dag_file + ".csv")
+        
+    
+    # -- laxity の昇順でスケジューリングリストを作成 --
+    def make_scheduling_list(self):
+        scheduling_list = []
+        
+        while(True):
+            # ノードのリストの先頭を全て見て，laxity の最小値からスケジューリングリストに格納していく
+            min_value = 99999999999999999
+            min_node_index = -1
+            min_job_index = -1
+                
+            for node_index in range(len(self.dag.node)):
+                # -1 以外を探索
+                head_index = -1  # そのノードのリストにおいて，先頭から探索していき，値が入っている添え字
+                for job_index in range(len(self.laxity_table[node_index])):
+                    if(self.laxity_table[node_index][job_index] != -1):
+                        head_index = job_index
+                        break
+                
+                if(head_index == -1): continue  # その node のリストには値が入っていない
+                
+                if(self.laxity_table[node_index][head_index] < min_value):
+                    min_value = self.laxity_table[node_index][head_index]
+                    min_node_index = node_index
+                    min_job_index = head_index
+                elif(self.laxity_table[node_index][head_index] == min_value):  # laxity が同じ場合
+                    if(head_index < min_job_index):  # job_index が小さい方を優先
+                        min_value = self.laxity_table[node_index][head_index]
+                        min_node_index = node_index
+                        min_job_index = head_index
+            
+            # 終了判定
+            if(min_value == 99999999999999999):  # 値が更新されていない = laxity_table に値が存在しない
+                break
+                    
+            scheduling_list.append([min_node_index, min_job_index])
+            self.laxity_table[min_node_index][min_job_index] = -1  # pop と同義．-1 : 値が入っていない
+        
+        return scheduling_list

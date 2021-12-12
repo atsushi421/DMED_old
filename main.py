@@ -10,4 +10,6 @@ divg = divide_subG(dag)
 
 jdl_analyzer = JLDAnalyzer(dag, divg)
 laxity = Laxity(jdl_analyzer)
+scheduling_list = laxity.make_scheduling_list()
+print("a")
 laxity.export_laxity()
