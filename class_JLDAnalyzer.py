@@ -8,17 +8,15 @@ class JLDAnalyzer:
         dag : 解析対象の DAG
         divG : subG の集合に切り分けられた DAG
         job_succ[i][j] : n_(i,j) の後続ジョブの添え字を格納するリスト
-        job_pred[i][j] : n_(i,j) の前任ジョブの添え字を格納するリスト
         '''
         self.dag = dag
         self.divG = divG
         self.job_succ = [[] for i in range(len(self.dag.node))]
-        self.job_pred = [[] for i in range(len(self.dag.node))]
         
         self.calc_ideal_st_ft()
         self.calc_duration()
         self.analyze_in_subG()
-        self.analyze_tail_to_join()
+        self.critical_analyze_tail_to_join()
         
         
     # <メソッド>
@@ -143,13 +141,12 @@ class JLDAnalyzer:
             return False
 
 
-    # -- job_succ, job_pred を duration 分用意 --
-    def set_job_succ_pred_size(self, node_index):
+    # -- job_succ を duration 分用意 --
+    def set_job_succ_size(self, node_index):
         num_trigger = self.get_num_trigger_duration(node_index)
         
         while(len(self.job_succ[node_index]) < num_trigger):  # duration 分にリストのサイズが足りない場合
             self.job_succ[node_index].append([])
-            self.job_pred[node_index].append([])
 
 
     # -- subG 内の依存関係を解析 --
@@ -160,13 +157,11 @@ class JLDAnalyzer:
                 same_subG_list = self.divG[subG_index].node_list
                 succ_list = self.dag.succ[node_index]
                 if(len(set(same_subG_list) & set(succ_list)) != 0):  # 後続に同じ subG のノードがある場合
-                    self.set_job_succ_pred_size(node_index)
+                    self.set_job_succ_size(node_index)
                     for succ_index in succ_list:
                         if(self.isSame(succ_index, node_index) == False): continue
                         for k in range(self.get_num_trigger_duration(node_index)):
                             self.job_succ[node_index][k].append([succ_index, k])  # [ノード番号, ジョブ番号]
-                            self.set_job_succ_pred_size(succ_index)
-                            self.job_pred[succ_index][k].append([node_index, k])
     
     
     # -- tail node のリストを返す --
@@ -234,7 +229,7 @@ class JLDAnalyzer:
         for tail_index in tail_list:
             if(self.dag.exit[tail_index] == 1): continue  # exit node は後続が無いのでスキップ
             
-            self.set_job_succ_pred_size(tail_index)
+            self.set_job_succ_size(tail_index)
             tail_succ_list = self.dag.succ[tail_index]
             succ_join_list = list(set(tail_succ_list) & set(join_list))  # 見ている tail node の後続の join node の添え字のリスト
             
@@ -244,13 +239,9 @@ class JLDAnalyzer:
                         if(s == 0):  # s の最初は条件式の範囲を超えるので，別の処理を行う
                             if(self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1] <= self.dag.node[succ_join].st_list[s]) :  # 1 つ目の条件のみ
                                 self.job_succ[tail_index][k].append([succ_join, s])
-                                self.set_job_succ_pred_size(succ_join)
-                                self.job_pred[succ_join][s].append([tail_index, k])
                         
                         if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s]):  # Definition 1 - 条件 1
                             self.job_succ[tail_index][k].append([succ_join, s])
-                            self.set_job_succ_pred_size(succ_join)
-                            self.job_pred[succ_join][s].append([tail_index, k])
 
     
     # -- デッドラインミスに関わる tail~join 間の依存関係を解析 --
@@ -261,7 +252,7 @@ class JLDAnalyzer:
         for tail_index in tail_list:
             if(self.dag.exit[tail_index] == 1): continue  # exit node は後続が無いのでスキップ
             
-            self.set_job_succ_pred_size(tail_index)
+            self.set_job_succ_size(tail_index)
             tail_succ_list = self.dag.succ[tail_index]
             succ_join_list = list(set(tail_succ_list) & set(join_list))  # 見ている tail node の後続の join node の添え字のリスト
             
@@ -273,13 +264,23 @@ class JLDAnalyzer:
                             next_ft = self.dag.node[tail_index].ft_list[k] + self.get_period(tail_index) + self.dag.edge[tail_index][succ_join][1]  # k+1 の ft を計算
                             if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s] and next_ft >= self.dag.node[succ_join].st_list[s]):  # Definition 1
                                 self.job_succ[tail_index][k].append([succ_join, s])
-                                self.set_job_succ_pred_size(succ_join)
-                                self.job_pred[succ_join][s].append([tail_index, k])
                             
                             continue
                         
                         # 通常処理
                         if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s] and (self.dag.node[tail_index].ft_list[k+1] + self.dag.edge[tail_index][succ_join][1]) >= self.dag.node[succ_join].st_list[s]):  # Definition 1
                             self.job_succ[tail_index][k].append([succ_join, s])
-                            self.set_job_succ_pred_size(succ_join)
-                            self.job_pred[succ_join][s].append([tail_index, k])
+    
+    
+    # 割り当て結果をもとに，ST, FT を AST, AFT に更新. 更新がなければ True を返す
+    def calc_actual_st_ft(self, result_job):
+        finish_flag = True
+        
+        for node_index in range(len(self.dag.node)):
+            for job_index in range(self.get_num_trigger_hp(node_index)):
+                if(self.dag.node[node_index].st_list[job_index] != result_job[node_index][job_index][2]):
+                    finish_flag = False
+                    self.dag.node[node_index].st_list[job_index] = result_job[node_index][job_index][2]
+                    self.dag.node[node_index].ft_list[job_index] = result_job[node_index][job_index][3]
+        
+        return finish_flag

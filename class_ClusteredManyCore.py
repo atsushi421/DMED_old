@@ -7,11 +7,12 @@ class Core:
         '''
         idle=True : このコアがアイドル状態
         processing_node : 処理中のノード番号
+        processing_job : 処理中のジョブ番号
         remain_process : 残処理時間
         '''
-
         self.idle = True
         self.processing_node = -1
+        self.processing_job = -1
         self.remain_process = 0
     
     
@@ -21,7 +22,7 @@ class Core:
         if(self.idle == False):
             self.remain_process-=1
             if(self.remain_process == 0):
-                self.__init__()
+                self.__init__()  # 初期状態に戻す
     
 
 
@@ -54,19 +55,19 @@ class Cluster:
         
         return -1
     
-    # 現在処理中のノードを返す
-    def processing_nodes(self):
-        list = []
+    # 現在処理中のジョブのリストを返す
+    def processing_jobs(self):
+        processing_list = []
         
         for i in range(self.num_of_core):
             if(self.core[i].idle == False):
-                list.append(self.core[i].processing_node)
+                processing_list.append([self.core[i].processing_node, self.core[i].processing_job])  # [node_index, job_in]
         
-        return list
+        return processing_list
     
 
 
-class ClusteredManyCoreProcesser:
+class ClusteredManyCoreProcessor:
     # ＜コンストラクタ＞
     def __init__(self, num_of_cluster, num_of_core, inout_ratio):
         '''
@@ -76,7 +77,6 @@ class ClusteredManyCoreProcesser:
         inout_ratio : クラスタ外の通信時間とクラスタ内の通信時間の比率
         cluster[] : このプロセッサ内にあるクラスタ
         '''
-
         self.current_time = 0
         self.num_of_cluster = num_of_cluster
         self.num_of_core = num_of_core
@@ -94,15 +94,15 @@ class ClusteredManyCoreProcesser:
             self.cluster[i].advance_process(self.current_time)
             
     
-    # 現在処理中のノードのリストを返す
-    def processing_nodes(self):
-        processing_nodes = []
+    # 現在処理中のジョブのリストを返す
+    def processing_jobs(self):
+        processing_list = []
         
         for i in range(self.num_of_cluster):
-            list = self.cluster[i].processing_nodes()
-            processing_nodes = processing_nodes + list
+            list = self.cluster[i].processing_jobs()
+            processing_list = processing_list + list
         
-        return processing_nodes
+        return processing_list
     
     
     # プロセッサに空きがあればTrue, そうでなければFalse
