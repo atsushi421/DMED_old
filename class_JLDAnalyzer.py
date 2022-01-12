@@ -20,6 +20,24 @@ class JLDAnalyzer:
         
         
     # <メソッド>
+    # -- data_{node index, job index} のタイムスタンプを返す --
+    def get_timestamp(self, node_index, job_index):
+        if(self.dag.entry[node_index] == 1):  # このノードが entry node
+            return self.dag.node[node_index].st_list[job_index]
+        
+        elif(self.dag.node[node_index].isJoin == True):
+            return self.dag.node[node_index].st_list[job_index]
+        
+        else:
+            # 同一 sg 上の前任ノードをたどる
+            trigger_nodes = self.dag.node[node_index].trigger_list
+            return self.get_timestamp(trigger_nodes[0], job_index)
+                
+                
+            
+            
+    
+    
     # -- k 回目までのデッドラインのリストを返す --
     def get_deadline_list(self, exit_node_index):
         num_trigger_exit = self.get_num_trigger_duration(exit_node_index)
