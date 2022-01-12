@@ -16,7 +16,7 @@ class JLDAnalyzer:
         self.calc_ideal_st_ft()
         self.calc_duration()
         self.analyze_in_subG()
-        self.critical_analyze_tail_to_join()
+        self.critical_analyze_tail_to_join(1.5)
         
         
     # <メソッド>
@@ -32,10 +32,6 @@ class JLDAnalyzer:
             # 同一 sg 上の前任ノードをたどる
             trigger_nodes = self.dag.node[node_index].trigger_list
             return self.get_timestamp(trigger_nodes[0], job_index)
-                
-                
-            
-            
     
     
     # -- k 回目までのデッドラインのリストを返す --
@@ -263,7 +259,7 @@ class JLDAnalyzer:
 
     
     # -- デッドラインミスに関わる tail~join 間の依存関係を解析 --
-    def critical_analyze_tail_to_join(self):
+    def critical_analyze_tail_to_join(self, a):  # a: Eq. (1)
         tail_list = self.get_tail_list()
         join_list = self.get_join_list()
         
@@ -277,16 +273,8 @@ class JLDAnalyzer:
             for succ_join in succ_join_list:
                 for k in range(len(self.dag.node[tail_index].ft_list)):
                     for s in range(len(self.dag.node[succ_join].st_list)):
-                        # k の最後は条件式の範囲を超えるので，別の処理を行う
-                        if(k == len(self.dag.node[tail_index].ft_list) - 1):
-                            next_ft = self.dag.node[tail_index].ft_list[k] + self.get_period(tail_index) + self.dag.edge[tail_index][succ_join][1]  # k+1 の ft を計算
-                            if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s] and next_ft >= self.dag.node[succ_join].st_list[s]):  # Definition 1
-                                self.job_succ[tail_index][k].append([succ_join, s])
-                            
-                            continue
-                        
-                        # 通常処理
-                        if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s] and (self.dag.node[tail_index].ft_list[k+1] + self.dag.edge[tail_index][succ_join][1]) >= self.dag.node[succ_join].st_list[s]):  # Definition 1
+                        # Definition 1
+                        if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s] and (self.dag.node[succ_join].st_list[s] - self.get_timestamp(tail_index, k)) <= (a * self.get_period(tail_index))):
                             self.job_succ[tail_index][k].append([succ_join, s])
     
     
