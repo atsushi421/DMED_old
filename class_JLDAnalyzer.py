@@ -16,7 +16,7 @@ class JLDAnalyzer:
         self.calc_ideal_st_ft()
         self.calc_duration()
         self.analyze_in_subG()
-        self.critical_analyze_tail_to_join(1.5)
+        self.critical_analyze_tail_to_join(1.7)
         
         
     # <メソッド>
