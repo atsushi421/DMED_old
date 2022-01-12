@@ -176,6 +176,15 @@ class DAG:
         return entry_list
     
     
+    # -- DAG 内の exit node の添え字を返す (exit node は1つ前提) --
+    def get_exit_index(self):
+        exit_index = -1
+        for node_index in range(len(self.node)):
+            if(self.exit[node_index] == 1): exit_index = node_index
+        
+        return exit_index
+    
+    
     # -- DAG 内の timer-driven node の添え字のリストを返す --
     def get_timer_list(self):
         timer_list = []

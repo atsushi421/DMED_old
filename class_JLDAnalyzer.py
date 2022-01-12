@@ -3,14 +3,16 @@
 
 class JLDAnalyzer:
     # <コンストラクタ>
-    def __init__(self, dag, divG):
+    def __init__(self, dag, divG, a):
         '''
         dag : 解析対象の DAG
         divG : subG の集合に切り分けられた DAG
+        a : Eq. (1) の a の値
         job_succ[i][j] : n_(i,j) の後続ジョブの添え字を格納するリスト
         '''
         self.dag = dag
         self.divG = divG
+        self.a = a
         self.job_succ = [[] for i in range(len(self.dag.node))]
         
         self.calc_ideal_st_ft()
@@ -20,9 +22,9 @@ class JLDAnalyzer:
         
         
     # <メソッド>
-    # -- data_{node index, job index} のタイムスタンプを返す --
-    def get_timestamp(self, node_index, job_index):
-        if(self.dag.entry[node_index] == 1):  # このノードが entry node
+    # -- 理想的な st, ft に基づいた data_{node index, job index} のタイムスタンプを返す --
+    def get_ideal_timestamp(self, node_index, job_index):
+        if(self.dag.entry[node_index] == 1):  # 対象ノードが entry node
             return self.dag.node[node_index].st_list[job_index]
         
         elif(self.dag.node[node_index].isJoin == True):
@@ -31,7 +33,7 @@ class JLDAnalyzer:
         else:
             # 同一 sg 上の前任ノードをたどる
             trigger_nodes = self.dag.node[node_index].trigger_list
-            return self.get_timestamp(trigger_nodes[0], job_index)
+            return self.get_ideal_timestamp(trigger_nodes[0], job_index)
     
     
     # -- k 回目までのデッドラインのリストを返す --
@@ -259,7 +261,7 @@ class JLDAnalyzer:
 
     
     # -- デッドラインミスに関わる tail~join 間の依存関係を解析 --
-    def critical_analyze_tail_to_join(self, a):  # a: Eq. (1)
+    def critical_analyze_tail_to_join(self):
         tail_list = self.get_tail_list()
         join_list = self.get_join_list()
         
@@ -274,7 +276,7 @@ class JLDAnalyzer:
                 for k in range(len(self.dag.node[tail_index].ft_list)):
                     for s in range(len(self.dag.node[succ_join].st_list)):
                         # Definition 1
-                        if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s] and (self.dag.node[succ_join].st_list[s] - self.get_timestamp(tail_index, k)) <= (a * self.get_period(tail_index))):
+                        if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s] and (self.dag.node[succ_join].st_list[s] - self.get_ideal_timestamp(tail_index, k)) <= (self.a * self.get_period(tail_index))):
                             self.job_succ[tail_index][k].append([succ_join, s])
     
     
