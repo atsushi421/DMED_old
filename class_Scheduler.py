@@ -113,10 +113,17 @@ class Scheduler:
                     join_sg_index = self.jld_analyzer.get_subG_index(head[0])
                     exit_sg_index = self.jld_analyzer.get_subG_index(self.dag.get_exit_index())
                     if(join_sg_index == exit_sg_index):
-                        print("current_time: " + str(self.target.current_time) + " Deadline miss occur (end of process) (DFC)")  # log に書き込むなどしたい
+                        deadline_list = self.jld_analyzer.get_deadline_list(self.dag.get_exit_index())
+                        print("current_time: " + str(deadline_list[head[1]]) + " Deadline miss occur (end of process) (DFC)")  # log に書き込むなどしたい
                         break
                     else:
                         continue
+                    
+            
+            # head の min_EST が提案手法の laxity を超えていた場合，早期検知
+            if(min_EST > self.laxity_table[head[0]][head[1]]):
+                print("current_time: " + str(self.target.current_time) + " Deadline miss occur (early detect)")  # log に書き込むなどしたい
+            
             
             # headの割り当て
             self.scheduling_list.pop(0)  # スケジューリングリストの先頭を削除
@@ -200,10 +207,11 @@ class Scheduler:
                 before_job_laxity = self.laxity_table[self.scheduling_list[-(index+1)][0]][self.scheduling_list[-(index+1)][1]]
                 
                 if(end_job_laxity < before_job_laxity):
-                    # 末尾と一個前を入れ替え
-                    temp_end_job = self.scheduling_list[-index]
-                    self.scheduling_list[-index] = self.scheduling_list[-(index+1)]
-                    self.scheduling_list[-(index+1)] = temp_end_job
+                    if(self.scheduling_list[-index][0] != self.scheduling_list[-(index+1)][0]):  # 同じノードから生成されたジョブでなければ
+                        # 末尾と一個前を入れ替え
+                        temp_end_job = self.scheduling_list[-index]
+                        self.scheduling_list[-index] = self.scheduling_list[-(index+1)]
+                        self.scheduling_list[-(index+1)] = temp_end_job
                     
                 elif(end_job_laxity == before_job_laxity):  # laxity が同じ場合，トリガー時刻が早いジョブを優先
                     end_job_trigger_time = self.dag.node[self.scheduling_list[-index][0]].trigger_time_list[self.scheduling_list[-index][1]]
@@ -215,7 +223,7 @@ class Scheduler:
                         self.scheduling_list[-index] = self.scheduling_list[-(index+1)]
                         self.scheduling_list[-(index+1)] = temp_end_job
                         
-                else:  # 1個前のジョブの方がデッドラインが早い場合，ソート終了
+                else:  # 1個前のジョブの方が laxity が小さい場合，ソート終了
                     break
     
     
@@ -266,9 +274,9 @@ class Scheduler:
         self.target.cluster[i].core[j].processing_job = job_index
         self.target.cluster[i].core[j].remain_process = self.dag.node[node_index].exec_time
         
-        # resultの書き込み
-        self.result_core[i][j].append([node_index, job_index, self.target.current_time, (self.target.current_time + self.dag.node[node_index].exec_time)])
-        self.result_job[node_index].append([i, j, self.target.current_time, (self.target.current_time + self.dag.node[node_index].exec_time)])
+        # resultの書き込み (割り当てた時間から処理が開始される)
+        self.result_core[i][j].append([node_index, job_index, self.target.current_time, (self.target.current_time + self.dag.node[node_index].exec_time - 1)])
+        self.result_job[node_index].append([i, j, self.target.current_time, (self.target.current_time + self.dag.node[node_index].exec_time  - 1)])
     
     
     # -- 時刻を1進め, 終了判定 --
@@ -280,14 +288,14 @@ class Scheduler:
         for processing_job in processing_jobs:
             if(self.result_job[processing_job[0]][processing_job[1]][3] == self.target.current_time):  # ジョブの処理終了時間が現在時刻と等しい
                 self.finish_jobs.append(processing_job)
-                self.trigger_succ_event(processing_job[0], self.target.current_time)  # 後続の event-driven node をトリガー
+                self.trigger_succ_event(processing_job[0], self.target.current_time + 1)  # 後続の event-driven node をトリガー
                 
                 # exit node job の場合，デッドラインミス判定
                 if(self.dag.exit[processing_job[0]] == 1):
                     deadline_list = self.jld_analyzer.get_deadline_list(processing_job[0])
                     
                     if(self.result_job[processing_job[0]][processing_job[1]][3] > deadline_list[processing_job[1]]):
-                        print("current_time: " + str(self.target.current_time) + " Deadline miss occur (end of process) (E2E)")  # log に書き込むなどしたい
+                        print("current_time: " + str(self.target.current_time + 1) + " Deadline miss occur (end of process) (E2E)")  # log に書き込むなどしたい
         
         self.target.advance_process()
     
@@ -298,7 +306,7 @@ class Scheduler:
         for succ_index in succ_list:
             if(self.dag.node[succ_index].isEvent == True):
                 if(self.dag.node[succ_index].trigger_list[0] == node_index):  # trigger される前任は1つ前提
-                    self.dag.node[succ_index].trigger_time_list.append(finish_time + self.dag.edge[node_index][succ_index][1])  # 終了時間 + 通信時間
+                    self.dag.node[succ_index].trigger_time_list.append(finish_time + self.dag.edge[node_index][succ_index][1] + 1)  # 終了時間 + 通信時間
     
     
     # -- ジョブの処理終了時間を返す --
@@ -312,7 +320,7 @@ class Scheduler:
         earliest_core = -1
         
         for j in range(self.target.num_of_core):
-            idle_time = self.result_core[i][j][-1][3]
+            idle_time = self.result_core[i][j][-1][3] + 1
             if(idle_time < min_idle):
                 min_idle = idle_time
                 earliest_core = j

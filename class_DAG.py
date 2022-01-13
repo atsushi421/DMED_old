@@ -51,7 +51,7 @@ class DAG:
         self.HP = int(self.calc_hp())
         self.set_trigger_index()
         
-        self.Deadline = int(100)  # 仮定
+        self.Deadline = int(120)  # 仮定
 
 
 
