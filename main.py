@@ -17,7 +17,7 @@ laxity = Laxity(jld_analyzer)
 
 target = ClusteredManyCoreProcessor(1, 1, 1)  # コア数以外関係ない
 
-scheduler = Scheduler(dag, target, jld_analyzer, laxity.laxity_table, "RMS")
+scheduler = Scheduler(dag, target, jld_analyzer, laxity.laxity_table, "EDF")
 
 
 
