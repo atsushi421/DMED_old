@@ -141,9 +141,34 @@ class Scheduler:
     
     # -- scheduling_list を優先度順にソート --
     def sort_scheduling_list(self):
+        if(len(self.scheduling_list) == 1): return 0  # scheduling_list 内にジョブが1つなら何もしない
+        
         # RMS
         if(self.alg_name == "RMS"):
-            print("sort")
+            # 末尾から比較していく
+            for index in range(1, len(self.scheduling_list)):
+                end_job_period = self.jld_analyzer.get_period(self.scheduling_list[-index][0])
+                before_job_period = self.jld_analyzer.get_period(self.scheduling_list[-(index+1)][0])
+                
+                if(end_job_period < before_job_period):
+                    # 末尾と一個前を入れ替え
+                    temp_end_job = self.scheduling_list[-index][0]
+                    self.scheduling_list[-index][0] = self.scheduling_list[-index - 1][0]
+                    self.scheduling_list[-(index+1)][0] = temp_end_job
+                    
+                elif(end_job_period == before_job_period):  # 周期が同じ場合，トリガー時刻が早いジョブを優先
+                    end_job_trigger_time = self.dag.node[self.scheduling_list[-index][0]].trigger_time_list[self.scheduling_list[-index][1]]
+                    before_job_trigger_time = self.dag.node[self.scheduling_list[-index - 1][0]].trigger_time_list[self.scheduling_list[-(index+1)][1]]
+                    
+                    if(end_job_trigger_time < before_job_trigger_time):
+                        # 末尾と一個前を入れ替え
+                        temp_end_job = self.scheduling_list[-index][0]
+                        self.scheduling_list[-index][0] = self.scheduling_list[-(index+1)][0]
+                        self.scheduling_list[-(index+1)][0] = temp_end_job
+                        
+                else:  # 1個前のジョブの方が周期が小さい場合，ソート終了
+                    break
+                
     
     
     # -- timer-driven node の trigger_time_list をセット --
