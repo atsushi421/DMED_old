@@ -30,10 +30,45 @@ class Scheduler:
         self.discard_jobs = []
         
         self.schedule()
+        
         print("a")
         
     
     # ＜メソッド＞
+    # -- 結果から CPU 利用率を計算 --
+    def calc_cpu_usage(self):
+        sum_cpu_usage = 0
+        
+        for core_index in range(self.target.num_of_core):  # コア毎
+            sum_idle_time = 0  # 処理が完了するまでの合計アイドル時間
+            current_time = 0
+            for result in self.result_core[0][core_index]:  # クラスタ数は1
+                start_time = result[2]
+                if(start_time - current_time > 0):
+                    sum_idle_time += start_time - current_time
+                
+                current_time = result[3] + 1
+            
+            cpu_usage = ((current_time - sum_idle_time) / self.get_makespan()) * 100
+            sum_cpu_usage += cpu_usage
+            print("core " + str(core_index) + " : " + str(cpu_usage))
+        
+        # 平均 CPU 利用率
+        ave_cpu_usage = sum_cpu_usage / self.target.num_of_core
+        print("ave : " + str(ave_cpu_usage))
+                
+    
+    # -- 結果からメイクスパンを取得 --
+    def get_makespan(self):
+        max_last_finish_time = 0
+        for core_index in range(self.target.num_of_core):  # コア毎
+            temp_last_finish_time = self.result_core[0][core_index][-1][3]
+            if(temp_last_finish_time > max_last_finish_time):
+                max_last_finish_time = temp_last_finish_time
+        
+        return max_last_finish_time + 1  # makespan
+    
+    
     # -- スケジューリングリストをもとに割り当て --
     def schedule(self):
         # exit node job の最後のジョブの添え字（終了条件）を見つける
