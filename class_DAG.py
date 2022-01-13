@@ -16,6 +16,7 @@ class Node:
         exec_time : 実行時間
         st_list : HP 内の各ジョブの開始時間のリスト
         ft_list : HP 内の各ジョブの終了時間のリスト
+        trigger_time_list : HP 内の各ジョブのトリガー時刻のリスト
         '''
         self.isJoin = isJoin
         self.isEvent = isEvent
@@ -26,6 +27,7 @@ class Node:
         self.exec_time = exec_time
         self.st_list = []
         self.ft_list = []
+        self.trigger_time_list = []
         
 
 

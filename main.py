@@ -8,7 +8,17 @@ from class_Scheduler import Scheduler
 
 
 dag = DAG("eg")
+
 divg = divide_subG(dag)
-jdl_analyzer = JLDAnalyzer(dag, divg)
-laxity = Laxity(jdl_analyzer)
+
+jld_analyzer = JLDAnalyzer(dag, divg, 1.3)
+
+laxity = Laxity(jld_analyzer)
+
+target = ClusteredManyCoreProcessor(1, 2, 1)  # コア数以外関係ない
+
+scheduler = Scheduler(dag, target, jld_analyzer, laxity.laxity_table, "RMS")
+
+
+
 laxity.export_laxity()
