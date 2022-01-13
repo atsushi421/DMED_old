@@ -52,11 +52,6 @@ class Scheduler:
             if(len(self.scheduling_list) == 0): 
                 self.advance_time()
                 continue
-            
-            # if(self.dag.node[self.scheduling_list[0][0]].isEvent == True):  # event-driven node job の場合，トリガーされていない（前任ジョブが実行完了してない）
-            #     if(self.isTriggered(self.scheduling_list[0][0], self.scheduling_list[0][1]) == False):
-            #         self.advance_time()
-            #         continue
                 
             
             head = self.scheduling_list[0]  # スケジューリングリストの先頭
@@ -184,6 +179,33 @@ class Scheduler:
                     self.scheduling_list[-(index+1)] = temp_end_job
                     
                 elif(end_job_deadline == before_job_deadline):  # デッドラインが同じ場合，トリガー時刻が早いジョブを優先
+                    end_job_trigger_time = self.dag.node[self.scheduling_list[-index][0]].trigger_time_list[self.scheduling_list[-index][1]]
+                    before_job_trigger_time = self.dag.node[self.scheduling_list[-(index+1)][0]].trigger_time_list[self.scheduling_list[-(index+1)][1]]
+                    
+                    if(end_job_trigger_time < before_job_trigger_time):
+                        # 末尾と一個前を入れ替え
+                        temp_end_job = self.scheduling_list[-index]
+                        self.scheduling_list[-index] = self.scheduling_list[-(index+1)]
+                        self.scheduling_list[-(index+1)] = temp_end_job
+                        
+                else:  # 1個前のジョブの方がデッドラインが早い場合，ソート終了
+                    break
+                
+        
+        # Proposed LLF
+        if(self.alg_name == "P_LLF"):
+            # 末尾から比較していく
+            for index in range(1, len(self.scheduling_list)):
+                end_job_laxity = self.laxity_table[self.scheduling_list[-index][0]][self.scheduling_list[-index][1]]
+                before_job_laxity = self.laxity_table[self.scheduling_list[-(index+1)][0]][self.scheduling_list[-(index+1)][1]]
+                
+                if(end_job_laxity < before_job_laxity):
+                    # 末尾と一個前を入れ替え
+                    temp_end_job = self.scheduling_list[-index]
+                    self.scheduling_list[-index] = self.scheduling_list[-(index+1)]
+                    self.scheduling_list[-(index+1)] = temp_end_job
+                    
+                elif(end_job_laxity == before_job_laxity):  # laxity が同じ場合，トリガー時刻が早いジョブを優先
                     end_job_trigger_time = self.dag.node[self.scheduling_list[-index][0]].trigger_time_list[self.scheduling_list[-index][1]]
                     before_job_trigger_time = self.dag.node[self.scheduling_list[-(index+1)][0]].trigger_time_list[self.scheduling_list[-(index+1)][1]]
                     

@@ -11,11 +11,11 @@ dag = DAG("eg")
 
 divg = divide_subG(dag)
 
-jld_analyzer = JLDAnalyzer(dag, divg, 4)
+jld_analyzer = JLDAnalyzer(dag, divg, 1.5)
 
 laxity = Laxity(jld_analyzer)
 
-target = ClusteredManyCoreProcessor(1, 1, 1)  # コア数以外関係ない
+target = ClusteredManyCoreProcessor(1, 2, 1)  # コア数以外関係ない
 
 scheduler = Scheduler(dag, target, jld_analyzer, laxity.laxity_table, "EDF")
 
