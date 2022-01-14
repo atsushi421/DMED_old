@@ -4,10 +4,11 @@ import pprint
 
 class Node:
     # <コンストラクタ>
-    def __init__(self, isJoin, isEvent, isTimer, period, offset, exec_time):
+    def __init__(self, isJoin, isEvent, isTimer, isStress, period, offset, exec_time):
         '''
         isJoin : Join node なら True
         isEvent : event-driven node なら True
+        isStress : stress node なら True  ※通常は False
         trigger_list : event-driven node の場合のトリガーされるノードの添え字のリスト
         isTimer : timer-driven node なら True
         period : timer-driven node の場合の周期
@@ -19,6 +20,7 @@ class Node:
         '''
         self.isJoin = isJoin
         self.isEvent = isEvent
+        self.isStress = isStress
         self.trigger_list = []
         self.isTimer = isTimer
         self.period = period
@@ -110,7 +112,7 @@ class DAG:
                     period = int(line_list[5])
                     offset = 0  # offset は 0 とする
                 
-                self.node.append(Node(isJoin, isEvent, isTimer, period, offset, exec_time))
+                self.node.append(Node(isJoin, isEvent, isTimer, False, period, offset, exec_time))
         dag_file.close()
 
         
