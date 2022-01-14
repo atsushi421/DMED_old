@@ -35,12 +35,62 @@ class Evaluater:
     # -- 評価を行う --
     def evaluate(self):
         if(self.EVA_NAME == "aw_find_min_a"): self.aw_find_min_a()
+        if(self.EVA_NAME == "aw_change_coreNum"): self.aw_change_coreNum()
+        if(self.EVA_NAME == "aw_change_a"): self.aw_change_a()
     
     
     # -- 評価名に基づいて, result_path を決める --
     def set_result_path(self):
         if(self.EVA_NAME == "aw_find_min_a"):
-                return "./result/Autoware/aw_find_min_a/" + str(self.ALG_NAME) + ".txt"
+            return "./result/Autoware/aw_find_min_a/" + str(self.ALG_NAME) + ".txt"
+        
+        if(self.EVA_NAME == "aw_change_coreNum"):
+            return "./result/Autoware/aw_change_coreNum/a_" + str(self.VALUE_OF_A) + "/" + str(self.ALG_NAME) + ".txt"
+
+        if(self.EVA_NAME == "aw_change_a"):
+            return "./result/Autoware/aw_change_a/coreNum_" + str(self.TARGET.num_of_core) + "/" + str(self.ALG_NAME) + ".txt"
+    
+    
+    # -- aw_change_a --
+    def aw_change_a(self):
+        dag = DAG(self.DAG_NAME)
+        divg = divide_subG(dag)
+        jld_analyzer = JLDAnalyzer(dag, divg, self.VALUE_OF_A)
+        laxity = Laxity(jld_analyzer)
+        target = ClusteredManyCoreProcessor(1, self.TARGET.num_of_core, 1)  # コア数以外は関係ない
+        scheduler = Scheduler(dag, target, jld_analyzer, laxity.laxity_table, self.ALG_NAME)
+        
+        # 結果を記入
+        if(self.TARGET.num_of_core == 1.4):  # 最初
+            # 列名の書き込み
+            f = open(self.RESULT_PATH, "w")
+            f.write("コア数" + "\t" + "早期検知したか" + "\t" + "早期検知時刻" + "\t" + "デッドラインミスが発生したか" + "\t" + "デッドラインミス時刻" + "\t" + "平均CPU利用率" + "\n")
+            f.close()
+        
+        f = open(self.RESULT_PATH, "a")
+        f.write(str(self.TARGET.num_of_core) + "\t" + str(scheduler.early_detection_flag) + "\t" + str(scheduler.early_detection_time) + "\t" + str(scheduler.deadline_miss_flag) + "\t" + str(scheduler.deadline_miss_time) + "\t" + str(scheduler.calc_cpu_usage()) + "\n")
+        f.close()
+    
+    
+    # -- aw_change_coreNum --
+    def aw_change_coreNum(self):
+        dag = DAG(self.DAG_NAME)
+        divg = divide_subG(dag)
+        jld_analyzer = JLDAnalyzer(dag, divg, self.VALUE_OF_A)
+        laxity = Laxity(jld_analyzer)
+        target = ClusteredManyCoreProcessor(1, self.TARGET.num_of_core, 1)  # コア数以外は関係ない
+        scheduler = Scheduler(dag, target, jld_analyzer, laxity.laxity_table, self.ALG_NAME)
+        
+        # 結果を記入
+        if(self.TARGET.num_of_core == 16):  # 最初
+            # 列名の書き込み
+            f = open(self.RESULT_PATH, "w")
+            f.write("コア数" + "\t" + "早期検知したか" + "\t" + "早期検知時刻" + "\t" + "デッドラインミスが発生したか" + "\t" + "デッドラインミス時刻" + "\t" + "平均CPU利用率" + "\n")
+            f.close()
+        
+        f = open(self.RESULT_PATH, "a")
+        f.write(str(self.TARGET.num_of_core) + "\t" + str(scheduler.early_detection_flag) + "\t" + str(scheduler.early_detection_time) + "\t" + str(scheduler.deadline_miss_flag) + "\t" + str(scheduler.deadline_miss_time) + "\t" + str(scheduler.calc_cpu_usage()) + "\n")
+        f.close()
     
     
     # -- aw_find_min_a --

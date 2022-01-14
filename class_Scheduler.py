@@ -60,11 +60,10 @@ class Scheduler:
             
             cpu_usage = ((current_time - sum_idle_time) / self.get_makespan()) * 100
             sum_cpu_usage += cpu_usage
-            print("core " + str(core_index) + " : " + str(cpu_usage))
         
         # 平均 CPU 利用率
         ave_cpu_usage = sum_cpu_usage / self.target.num_of_core
-        print("ave : " + str(ave_cpu_usage))
+        return ave_cpu_usage
                 
     
     # -- 結果からメイクスパンを取得 --
@@ -89,6 +88,8 @@ class Scheduler:
         
         
         while([exit_node_index, last_exit_node_job_index] not in self.finish_jobs):  # exit node job の最後のジョブの実行が終了したら、ループ終了
+            
+            if(self.deadline_miss_flag == 1): break  # デッドラインミスが発生したら終了
             
             self.check_trigger_time()  # トリガー時刻となっているジョブを scheduling_list に入れる
             
@@ -274,10 +275,11 @@ class Scheduler:
                     before_job_trigger_time = self.dag.node[self.scheduling_list[-(index+1)][0]].trigger_time_list[self.scheduling_list[-(index+1)][1]]
                     
                     if(end_job_trigger_time < before_job_trigger_time):
-                        # 末尾と一個前を入れ替え
-                        temp_end_job = self.scheduling_list[-index]
-                        self.scheduling_list[-index] = self.scheduling_list[-(index+1)]
-                        self.scheduling_list[-(index+1)] = temp_end_job
+                        if(self.scheduling_list[-index][0] != self.scheduling_list[-(index+1)][0]):  # 同じノードから生成されたジョブでなければ
+                            # 末尾と一個前を入れ替え
+                            temp_end_job = self.scheduling_list[-index]
+                            self.scheduling_list[-index] = self.scheduling_list[-(index+1)]
+                            self.scheduling_list[-(index+1)] = temp_end_job
                         
                 else:  # 1個前のジョブの方が laxity が小さい場合，ソート終了
                     break
