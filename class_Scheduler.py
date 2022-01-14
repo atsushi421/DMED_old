@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import copy
+import random
 
 
 class Scheduler:
@@ -16,6 +17,11 @@ class Scheduler:
         result_job[i][k] : t_{i,k} の割り当て結果. [割り当てられたクラスタ番号, 割り当てられたコア番号 , 処理開始時間, 処理終了時間]
         finish_jobs : 処理が終わったジョブ
         discard_jobs : 破棄されたジョブ
+        
+        early_detection_flag : =1 ならデッドラインミスを早期検知した
+        early_detection_time : デッドラインミスを早期検知をした時刻
+        deadline_miss_flag : =1 ならデッドラインミスが発生
+        deadline_miss_time : 実際のデッドラインミスを検知した時刻
         '''
 
         self.scheduling_list = []
@@ -29,9 +35,12 @@ class Scheduler:
         self.finish_jobs = []
         self.discard_jobs = []
         
-        self.schedule()
+        self.early_detection_flag = 0
+        self.early_detection_time = 99999999999999999
+        self.deadline_miss_flag = 0
+        self.deadline_miss_time = 99999999999999999
         
-        print("a")
+        self.schedule()
         
     
     # ＜メソッド＞
@@ -62,9 +71,10 @@ class Scheduler:
     def get_makespan(self):
         max_last_finish_time = 0
         for core_index in range(self.target.num_of_core):  # コア毎
-            temp_last_finish_time = self.result_core[0][core_index][-1][3]
-            if(temp_last_finish_time > max_last_finish_time):
-                max_last_finish_time = temp_last_finish_time
+            if(len(self.result_core[0][core_index]) != 0):  # 一度も使用されていないコアは除く
+                temp_last_finish_time = self.result_core[0][core_index][-1][3]
+                if(temp_last_finish_time > max_last_finish_time):
+                    max_last_finish_time = temp_last_finish_time
         
         return max_last_finish_time + 1  # makespan
     
@@ -149,7 +159,12 @@ class Scheduler:
                     exit_sg_index = self.jld_analyzer.get_subG_index(self.dag.get_exit_index())
                     if(join_sg_index == exit_sg_index):
                         deadline_list = self.jld_analyzer.get_deadline_list(self.dag.get_exit_index())
-                        print("current_time: " + str(deadline_list[head[1]]) + " Deadline miss occur (end of process) (DFC)")  # log に書き込むなどしたい
+                        
+                        # 結果の書き込み
+                        if(deadline_list[head[1]] < self.deadline_miss_time):
+                            self.deadline_miss_flag = 1
+                            self.deadline_miss_time = deadline_list[head[1]]
+
                         break
                     else:
                         continue
@@ -157,7 +172,10 @@ class Scheduler:
             
             # head の min_EST が提案手法の laxity を超えていた場合，早期検知
             if(min_EST > self.laxity_table[head[0]][head[1]]):
-                print("current_time: " + str(self.target.current_time) + " Deadline miss occur (early detect)")  # log に書き込むなどしたい
+                # 結果の書き込み
+                if(self.target.current_time < self.early_detection_time):
+                    self.early_detection_flag = 1
+                    self.early_detection_time = self.target.current_time
             
             
             # headの割り当て
@@ -172,13 +190,16 @@ class Scheduler:
                 if(self.target.current_time == self.dag.node[node_index].trigger_time_list[job_index]):
                     if([node_index, job_index] not in self.discard_jobs and [node_index, job_index] not in self.target.processing_jobs() and [node_index, job_index] not in self.scheduling_list):
                         self.scheduling_list.append([node_index, job_index])
-                        print("append" + str(node_index) + "," + str(job_index))
                         self.sort_scheduling_list()  # scheduling_list を優先度順にソート
     
     
     # -- scheduling_list を優先度順にソート --
     def sort_scheduling_list(self):
         if(len(self.scheduling_list) == 1): return 0  # scheduling_list 内にジョブが1つなら何もしない
+        
+        # FIFO
+        if(self.alg_name == "FIFO"):
+            return 0  # 何もしない
         
         # RMS
         if(self.alg_name == "RMS"):
@@ -304,6 +325,12 @@ class Scheduler:
     
     # -- ジョブをクラスタi,コアjに割り当てる --
     def allocate(self, node_index, job_index, i, j):
+        # # ランダムにジョブの実行時間を延長する
+        # random_int = random.randint(1,10)
+        # if(random_int % 7 == 0):  # 10% の確率
+        #     random_float = random.uniform(0.5, 3.0)  # 0.5倍 ~ 3.0倍
+        #     self.dag.node[node_index].exec_time = int(self.dag.node[node_index].exec_time * random_float)
+        
         self.target.cluster[i].core[j].idle = False
         self.target.cluster[i].core[j].processing_node = node_index
         self.target.cluster[i].core[j].processing_job = job_index
@@ -330,7 +357,10 @@ class Scheduler:
                     deadline_list = self.jld_analyzer.get_deadline_list(processing_job[0])
                     
                     if(self.result_job[processing_job[0]][processing_job[1]][3] > deadline_list[processing_job[1]]):
-                        print("current_time: " + str(self.target.current_time + 1) + " Deadline miss occur (end of process) (E2E)")  # log に書き込むなどしたい
+                        # 結果の書き込み
+                        if(self.target.current_time + 1 < self.deadline_miss_time):
+                            self.deadline_miss_flag = 1
+                            self.deadline_miss_time = self.target.current_time + 1
         
         self.target.advance_process()
     

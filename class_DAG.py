@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import pprint
-import math
 
 
 class Node:
@@ -230,7 +229,20 @@ class DAG:
             if(self.node[i].isTimer == True):
                 period_list.append(self.node[i].period)
         
-        return math.lcm(*period_list)
+        return self.lcm(period_list)
+    
+    
+    # -- リストの最小公倍数を返す関数 --
+    def lcm(self, list_l):
+        greatest = max(list_l)
+        i = 1
+        while True:
+            for j in list_l:
+                if (greatest * i) % j != 0:
+                    i += 1
+                    break
+            else:
+                return greatest * i
     
     
     # -- 変数の表示 --

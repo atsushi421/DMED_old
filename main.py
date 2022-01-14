@@ -11,13 +11,13 @@ dag = DAG("AutowareAuto")
 
 divg = divide_subG(dag)
 
-jld_analyzer = JLDAnalyzer(dag, divg, 0.1)
+jld_analyzer = JLDAnalyzer(dag, divg, 1.4)
 
 laxity = Laxity(jld_analyzer)
 
-target = ClusteredManyCoreProcessor(1, 2, 1)  # コア数以外関係ない
+target = ClusteredManyCoreProcessor(1, 4, 1)  # コア数以外関係ない
 
-scheduler = Scheduler(dag, target, jld_analyzer, laxity.laxity_table, "EDF")
+scheduler = Scheduler(dag, target, jld_analyzer, laxity.laxity_table, "RMS")
 
 scheduler.calc_cpu_usage()
 

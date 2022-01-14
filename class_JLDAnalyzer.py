@@ -12,7 +12,7 @@ class JLDAnalyzer:
         '''
         self.dag = dag
         self.divG = divG
-        self.a = a
+        self.a = float(a)
         self.job_succ = [[] for i in range(len(self.dag.node))]
         
         self.calc_ideal_st_ft()
