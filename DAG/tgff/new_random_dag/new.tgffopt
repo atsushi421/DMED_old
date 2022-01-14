@@ -1,0 +1,14 @@
+seed 255
+series_local_xover 0
+task_cnt 68 1
+start_node 3 1
+series_len 2 1
+series_wid 3 1
+tg_cnt 1
+prob_multi_start_nodes 1
+gen_series_parallel true
+series_must_rejoin true
+tg_write
+pe_write
+trans_write
+eps_write

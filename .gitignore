@@ -131,3 +131,6 @@ dmypy.json
 # Add atsushi
 launch.json
 *.csv
+*.eps
+*.tgff
+*.txt
