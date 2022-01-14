@@ -54,7 +54,7 @@ class Evaluater:
             return "./result/Autoware/aw_change_a/coreNum_" + str(self.TARGET.num_of_core) + "/" + str(self.ALG_NAME) + ".txt"
         
         if(self.EVA_NAME == "aw_change_cpuUsage"):
-            return "./result/Autoware/aw_change_cpuUsage/" + str(self.ALG_NAME) + ".txt"
+            return "./result/Autoware/aw_change_cpuUsage/a_" + str(self.VALUE_OF_A) + "/" + str(self.ALG_NAME) + ".txt"
     
     
     # -- aw_change_cpuUsage --
