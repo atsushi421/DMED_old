@@ -17,6 +17,6 @@ laxity = Laxity(jld_analyzer)
 
 target = ClusteredManyCoreProcessor(1, 8, 1)  # コア数以外関係ない
 
-scheduler = Scheduler(dag, target, jld_analyzer, laxity.laxity_table, "EDF", 0.1)
+scheduler = Scheduler(dag, target, jld_analyzer, laxity.laxity_table, "EDF", 0.15)
 
 print(scheduler.calc_cpu_usage())

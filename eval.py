@@ -18,6 +18,7 @@ class Evaluater:
         TARGET : 対象のプロセッサ
         ALG_NAME : 使用するアルゴリズム
         VALUE_OF_A : a in Eq. (1) の値
+        GEN_RATIO : stress job の生成確率
         
         RESULT_PATH : 結果を書き込むファイルへのパス
         '''
@@ -26,6 +27,7 @@ class Evaluater:
         self.TARGET = ClusteredManyCoreProcessor(int(args[3]), int(args[4]), float(args[5]))
         self.ALG_NAME = args[6]
         self.VALUE_OF_A = float(args[7])
+        self.GEN_RATIO = float(args[8])
         
         self.RESULT_PATH = self.set_result_path()
         self.evaluate()
@@ -37,6 +39,7 @@ class Evaluater:
         if(self.EVA_NAME == "aw_find_min_a"): self.aw_find_min_a()
         if(self.EVA_NAME == "aw_change_coreNum"): self.aw_change_coreNum()
         if(self.EVA_NAME == "aw_change_a"): self.aw_change_a()
+        if(self.EVA_NAME == "aw_change_cpuUsage"): self.aw_change_cpuUsage()
     
     
     # -- 評価名に基づいて, result_path を決める --
@@ -49,6 +52,26 @@ class Evaluater:
 
         if(self.EVA_NAME == "aw_change_a"):
             return "./result/Autoware/aw_change_a/coreNum_" + str(self.TARGET.num_of_core) + "/" + str(self.ALG_NAME) + ".txt"
+        
+        if(self.EVA_NAME == "aw_change_cpuUsage"):
+            return "./result/Autoware/aw_change_cpuUsage/" + str(self.ALG_NAME) + ".txt"
+    
+    
+    # -- aw_change_cpuUsage --
+    def aw_change_cpuUsage(self):
+        dag = DAG(self.DAG_NAME)
+        divg = divide_subG(dag)
+        jld_analyzer = JLDAnalyzer(dag, divg, self.VALUE_OF_A)
+        laxity = Laxity(jld_analyzer)
+        target = ClusteredManyCoreProcessor(1, self.TARGET.num_of_core, 1)  # コア数以外は関係ない
+        scheduler = Scheduler(dag, target, jld_analyzer, laxity.laxity_table, self.ALG_NAME, self.GEN_RATIO)
+        
+        # 結果を記入
+        # "早期検知したか" + "\t" + "早期検知時刻" + "\t" + "デッドラインミスが発生したか" + "\t" + "デッドラインミス時刻" + "\t" + "平均CPU利用率"
+        
+        f = open(self.RESULT_PATH, "a")
+        f.write(str(scheduler.early_detection_flag) + "\t" + str(scheduler.early_detection_time) + "\t" + str(scheduler.deadline_miss_flag) + "\t" + str(scheduler.deadline_miss_time) + "\t" + str(scheduler.calc_cpu_usage()) + "\n")
+        f.close()
     
     
     # -- aw_change_a --

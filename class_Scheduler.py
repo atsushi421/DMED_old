@@ -15,7 +15,7 @@ class Scheduler:
         jld_analyzer : jld_analyzer
         laxity_table : 提案手法によって生成された，各ジョブのラキシティ
         alg_name : 使用するアルゴリズム名
-        gen_ratio : 最高優先度のジョブの生成確率
+        gen_ratio : stress job の生成確率
         result_core[i][j] : クラスタiのコアjの割り当て結果. [ノード番号, ジョブ番号, 処理開始時間, 処理終了時間]
         result_job[i][k] : t_{i,k} の割り当て結果. [割り当てられたクラスタ番号, 割り当てられたコア番号 , 処理開始時間, 処理終了時間]
         finish_jobs : 処理が終わったジョブ
@@ -25,6 +25,7 @@ class Scheduler:
         early_detection_time : デッドラインミスを早期検知をした時刻
         deadline_miss_flag : =1 ならデッドラインミスが発生
         deadline_miss_time : 実際のデッドラインミスを検知した時刻
+        num_stress_job : stress job の生成数
         '''
 
         self.scheduling_list = []
@@ -46,6 +47,7 @@ class Scheduler:
         self.early_detection_time = 99999999999999999
         self.deadline_miss_flag = 0
         self.deadline_miss_time = 99999999999999999
+        self.num_stress_job = 0
         
         self.schedule()
         
@@ -205,12 +207,23 @@ class Scheduler:
         gen_flag = np.random.choice(a=lottery, size=1, p=prob)
         
         if(gen_flag == 1):
-            self.scheduling_list.insert(0, [len(self.dag.node) -1 , 0])
+            if(len(self.scheduling_list) == 0):
+                self.scheduling_list.insert(0, [len(self.dag.node) -1 , self.num_stress_job])
+                self.num_stress_job += 1
+                
+            else: # scheduling list の先頭に格納するが，stress job の中では最後尾に格納
+                for sl_index in range(len(self.scheduling_list)):
+                    if(self.dag.node[self.scheduling_list[sl_index][0]].isStress == False):  # scheduling list の先頭が stress job でない場合
+                        self.scheduling_list.insert(sl_index, [len(self.dag.node) -1 , self.num_stress_job])
+                        self.num_stress_job += 1
+                        break
+        
+        
     
     
     # -- 負荷をかけたい場合の初期設定 --
     def setting_stress_job(self):
-        self.dag.node.append(Node(False, False, False, True, 1, 0, 20))  # 実行時間は 20 ms
+        self.dag.node.append(Node(False, False, False, True, 1, 0, 30))  # 実行時間は 30 ms
         self.dag.exit.append(0)
         self.dag.succ.append([])
         
