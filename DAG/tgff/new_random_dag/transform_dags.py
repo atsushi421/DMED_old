@@ -68,7 +68,7 @@ class DAG:
                 
                 # TYPE の情報取得
                 if(read_flag == 1 and info_flag == 1):
-                    type_cost.append(int(float(line_list[1])) / 10)  # TYPE に対応する処理時間を int 型で格納（大きいので10で割る）
+                    type_cost.append(int(float(line_list[1]) / 10))  # TYPE に対応する処理時間を int 型で格納（大きいので10で割る）
                     
             elif(line_list[0] == '}'):
                 read_flag = 0
@@ -154,7 +154,53 @@ class DAG:
     # -- 現在の DAG を .tgffファイルに書き出す --
     def export_tgff(self, output_path):
             f = open(output_path, "w")
-            f.write("a")
+            
+            type_list = []  # type 情報を保持
+            
+            f.write("@TASK_GRAPH 0 {\n")
+            # TASK 情報の書き出し
+            for node_index in range(len(self.node)):
+                if(self.node[node_index].isTimer == True):  # timer driven の場合
+                    period = self.node[node_index].period
+                    if(self.node[node_index].isJoin == True):  # join の場合
+                        f.write("   TASK t_" + str(node_index) + " TYPE " + str(node_index) + " TIMER " + str(period) + " JOIN\n")
+                    else:
+                        f.write("   TASK t_" + str(node_index) + " TYPE " + str(node_index) + " TIMER " + str(period) + "\n")
+                
+                if(self.node[node_index].isEvent == True):  # event driven の場合
+                    if(self.node[node_index].isJoin == True):  # join の場合
+                        f.write("   TASK t_" + str(node_index) + " TYPE " + str(node_index) + " EVENT JOIN\n")
+                    else:
+                        f.write("   TASK t_" + str(node_index) + " TYPE " + str(node_index) + " EVENT\n")
+                
+                type_list.append(self.node[node_index].exec_time)
+            
+            f.write("\n\n")  # TASK と ARC の間
+            
+            # ARC 情報の書き出し
+            arc_index = 0
+            
+            for in_node_index in range(len(self.node)):
+                for out_node_index in range(len(self.node)):
+                    if(self.edge[in_node_index][out_node_index][0] != "None"):  # エッジがあれば
+                        if(self.edge[in_node_index][out_node_index][0] == "Trigger"):  # trigger の場合
+                            f.write("   ARC a_" + str(arc_index) + "  FROM t_" + str(in_node_index) + "  TO t_" + str(out_node_index) + str("  TYPE " + str(len(type_list)) + " TRIGGER\n"))
+                            arc_index += 1
+                            type_list.append(self.edge[in_node_index][out_node_index][1])
+                        
+                        if(self.edge[in_node_index][out_node_index][0] == "Update"):  # update の場合
+                            f.write("   ARC a_" + str(arc_index) + "  FROM t_" + str(in_node_index) + "  TO t_" + str(out_node_index) + str("  TYPE " + str(len(type_list)) + " UPDATE\n"))
+                            arc_index += 1
+                            type_list.append(self.edge[in_node_index][out_node_index][1])
+            
+            f.write("}\n\n\n@PE 5 {\n# type  exec_time\n")
+            
+            # TYPE 情報の書き出し
+            for type_index in range(len(type_list)):
+                f.write("  " + str(type_index) + "     " + str(type_list[type_index]) + "\n")
+            
+            f.write("}")
+            
             f.close()
     
     
@@ -223,7 +269,6 @@ if __name__ == "__main__":
         dag_path = './new_random_' + str(i) + '.tgff'
         
         dag = DAG(dag_path)
-        os.remove(dag_path)  # 読み込んだら削除
         
         
         
