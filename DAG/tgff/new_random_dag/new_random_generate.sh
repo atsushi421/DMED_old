@@ -24,4 +24,7 @@ done
 
 wait
 
-python3 divide_dag.py $1
+python3 transform_dags.py $1
+wait
+
+python3 divide_dags.py $1

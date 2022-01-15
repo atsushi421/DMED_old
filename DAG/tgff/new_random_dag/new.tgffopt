@@ -1,11 +1,12 @@
-seed 255
+seed 330
 series_local_xover 0
-task_cnt 68 1
+task_cnt 28 1
 start_node 3 1
-series_len 2 1
-series_wid 3 1
+series_len 3 1
+series_wid 1 1
 tg_cnt 1
 prob_multi_start_nodes 1
+prob_periodic 0
 gen_series_parallel true
 series_must_rejoin true
 tg_write

@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-import pprint
+
+import os
+import sys
+import random
 
 
 class Node:
@@ -8,27 +11,17 @@ class Node:
         '''
         isJoin : Join node なら True
         isEvent : event-driven node なら True
-        isStress : stress node なら True  ※通常は False
-        trigger_list : event-driven node の場合のトリガーされるノードの添え字のリスト
         isTimer : timer-driven node なら True
         period : timer-driven node の場合の周期
         offset : timer-driven node の場合のオフセット
         exec_time : 実行時間
-        st_list : HP 内の各ジョブの開始時間のリスト
-        ft_list : HP 内の各ジョブの終了時間のリスト
-        trigger_time_list : HP 内の各ジョブのトリガー時刻のリスト
         '''
         self.isJoin = isJoin
         self.isEvent = isEvent
-        self.isStress = isStress
-        self.trigger_list = []
         self.isTimer = isTimer
         self.period = period
         self.offset = offset
         self.exec_time = exec_time
-        self.st_list = []
-        self.ft_list = []
-        self.trigger_time_list = []
         
 
 
@@ -43,23 +36,17 @@ class DAG:
         succ[i] : ni の後続ノードのリスト
         entry[i]=1 : niはentryノード. entry[i]=0 : niはentryノードではない
         exit[i]=1 : niはexitノード. exit[i]=0 : niはexitノードではない
-        HP : ハイパーピリオド
-        Deadline : 一度目のデッドライン
         '''
         self.dag_file = dag_file
         self.node = []
         self.edge, self.pred, self.succ, self.entry, self.exit = self.read_dag_file(self.dag_file)
-        self.HP = int(self.calc_hp())
-        self.set_trigger_index()
-        self.Deadline = self.set_deadline()
 
 
 
     # <メソッド>
-    # -- .dagファイルの読み込み --
-    def read_dag_file(self, dag_file):
-        path = "./DAG/" + self.dag_file + ".dag"  # DAG ディレクトリ直下にあることを想定
-        dag_file = open(path, "r")
+    # -- .tgffファイルの読み込み --
+    def read_dag_file(self, dag_path):
+        dag_file = open(dag_path, "r")
         
         type_cost = []  # TYPE と処理時間の対応関係の配列
         read_flag = 0  # PE 0 の情報だけを読み込むためのフラグ
@@ -73,7 +60,7 @@ class DAG:
             
             # 読み込む範囲を限定
             if(len(line_list) >= 2):
-                if(line_list[0] == '@PE' and line_list[1] == '0'):
+                if(line_list[0] == '@PE' and line_list[1] == '5'):
                     read_flag = 1
                 if(line_list[1] == 'type' and line_list[2] == 'exec_time'):
                     info_flag = 1
@@ -81,7 +68,7 @@ class DAG:
                 
                 # TYPE の情報取得
                 if(read_flag == 1 and info_flag == 1):
-                    type_cost.append(int(float(line_list[1])))  # TYPE に対応する処理時間を int 型で格納
+                    type_cost.append(int(float(line_list[1])) / 10)  # TYPE に対応する処理時間を int 型で格納（大きいので10で割る）
                     
             elif(line_list[0] == '}'):
                 read_flag = 0
@@ -91,7 +78,7 @@ class DAG:
         
         
         # TASK の情報の取得
-        dag_file = open(path, "r")
+        dag_file = open(dag_path, "r")
         for line in dag_file:
             if(line == "\n"):
                 continue  # 空行はスキップ
@@ -103,13 +90,12 @@ class DAG:
                 period = 0
                 exec_time = type_cost[int(line_list[3])]
                 
-                # 各パラメータの判定・格納
-                if(line_list[-1] == 'JOIN'): isJoin = True
-                if(line_list[4] == 'EVENT'): isEvent = True
-                if(line_list[4] == 'TIMER'):
-                    isTimer = True
-                    period = int(line_list[5])
-                    offset = 0  # offset は 0 とする
+                # 追加パラメータの初期値
+                isJoin = False
+                isEvent = True  # 全部イベントにしとく
+                isTimer = False
+                period = 0
+                offset = 0  # offset は 0 とする
                 
                 self.node.append(Node(isJoin, isEvent, isTimer, False, period, offset, exec_time))
         dag_file.close()
@@ -117,7 +103,7 @@ class DAG:
         
         # ARC 情報の取得
         edge = [[["None", 0] for j in range(len(self.node))] for i in range(len(self.node))]
-        dag_file = open(path, "r")
+        dag_file = open(dag_path, "r")
         for line in dag_file:
             if(line == "\n"):
                 continue  # 空行はスキップ
@@ -126,16 +112,12 @@ class DAG:
             
             if(line_list[0] == 'ARC'):                
                 # 各パラメータの判定・格納
-                from_n = int(line_list[3][2:])  # エッジを出力するノードの添え字
-                to_n = int(line_list[5][2:])  # エッジが入力されるノードの添え字
+                from_n = int(line_list[3][3:])  # エッジを出力するノードの添え字
+                to_n = int(line_list[5][3:])  # エッジが入力されるノードの添え字
                 comm_time = int(type_cost[int(line_list[7])])  # TYPE に書かれている時間を通信時間とする
                 
-                if(line_list[-1] == 'TRIGGER'):
-                    edge[from_n][to_n][0] = "Trigger"
-                    edge[from_n][to_n][1] = comm_time
-                else:
-                    edge[from_n][to_n][0] = "Update"
-                    edge[from_n][to_n][1] = comm_time
+                edge[from_n][to_n][0] = "Trigger"  # 全部トリガーにしとく
+                edge[from_n][to_n][1] = comm_time
 
         dag_file.close()
         
@@ -169,16 +151,11 @@ class DAG:
         return edge, pred, succ, entry, exit
     
     
-    # -- デッドラインの設定（周期の最大値） --
-    def set_deadline(self):
-        timer_list = self.get_timer_list()
-        max_period = 0
-        
-        for timer_index in timer_list:
-            if(self.node[timer_index].period > max_period):
-                max_period = self.node[timer_index].period
-        
-        return max_period
+    # -- 現在の DAG を .tgffファイルに書き出す --
+    def export_tgff(self, output_path):
+            f = open(output_path, "w")
+            f.write("a")
+            f.close()
     
     
     # -- DAG 内の entry node の添え字のリストを返す --
@@ -190,13 +167,13 @@ class DAG:
         return entry_list
     
     
-    # -- DAG 内の exit node の添え字を返す (exit node は1つ前提) --
-    def get_exit_index(self):
-        exit_index = -1
+    # -- DAG 内の exit node の添え字のリストを返す --
+    def get_exit_list(self):
+        exit_list = []
         for node_index in range(len(self.node)):
-            if(self.exit[node_index] == 1): exit_index = node_index
+            if(self.exit[node_index] == 1): exit_list.append(node_index)
         
-        return exit_index
+        return exit_list
     
     
     # -- DAG 内の timer-driven node の添え字のリストを返す --
@@ -217,16 +194,6 @@ class DAG:
         return event_list
     
     
-    # -- event-driven node の trigger_index を設定 --
-    def set_trigger_index(self):
-        event_list = self.get_event_list()
-        for event_index in event_list:
-            pred_list = self.pred[event_index]
-            for pred in pred_list:
-                if(self.edge[pred][event_index][0] == "Trigger"):
-                        self.node[event_index].trigger_list.append(pred)
-    
-    
     # -- ni~nj 間が update edge なら True を返す --
     def isUpdate(self, i, j):
         if(self.edge[i][j][0] == "Update"):
@@ -235,48 +202,83 @@ class DAG:
             return False
     
     
-    # -- HP を返す --
-    def calc_hp(self):
-        period_list = []
+    # -- entry node 以外の添え字のリストを返す --
+    def get_except_entry_list(self):
+        except_entry_list = []
+        entry_list = self.get_entry_list()
+        
         for i in range(len(self.node)):
-            if(self.node[i].isTimer == True):
-                period_list.append(self.node[i].period)
+            if(i not in entry_list):
+                except_entry_list.append(i)
         
-        return self.lcm(period_list)
-    
-    
-    # -- リストの最小公倍数を返す関数 --
-    def lcm(self, list_l):
-        greatest = max(list_l)
-        i = 1
-        while True:
-            for j in list_l:
-                if (greatest * i) % j != 0:
-                    i += 1
-                    break
-            else:
-                return greatest * i
-    
-    
-    # -- 変数の表示 --
-    def print_pred(self):
-        print("pred = ", end = "")
-        pprint.pprint(self.pred)
-    
-    def print_succ(self):
-        print("succ = ", end = "")
-        pprint.pprint(self.succ)
-    
-    def print_entry(self):
-        print("entry = ", end = "")
-        print(self.entry)
-        
-    def print_exit(self):
-        print("exit = ", end = "")
-        print(self.exit)
+        return except_entry_list
 
-    def print_all(self):
-        self.print_pred()
-        self.print_succ()
-        self.print_entry()
-        self.print_exit()
+
+
+if __name__ == "__main__":
+    args = sys.argv
+    num_of_dag = int(args[1])  # DAGの数を受け取る
+
+    for i in range(num_of_dag):
+        dag_path = './new_random_' + str(i) + '.tgff'
+        
+        dag = DAG(dag_path)
+        os.remove(dag_path)  # 読み込んだら削除
+        
+        
+        
+        # -- entry node 関係 --
+        entry_list = dag.get_entry_list()
+        for entry_index in entry_list:
+            # -- entry node を timer driven node に変換 --
+            dag.node[entry_index].isEvent = False
+            dag.node[entry_index].isTimer = True
+            dag.node[entry_index].period = random.randint(10, 120)
+        
+            # -- entry node に後続がない場合，entry node 以外に繋ぐ --
+            if(dag.exit[entry_index] == 1):
+                except_entry_list = dag.get_except_entry_list()
+                selected_index = random.choice(except_entry_list)
+                dag.succ[entry_index].append(selected_index)
+                dag.pred[selected_index].append(entry_index)
+                dag.edge[entry_index][selected_index][0] = "Trigger"
+                dag.edge[entry_index][selected_index][1] = random.randint(1, 20)
+        
+        
+        # -- exit node が複数ある場合，1つ以外を, entry node 以外に繋ぐ --
+        if(len(dag.get_exit_list()) >= 2):
+            exit_list = dag.get_exit_list()
+            selected_exit_index = random.choice(exit_list)
+            exit_list.remove(selected_exit_index)
+            
+            for exit_index in exit_list:
+                except_entry_list = dag.get_except_entry_list()
+                selected_index = random.choice(except_entry_list)
+                dag.succ[exit_index].append(selected_index)
+                dag.pred[selected_index].append(exit_index)
+                dag.edge[exit_index][selected_index][0] = "Trigger"
+                dag.edge[exit_index][selected_index][1] = random.randint(1, 20)
+        
+        
+        # -- 前任が複数あるノードを timer driven node 及び join node に変換 -- ※面倒だから event にはしていない
+        for node_index in range(len(dag.node)):
+            if(len(dag.pred[node_index]) >= 2):
+                for pred_index in dag.pred[node_index]:
+                    dag.node[pred_index].isJoin = True
+                    dag.node[pred_index].isEvent = False
+                    dag.node[pred_index].isTimer = True
+                    dag.node[pred_index].period = random.randint(10, 120)
+        
+        
+        # -- timer driven node に繋がるエッジを全て update edge に変換 --
+        timer_list = dag.get_timer_list()
+        for timer_index in timer_list:
+            if(len(dag.pred[timer_index]) != 0):
+                for pred_index in dag.pred[timer_index]:
+                    dag.edge[pred_index][timer_index][0] = "Update"
+        
+        
+        
+        # 変換後の dag を tgff ファイルに書き出す
+        output_path = './new_random_tf_' + str(i) + '.tgff'
+        dag.export_tgff(output_path)
