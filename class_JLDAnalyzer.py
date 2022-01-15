@@ -278,17 +278,3 @@ class JLDAnalyzer:
                         # Definition 1
                         if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s] and (self.dag.node[succ_join].st_list[s] - self.get_ideal_timestamp(tail_index, k)) <= (self.a * self.get_period(tail_index))):
                             self.job_succ[tail_index][k].append([succ_join, s])
-    
-    
-    # 割り当て結果をもとに，ST, FT を AST, AFT に更新. 更新がなければ True を返す
-    def calc_actual_st_ft(self, result_job):
-        finish_flag = True
-        
-        for node_index in range(len(self.dag.node)):
-            for job_index in range(self.get_num_trigger_hp(node_index)):
-                if(self.dag.node[node_index].st_list[job_index] != result_job[node_index][job_index][2]):
-                    finish_flag = False
-                    self.dag.node[node_index].st_list[job_index] = result_job[node_index][job_index][2]
-                    self.dag.node[node_index].ft_list[job_index] = result_job[node_index][job_index][3]
-        
-        return finish_flag

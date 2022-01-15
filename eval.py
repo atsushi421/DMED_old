@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import time
 from class_DAG import DAG
 from divide_subG import divide_subG
 from class_ClusteredManyCore import ClusteredManyCoreProcessor
@@ -40,6 +41,8 @@ class Evaluater:
         if(self.EVA_NAME == "aw_change_coreNum"): self.aw_change_coreNum()
         if(self.EVA_NAME == "aw_change_a"): self.aw_change_a()
         if(self.EVA_NAME == "aw_change_cpuUsage"): self.aw_change_cpuUsage()
+        if(self.EVA_NAME == "tgff_run_time"): self.tgff_run_time()
+        if(self.EVA_NAME == "tgff_change_cpuUsage"): self.tgff_change_cpuUsage()
     
     
     # -- 評価名に基づいて, result_path を決める --
@@ -52,9 +55,15 @@ class Evaluater:
 
         if(self.EVA_NAME == "aw_change_a"):
             return "./result/Autoware/aw_change_a/coreNum_" + str(self.TARGET.num_of_core) + "/" + str(self.ALG_NAME) + ".txt"
-        
+
         if(self.EVA_NAME == "aw_change_cpuUsage"):
             return "./result/Autoware/aw_change_cpuUsage/a_" + str(self.VALUE_OF_A) + "/" + str(self.ALG_NAME) + ".txt"
+        
+        if(self.EVA_NAME == "tgff_run_time"):
+            return "./result/TGFF/tgff_run_time/run_time.txt"
+
+        if(self.EVA_NAME == "tgff_change_cpuUsage"):
+            return "./result/TGFF/tgff_change_cpuUsage/a_" + str(self.VALUE_OF_A) + "/" + str(self.ALG_NAME) + ".txt"
     
     
     # -- aw_change_cpuUsage --
@@ -134,6 +143,46 @@ class Evaluater:
         
         f = open(self.RESULT_PATH, "a")
         f.write(str(self.VALUE_OF_A) + "\t" + str(scheduler.early_detection_flag) + "\t" + str(scheduler.early_detection_time) + "\t" + str(scheduler.deadline_miss_flag) + "\t" + str(scheduler.deadline_miss_time) + "\n")
+        f.close()
+    
+    
+    # -- tgff_run_time --
+    def tgff_run_time(self):
+        dag = DAG("tgff/new_random_dag/tf/" + self.DAG_NAME)
+        
+        run_start_time = time.time()  # 計測開始
+        divg = divide_subG(dag)
+        jld_analyzer = JLDAnalyzer(dag, divg, self.VALUE_OF_A)
+        laxity = Laxity(jld_analyzer)
+        run_finish_time = time.time()  # 計測終了
+        elapsed_time = run_finish_time - run_start_time  # DAG の入力から laxity_table の出力までにかかった時間
+        
+        # HP 内のジョブ数を取得
+        sum_num_jobs = 0
+        for node_index in range(len(dag.node)):
+            sum_num_jobs += jld_analyzer.get_num_trigger_hp(node_index)
+        
+        # 結果を記入
+        # "ジョブ数" + "\t" + "かかった時間"
+        f = open(self.RESULT_PATH, "a")
+        f.write(str(sum_num_jobs) + "\t" + str(elapsed_time) + "\n")
+        f.close()
+    
+    
+    # -- tgff_change_cpuUsage --
+    def tgff_change_cpuUsage(self):
+        dag = DAG("tgff/new_random_dag/tf/" + self.DAG_NAME)
+        divg = divide_subG(dag)
+        jld_analyzer = JLDAnalyzer(dag, divg, self.VALUE_OF_A)
+        laxity = Laxity(jld_analyzer)
+        target = ClusteredManyCoreProcessor(1, self.TARGET.num_of_core, 1)  # コア数以外は関係ない
+        scheduler = Scheduler(dag, target, jld_analyzer, laxity.laxity_table, self.ALG_NAME, self.GEN_RATIO)
+        
+        # 結果を記入
+        # "早期検知したか" + "\t" + "早期検知時刻" + "\t" + "デッドラインミスが発生したか" + "\t" + "デッドラインミス時刻" + "\t" + "平均CPU利用率"
+        
+        f = open(self.RESULT_PATH, "a")
+        f.write(str(scheduler.early_detection_flag) + "\t" + str(scheduler.early_detection_time) + "\t" + str(scheduler.deadline_miss_flag) + "\t" + str(scheduler.deadline_miss_time) + "\t" + str(scheduler.calc_cpu_usage()) + "\n")
         f.close()
 
 

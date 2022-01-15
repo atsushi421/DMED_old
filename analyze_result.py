@@ -166,7 +166,48 @@ class AwResultAnalyzer:
 
 
 
+class TgffResultAnalyzer:
+    # <コンストラクタ>
+    def __init__(self):
+        # パラメータ
+        self.a_values = ["1.4", "1.5", "1.6", "1.7", "1.8", "1.9", "2.0"]
+        self.cpu_usages = ["60", "70", "80", "90"]
+        self.alg_names = ["FIFO", "RMS", "EDF", "LLF"]
+        
+    
+    
+    # <メソッド>
+    # -- 見たいパラメータから読み込みパスを生成
+    def gen_read_path(self, a_value, cpu_usage, alg_name):
+        return "./result/TGFF/tgff_change_cpuUsage/a_" + str(a_value) + "/" + str(cpu_usage) + "/" + str(alg_name) + ".txt"
+    
+    
+    # -- ジョブ数を変化させたときの run time の折れ線グラフデータ作成 --
+    def run_time_line_graph_by_change_jobNum(self):
+        result_table = []
+        
+        # 結果の取得
+        read_file = open("./result/TGFF/tgff_run_time/run_time.txt", "r")  # ファイルを開く
+        for line in read_file:  # 1行ずつ読み込む
+            line_list = line.split()  # 文字列の半角スペース・タブ区切りで区切ったリストを取得
+            if(line_list[0] == "早期検知したか"): continue  # 1行目はスキップ
+
+            float_line_list = [float(s) for s in line_list] # float 型に変換
+            result_table.append(float_line_list)
+        read_file.close()
+        
+        sorted_result_table = sorted(result_table, key=lambda x:(x[0])) # 0 列目を基準に昇順にソート
+        
+        # 結果の書き込み
+        col = ["Number of Jobs", "Run Time"]
+        df = pd.DataFrame(sorted_result_table, columns=col)
+        df.to_csv("run_time_line_graph_by_change_jobNum.csv")
+
+
 if __name__ == "__main__":
     args = sys.argv
     aw = AwResultAnalyzer()
-    aw.stacked_bar_graph_by_change_cpuUsage()
+    # aw.stacked_bar_graph_by_change_cpuUsage()
+    
+    tgff = TgffResultAnalyzer()
+    tgff.run_time_line_graph_by_change_jobNum()

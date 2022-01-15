@@ -26,6 +26,7 @@ class Laxity:
         for timer_index in timer_list:
             for job_index in range(self.jld_analyzer.get_num_trigger_hp(timer_index)):
                 self.calc_laxity(timer_index, job_index)
+        
     
     
     # <メソッド>

@@ -56,9 +56,9 @@ class DAG:
 
 
     # <メソッド>
-    # -- .dagファイルの読み込み --
+    # -- .tgffファイルの読み込み --
     def read_dag_file(self, dag_file):
-        path = "./DAG/" + self.dag_file + ".dag"  # DAG ディレクトリ直下にあることを想定
+        path = "./DAG/" + self.dag_file + ".tgff"  # DAG ディレクトリ直下にあることを想定
         dag_file = open(path, "r")
         
         type_cost = []  # TYPE と処理時間の対応関係の配列
@@ -73,7 +73,7 @@ class DAG:
             
             # 読み込む範囲を限定
             if(len(line_list) >= 2):
-                if(line_list[0] == '@PE' and line_list[1] == '0'):
+                if(line_list[0] == '@PE' and line_list[1] == '5'):
                     read_flag = 1
                 if(line_list[1] == 'type' and line_list[2] == 'exec_time'):
                     info_flag = 1

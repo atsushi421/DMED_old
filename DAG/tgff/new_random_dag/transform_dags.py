@@ -68,7 +68,7 @@ class DAG:
                 
                 # TYPE の情報取得
                 if(read_flag == 1 and info_flag == 1):
-                    type_cost.append(int(float(line_list[1]) / 10))  # TYPE に対応する処理時間を int 型で格納（大きいので10で割る）
+                    type_cost.append(int(float(line_list[1]) / 20))  # TYPE に対応する処理時間を int 型で格納（大きいので20で割る）
                     
             elif(line_list[0] == '}'):
                 read_flag = 0
@@ -278,41 +278,40 @@ if __name__ == "__main__":
             # -- entry node を timer driven node に変換 --
             dag.node[entry_index].isEvent = False
             dag.node[entry_index].isTimer = True
-            dag.node[entry_index].period = random.randint(10, 120)
+            dag.node[entry_index].period = random.choice([10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120])
         
             # -- entry node に後続がない場合，entry node 以外に繋ぐ --
             if(dag.exit[entry_index] == 1):
                 except_entry_list = dag.get_except_entry_list()
-                selected_index = random.choice(except_entry_list)
-                dag.succ[entry_index].append(selected_index)
-                dag.pred[selected_index].append(entry_index)
-                dag.edge[entry_index][selected_index][0] = "Trigger"
-                dag.edge[entry_index][selected_index][1] = random.randint(1, 20)
+                if(len(except_entry_list) != 0):  # entry node しかない場合がある
+                    selected_index = random.choice(except_entry_list)
+                    dag.exit[entry_index] = 0
+                    dag.succ[entry_index].append(selected_index)
+                    dag.pred[selected_index].append(entry_index)
+                    dag.edge[entry_index][selected_index][0] = "Trigger"
+                    dag.edge[entry_index][selected_index][1] = random.randint(1, 20)
         
         
-        # -- exit node が複数ある場合，1つ以外を, entry node 以外に繋ぐ --
+        # -- exit node が複数ある場合，1つ以外を, 選ばれた exit node に繋ぐ --
         if(len(dag.get_exit_list()) >= 2):
             exit_list = dag.get_exit_list()
             selected_exit_index = random.choice(exit_list)
             exit_list.remove(selected_exit_index)
             
             for exit_index in exit_list:
-                except_entry_list = dag.get_except_entry_list()
-                selected_index = random.choice(except_entry_list)
-                dag.succ[exit_index].append(selected_index)
-                dag.pred[selected_index].append(exit_index)
-                dag.edge[exit_index][selected_index][0] = "Trigger"
-                dag.edge[exit_index][selected_index][1] = random.randint(1, 20)
+                dag.succ[exit_index].append(selected_exit_index)
+                dag.pred[selected_exit_index].append(exit_index)
+                dag.edge[exit_index][selected_exit_index][0] = "Trigger"
+                dag.edge[exit_index][selected_exit_index][1] = random.randint(1, 20)
         
         
         # -- 前任が複数あるノードを timer driven node 及び join node に変換 -- ※面倒だから event にはしていない
         for node_index in range(len(dag.node)):
             if(len(dag.pred[node_index]) >= 2):
-                for pred_index in dag.pred[node_index]:
-                    dag.node[pred_index].isJoin = True
-                    dag.node[pred_index].isEvent = False
-                    dag.node[pred_index].isTimer = True
-                    dag.node[pred_index].period = random.randint(10, 120)
+                dag.node[node_index].isJoin = True
+                dag.node[node_index].isEvent = False
+                dag.node[node_index].isTimer = True
+                dag.node[node_index].period = random.choice([10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120])
         
         
         # -- timer driven node に繋がるエッジを全て update edge に変換 --
