@@ -7,8 +7,17 @@ from class_ClusteredManyCore import ClusteredManyCoreProcessor
 from class_Scheduler import Scheduler
 
 
-dag = DAG("eg")
+dag = DAG("AutowareAuto")
+
 divg = divide_subG(dag)
-jdl_analyzer = JLDAnalyzer(dag, divg)
-laxity = Laxity(jdl_analyzer)
-laxity.export_laxity()
+
+jld_analyzer = JLDAnalyzer(dag, divg, 1.4)
+
+laxity = Laxity(jld_analyzer)
+
+target = ClusteredManyCoreProcessor(1, 8, 1)  # コア数以外関係ない
+
+scheduler = Scheduler(dag, target, jld_analyzer, laxity.laxity_table, "LLF", 0.04)
+
+
+print(scheduler.calc_cpu_usage())

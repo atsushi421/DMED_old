@@ -10,11 +10,13 @@ class Laxity:
         jld_analyzer : JLDAnalyzer
         job_succ : duration 内の各ジョブの後続ジョブのリスト
         laxity_table : 行がノード番号, 列がジョブ番号
+        rank_table : 行がノード番号, 列がジョブ番号
         '''
         self.dag = jld_analyzer.dag
         self.jld_analyzer = jld_analyzer
         self.job_succ = jld_analyzer.job_succ
         self.laxity_table = self.init_set_table_size()
+        self.rank_table = self.init_set_table_size()
         
         # laxity の計算
         entry_list = self.dag.get_entry_list()
@@ -72,16 +74,23 @@ class Laxity:
     
     # -- laxity_table を csv 形式で出力 --
     def export_laxity(self):
+        # laxity が計算されていないジョブの laxity を -1 にする
+        for node_index in range(len(self.laxity_table)):
+            for job_index in range(len(self.laxity_table[node_index])):
+                if(self.laxity_table[node_index][job_index] > 10000000000000000):  # laxity が計算されていない（不完全）
+                    self.laxity_table[node_index][job_index] = -1
+        
         col = []
         for k in range(len(self.laxity_table[0])):
-            col.append("job" + str(k))
+            col.append("job" + str(k+1))
         
         ind = []
         for i in range(len(self.dag.node)):
-            ind.append("node" + str(i))
+            ind.append("node" + str(i+1))
         
         df = pd.DataFrame(self.laxity_table, index=ind, columns=col)
         df.to_csv(self.dag.dag_file + ".csv")
+        
         
     
     # -- laxity の昇順でスケジューリングリストを作成 --

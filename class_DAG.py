@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 import pprint
-import math
 
 
 class Node:
     # <コンストラクタ>
-    def __init__(self, isJoin, isEvent, isTimer, period, offset, exec_time):
+    def __init__(self, isJoin, isEvent, isTimer, isStress, period, offset, exec_time):
         '''
         isJoin : Join node なら True
         isEvent : event-driven node なら True
+        isStress : stress node なら True  ※通常は False
         trigger_list : event-driven node の場合のトリガーされるノードの添え字のリスト
         isTimer : timer-driven node なら True
         period : timer-driven node の場合の周期
@@ -16,9 +16,11 @@ class Node:
         exec_time : 実行時間
         st_list : HP 内の各ジョブの開始時間のリスト
         ft_list : HP 内の各ジョブの終了時間のリスト
+        trigger_time_list : HP 内の各ジョブのトリガー時刻のリスト
         '''
         self.isJoin = isJoin
         self.isEvent = isEvent
+        self.isStress = isStress
         self.trigger_list = []
         self.isTimer = isTimer
         self.period = period
@@ -26,6 +28,7 @@ class Node:
         self.exec_time = exec_time
         self.st_list = []
         self.ft_list = []
+        self.trigger_time_list = []
         
 
 
@@ -48,15 +51,14 @@ class DAG:
         self.edge, self.pred, self.succ, self.entry, self.exit = self.read_dag_file(self.dag_file)
         self.HP = int(self.calc_hp())
         self.set_trigger_index()
-        
-        self.Deadline = int(100)  # 仮定
+        self.Deadline = self.set_deadline()
 
 
 
     # <メソッド>
-    # -- .dagファイルの読み込み --
+    # -- .tgffファイルの読み込み --
     def read_dag_file(self, dag_file):
-        path = "./DAG/" + self.dag_file + ".dag"  # DAG ディレクトリ直下にあることを想定
+        path = "./DAG/" + self.dag_file + ".tgff"  # DAG ディレクトリ直下にあることを想定
         dag_file = open(path, "r")
         
         type_cost = []  # TYPE と処理時間の対応関係の配列
@@ -71,7 +73,7 @@ class DAG:
             
             # 読み込む範囲を限定
             if(len(line_list) >= 2):
-                if(line_list[0] == '@PE' and line_list[1] == '0'):
+                if(line_list[0] == '@PE' and line_list[1] == '5'):
                     read_flag = 1
                 if(line_list[1] == 'type' and line_list[2] == 'exec_time'):
                     info_flag = 1
@@ -109,7 +111,7 @@ class DAG:
                     period = int(line_list[5])
                     offset = 0  # offset は 0 とする
                 
-                self.node.append(Node(isJoin, isEvent, isTimer, period, offset, exec_time))
+                self.node.append(Node(isJoin, isEvent, isTimer, False, period, offset, exec_time))
         dag_file.close()
 
         
@@ -167,6 +169,18 @@ class DAG:
         return edge, pred, succ, entry, exit
     
     
+    # -- デッドラインの設定（周期の最大値） --
+    def set_deadline(self):
+        timer_list = self.get_timer_list()
+        max_period = 0
+        
+        for timer_index in timer_list:
+            if(self.node[timer_index].period > max_period):
+                max_period = self.node[timer_index].period
+        
+        return max_period
+    
+    
     # -- DAG 内の entry node の添え字のリストを返す --
     def get_entry_list(self):
         entry_list = []
@@ -174,6 +188,15 @@ class DAG:
             if(self.entry[node_index] == 1): entry_list.append(node_index)
         
         return entry_list
+    
+    
+    # -- DAG 内の exit node の添え字を返す (exit node は1つ前提) --
+    def get_exit_index(self):
+        exit_index = -1
+        for node_index in range(len(self.node)):
+            if(self.exit[node_index] == 1): exit_index = node_index
+        
+        return exit_index
     
     
     # -- DAG 内の timer-driven node の添え字のリストを返す --
@@ -219,7 +242,20 @@ class DAG:
             if(self.node[i].isTimer == True):
                 period_list.append(self.node[i].period)
         
-        return math.lcm(*period_list)
+        return self.lcm(period_list)
+    
+    
+    # -- リストの最小公倍数を返す関数 --
+    def lcm(self, list_l):
+        greatest = max(list_l)
+        i = 1
+        while True:
+            for j in list_l:
+                if (greatest * i) % j != 0:
+                    i += 1
+                    break
+            else:
+                return greatest * i
     
     
     # -- 変数の表示 --

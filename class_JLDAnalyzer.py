@@ -3,14 +3,16 @@
 
 class JLDAnalyzer:
     # <コンストラクタ>
-    def __init__(self, dag, divG):
+    def __init__(self, dag, divG, a):
         '''
         dag : 解析対象の DAG
         divG : subG の集合に切り分けられた DAG
+        a : Eq. (1) の a の値
         job_succ[i][j] : n_(i,j) の後続ジョブの添え字を格納するリスト
         '''
         self.dag = dag
         self.divG = divG
+        self.a = float(a)
         self.job_succ = [[] for i in range(len(self.dag.node))]
         
         self.calc_ideal_st_ft()
@@ -20,6 +22,20 @@ class JLDAnalyzer:
         
         
     # <メソッド>
+    # -- 理想的な st, ft に基づいた data_{node index, job index} のタイムスタンプを返す --
+    def get_ideal_timestamp(self, node_index, job_index):
+        if(self.dag.entry[node_index] == 1):  # 対象ノードが entry node
+            return self.dag.node[node_index].st_list[job_index]
+        
+        elif(self.dag.node[node_index].isJoin == True):
+            return self.dag.node[node_index].st_list[job_index]
+        
+        else:
+            # 同一 sg 上の前任ノードをたどる
+            trigger_nodes = self.dag.node[node_index].trigger_list
+            return self.get_ideal_timestamp(trigger_nodes[0], job_index)
+    
+    
     # -- k 回目までのデッドラインのリストを返す --
     def get_deadline_list(self, exit_node_index):
         num_trigger_exit = self.get_num_trigger_duration(exit_node_index)
@@ -259,28 +275,6 @@ class JLDAnalyzer:
             for succ_join in succ_join_list:
                 for k in range(len(self.dag.node[tail_index].ft_list)):
                     for s in range(len(self.dag.node[succ_join].st_list)):
-                        # k の最後は条件式の範囲を超えるので，別の処理を行う
-                        if(k == len(self.dag.node[tail_index].ft_list) - 1):
-                            next_ft = self.dag.node[tail_index].ft_list[k] + self.get_period(tail_index) + self.dag.edge[tail_index][succ_join][1]  # k+1 の ft を計算
-                            if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s] and next_ft >= self.dag.node[succ_join].st_list[s]):  # Definition 1
-                                self.job_succ[tail_index][k].append([succ_join, s])
-                            
-                            continue
-                        
-                        # 通常処理
-                        if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s] and (self.dag.node[tail_index].ft_list[k+1] + self.dag.edge[tail_index][succ_join][1]) >= self.dag.node[succ_join].st_list[s]):  # Definition 1
+                        # Definition 1
+                        if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s] and (self.dag.node[succ_join].st_list[s] - self.get_ideal_timestamp(tail_index, k)) <= (self.a * self.get_period(tail_index))):
                             self.job_succ[tail_index][k].append([succ_join, s])
-    
-    
-    # 割り当て結果をもとに，ST, FT を AST, AFT に更新. 更新がなければ True を返す
-    def calc_actual_st_ft(self, result_job):
-        finish_flag = True
-        
-        for node_index in range(len(self.dag.node)):
-            for job_index in range(self.get_num_trigger_hp(node_index)):
-                if(self.dag.node[node_index].st_list[job_index] != result_job[node_index][job_index][2]):
-                    finish_flag = False
-                    self.dag.node[node_index].st_list[job_index] = result_job[node_index][job_index][2]
-                    self.dag.node[node_index].ft_list[job_index] = result_job[node_index][job_index][3]
-        
-        return finish_flag
