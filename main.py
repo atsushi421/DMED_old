@@ -7,7 +7,7 @@ from class_ClusteredManyCore import ClusteredManyCoreProcessor
 from class_Scheduler import Scheduler
 
 
-dag = DAG("tgff/new_random_dag/tf/new_random_tf_11")
+dag = DAG("AutowareAuto")
 
 divg = divide_subG(dag)
 
@@ -17,7 +17,7 @@ laxity = Laxity(jld_analyzer)
 
 target = ClusteredManyCoreProcessor(1, 8, 1)  # コア数以外関係ない
 
-scheduler = Scheduler(dag, target, jld_analyzer, laxity.laxity_table, "FIFO", 0)
+scheduler = Scheduler(dag, target, jld_analyzer, laxity.laxity_table, "LLF", 0.04)
 
 
 print(scheduler.calc_cpu_usage())

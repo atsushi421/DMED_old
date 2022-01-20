@@ -10,11 +10,13 @@ class Laxity:
         jld_analyzer : JLDAnalyzer
         job_succ : duration 内の各ジョブの後続ジョブのリスト
         laxity_table : 行がノード番号, 列がジョブ番号
+        rank_table : 行がノード番号, 列がジョブ番号
         '''
         self.dag = jld_analyzer.dag
         self.jld_analyzer = jld_analyzer
         self.job_succ = jld_analyzer.job_succ
         self.laxity_table = self.init_set_table_size()
+        self.rank_table = self.init_set_table_size()
         
         # laxity の計算
         entry_list = self.dag.get_entry_list()
@@ -26,7 +28,6 @@ class Laxity:
         for timer_index in timer_list:
             for job_index in range(self.jld_analyzer.get_num_trigger_hp(timer_index)):
                 self.calc_laxity(timer_index, job_index)
-        
     
     
     # <メソッド>

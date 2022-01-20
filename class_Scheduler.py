@@ -3,6 +3,7 @@ import copy
 import random
 from class_DAG import Node
 import numpy as np
+import time
 
 
 class Scheduler:
@@ -14,6 +15,7 @@ class Scheduler:
         target : ノードを割り当てるターゲットプロセッサ
         jld_analyzer : jld_analyzer
         laxity_table : 提案手法によって生成された，各ジョブのラキシティ
+        rank_table : 各ジョブの rank
         alg_name : 使用するアルゴリズム名
         gen_ratio : stress job の生成確率
         result_core[i][j] : クラスタiのコアjの割り当て結果. [ノード番号, ジョブ番号, 処理開始時間, 処理終了時間]
@@ -41,12 +43,15 @@ class Scheduler:
         self.result_core = [[[] for j in range(self.target.num_of_core)] for i in range(self.target.num_of_cluster)]
         self.result_job = [[] for i in range(len(self.dag.node))]
         
-        # ジョブ数分 result_job を用意 
+        # ジョブ数分 result_job と trigger_time_list を用意 
         for node_index in range(len(self.dag.node)):
             if(self.dag.node[node_index].isStress == False):  # stress node 以外
                 num_trigger = self.jld_analyzer.get_num_trigger_hp(node_index)
                 for i in range(num_trigger):
                     self.result_job[node_index].append([-1, -1, -1, -1])
+                    self.dag.node[node_index].trigger_time_list.append([-1])
+        
+        
         
         self.finish_jobs = []
         self.discard_jobs = []
@@ -102,8 +107,12 @@ class Scheduler:
         
         self.set_trigger_time_timer()  # timer-driven node の trigger_time_list をセット
         
+        start_time = time.time()  # スケジューリング開始時刻
+        
         
         while([exit_node_index, last_exit_node_job_index] not in self.finish_jobs):  # exit node job の最後のジョブの実行が終了したら、ループ終了
+            
+            if(time.time() - start_time > 3000): break  # スケジューリングに5分以上かかったらスキップ
             
             if(self.deadline_miss_flag == 1): break  # デッドラインミスが発生したら終了
             
@@ -171,13 +180,36 @@ class Scheduler:
                 self.advance_time()
                 continue
             
+            
+            # head の min_EST が提案手法の laxity を超えていた場合，早期検知
+            if(self.dag.node[head[0]].isStress == False):
+                if(self.laxity_table[head[0]][head[1]] > 90000000000000000):  # laxity が計算されていないジョブの場合
+                    i = 0
+                    while(self.laxity_table[head[0]][head[1] + i] > 90000000000000000):  # laxity が計算されている後続ジョブまで
+                        if(head[1] + i == self.jld_analyzer.get_num_trigger_hp(head[0]) - 1):
+                            break
+                        
+                        i += 1
+                    
+                    laxity = self.laxity_table[head[0]][head[1] + i]
+                
+                else:
+                        laxity = self.laxity_table[head[0]][head[1]]
+                
+                # 判定
+                if(min_EST > laxity):
+                    # 結果の書き込み
+                    if(min_EST < self.early_detection_time):
+                        self.early_detection_flag = 1
+                        self.early_detection_time = min_EST
+            
+            
             # head が join node の場合，DFC を満たしていなければ，そのジョブを破棄．※1回目のデッドラインまでに開始したジョブは除く
             if(self.dag.node[head[0]].isJoin == True and self.target.current_time > self.jld_analyzer.get_deadline_list(self.dag.get_exit_index())[0]):
                 if(self.check_dfc(head[0], min_EST) == False):
                     self.discard_jobs.append([head[0], head[1]])
                     self.result_job[head[0]][head[1]] = ["Discard"]
                     self.scheduling_list.pop(0)  # job を破棄
-                    
                     
                     # 破棄した join node job と exit node job が同じ sg に所属している場合，デッドラインミスとなる
                     join_sg_index = self.jld_analyzer.get_subG_index(head[0])
@@ -194,15 +226,6 @@ class Scheduler:
                     else:
                         continue
                     
-            
-            # head の min_EST が提案手法の laxity を超えていた場合，早期検知
-            if(self.dag.node[head[0]].isStress == False):
-                if(min_EST > self.laxity_table[head[0]][head[1]]):
-                    # 結果の書き込み
-                    if(self.target.current_time < self.early_detection_time):
-                        self.early_detection_flag = 1
-                        self.early_detection_time = self.target.current_time
-            
             
             # headの割り当て
             self.scheduling_list.pop(0)  # スケジューリングリストの先頭を削除
@@ -346,14 +369,14 @@ class Scheduler:
                                 
                         else:  # 1個前のジョブの方が laxity が小さい場合，ソート終了
                             break
-    
+            
     
     # -- timer-driven node の trigger_time_list をセット --
     def set_trigger_time_timer(self):
         timer_list = self.dag.get_timer_list()
         for timer_index in timer_list:
             for job_index in range(self.jld_analyzer.get_num_trigger_hp(timer_index)):
-                self.dag.node[timer_index].trigger_time_list.append(self.dag.node[timer_index].st_list[job_index])  # timer-driven node の trigger_time は st と一致
+                self.dag.node[timer_index].trigger_time_list[job_index] = self.dag.node[timer_index].st_list[job_index]  # timer-driven node の trigger_time は st と一致
     
     
     # -- DFC を満たしているかチェック --
@@ -418,7 +441,7 @@ class Scheduler:
         for processing_job in processing_jobs:
             if(self.result_job[processing_job[0]][processing_job[1]][3] == self.target.current_time):  # ジョブの処理終了時間が現在時刻と等しい
                 self.finish_jobs.append(processing_job)
-                self.trigger_succ_event(processing_job[0], self.target.current_time + 1)  # 後続の event-driven node をトリガー
+                self.trigger_succ_event(processing_job[0], processing_job[1], self.target.current_time + 1)  # 後続の event-driven node をトリガー
                 
                 # exit node job の場合，デッドラインミス判定
                 if(self.dag.exit[processing_job[0]] == 1):
@@ -434,12 +457,12 @@ class Scheduler:
     
     
     # -- 後続の event-driven node に対して trigger edge があればトリガー --
-    def trigger_succ_event(self, node_index, finish_time):
+    def trigger_succ_event(self, node_index, job_index, finish_time):
         succ_list = self.dag.succ[node_index]
         for succ_index in succ_list:
             if(self.dag.node[succ_index].isEvent == True):
                 if(self.dag.node[succ_index].trigger_list[0] == node_index):  # trigger される前任は1つ前提
-                    self.dag.node[succ_index].trigger_time_list.append(finish_time + self.dag.edge[node_index][succ_index][1] + 1)  # 終了時間 + 通信時間
+                    self.dag.node[succ_index].trigger_time_list[job_index] = finish_time + self.dag.edge[node_index][succ_index][1] + 1  # 終了時間 + 通信時間
     
     
     # -- ジョブの処理終了時間を返す --

@@ -42,7 +42,7 @@ class Evaluater:
         if(self.EVA_NAME == "aw_change_a"): self.aw_change_a()
         if(self.EVA_NAME == "aw_change_cpuUsage"): self.aw_change_cpuUsage()
         if(self.EVA_NAME == "tgff_run_time"): self.tgff_run_time()
-        if(self.EVA_NAME == "tgff_change_cpuUsage"): self.tgff_change_cpuUsage()
+        if(self.EVA_NAME == "tgff_change_numCore"): self.tgff_change_numCore()
     
     
     # -- 評価名に基づいて, result_path を決める --
@@ -59,11 +59,11 @@ class Evaluater:
         if(self.EVA_NAME == "aw_change_cpuUsage"):
             return "./result/Autoware/aw_change_cpuUsage/a_" + str(self.VALUE_OF_A) + "/" + str(self.ALG_NAME) + ".txt"
         
+        if(self.EVA_NAME == "tgff_change_numCore"):
+            return "./result/TGFF/tgff_change_numCore/numCore_" + str(self.TARGET.num_of_core) + "/" + str(self.ALG_NAME) + ".txt"
+        
         if(self.EVA_NAME == "tgff_run_time"):
             return "./result/TGFF/tgff_run_time/run_time.txt"
-
-        if(self.EVA_NAME == "tgff_change_cpuUsage"):
-            return "./result/TGFF/tgff_change_cpuUsage/a_" + str(self.VALUE_OF_A) + "/" + str(self.ALG_NAME) + ".txt"
     
     
     # -- aw_change_cpuUsage --
@@ -169,8 +169,8 @@ class Evaluater:
         f.close()
     
     
-    # -- tgff_change_cpuUsage --
-    def tgff_change_cpuUsage(self):
+    # -- tgff_change_numCore --
+    def tgff_change_numCore(self):
         dag = DAG("tgff/new_random_dag/tf/" + self.DAG_NAME)
         divg = divide_subG(dag)
         jld_analyzer = JLDAnalyzer(dag, divg, self.VALUE_OF_A)
