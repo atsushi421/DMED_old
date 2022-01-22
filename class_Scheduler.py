@@ -63,6 +63,8 @@ class Scheduler:
         self.num_stress_job = 0
         
         self.schedule()
+        print("a")
+        
     
     # ＜メソッド＞
     # -- 結果から CPU 利用率を計算 --
@@ -413,12 +415,6 @@ class Scheduler:
     
     # -- ジョブをクラスタi,コアjに割り当てる --
     def allocate(self, node_index, job_index, i, j):
-        # # ランダムにジョブの実行時間を延長する
-        # random_int = random.randint(1,10)
-        # if(random_int % 7 == 0):  # 10% の確率
-        #     random_float = random.uniform(0.5, 3.0)  # 0.5倍 ~ 3.0倍
-        #     self.dag.node[node_index].exec_time = int(self.dag.node[node_index].exec_time * random_float)
-        
         self.target.cluster[i].core[j].idle = False
         self.target.cluster[i].core[j].processing_node = node_index
         self.target.cluster[i].core[j].processing_job = job_index

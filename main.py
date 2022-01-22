@@ -7,11 +7,11 @@ from class_ClusteredManyCore import ClusteredManyCoreProcessor
 from class_Scheduler import Scheduler
 
 
-dag = DAG("AutowareAuto")
+dag = DAG("eg")
 
 divg = divide_subG(dag)
 
-jld_analyzer = JLDAnalyzer(dag, divg, 1.4)
+jld_analyzer = JLDAnalyzer(dag, divg, 1.4, "Igarashi")
 
 laxity = Laxity(jld_analyzer)
 
