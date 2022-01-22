@@ -2,7 +2,7 @@
 
 # パラメータ
 numCores = ["1", "5", "6", "7", "8"]
-alg_names = ["FIFO", "RMS", "EDF", "LLF"]
+alg_names = ["EDF", "Proposed_LLF", "Igarashi_LLF", "Salah_LLF"]
 
 
 for numCore in numCores:

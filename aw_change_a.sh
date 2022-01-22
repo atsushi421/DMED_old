@@ -66,24 +66,24 @@ python3 eval.py aw_change_a AutowareAuto 1 1 1 EDF 2.9
 python3 eval.py aw_change_a AutowareAuto 1 1 1 EDF 3.0
 wait
 
-# LLF
-python3 eval.py aw_change_a AutowareAuto 1 1 1 LLF 1.4
-python3 eval.py aw_change_a AutowareAuto 1 1 1 LLF 1.5
-python3 eval.py aw_change_a AutowareAuto 1 1 1 LLF 1.6
-python3 eval.py aw_change_a AutowareAuto 1 1 1 LLF 1.7
-python3 eval.py aw_change_a AutowareAuto 1 1 1 LLF 1.8
-python3 eval.py aw_change_a AutowareAuto 1 1 1 LLF 1.9
-python3 eval.py aw_change_a AutowareAuto 1 1 1 LLF 2.0
-python3 eval.py aw_change_a AutowareAuto 1 1 1 LLF 2.1
-python3 eval.py aw_change_a AutowareAuto 1 1 1 LLF 2.2
-python3 eval.py aw_change_a AutowareAuto 1 1 1 LLF 2.3
-python3 eval.py aw_change_a AutowareAuto 1 1 1 LLF 2.4
-python3 eval.py aw_change_a AutowareAuto 1 1 1 LLF 2.5
-python3 eval.py aw_change_a AutowareAuto 1 1 1 LLF 2.6
-python3 eval.py aw_change_a AutowareAuto 1 1 1 LLF 2.7
-python3 eval.py aw_change_a AutowareAuto 1 1 1 LLF 2.8
-python3 eval.py aw_change_a AutowareAuto 1 1 1 LLF 2.9
-python3 eval.py aw_change_a AutowareAuto 1 1 1 LLF 3.0
+# Proposed_LLF
+python3 eval.py aw_change_a AutowareAuto 1 1 1 Proposed_LLF 1.4
+python3 eval.py aw_change_a AutowareAuto 1 1 1 Proposed_LLF 1.5
+python3 eval.py aw_change_a AutowareAuto 1 1 1 Proposed_LLF 1.6
+python3 eval.py aw_change_a AutowareAuto 1 1 1 Proposed_LLF 1.7
+python3 eval.py aw_change_a AutowareAuto 1 1 1 Proposed_LLF 1.8
+python3 eval.py aw_change_a AutowareAuto 1 1 1 Proposed_LLF 1.9
+python3 eval.py aw_change_a AutowareAuto 1 1 1 Proposed_LLF 2.0
+python3 eval.py aw_change_a AutowareAuto 1 1 1 Proposed_LLF 2.1
+python3 eval.py aw_change_a AutowareAuto 1 1 1 Proposed_LLF 2.2
+python3 eval.py aw_change_a AutowareAuto 1 1 1 Proposed_LLF 2.3
+python3 eval.py aw_change_a AutowareAuto 1 1 1 Proposed_LLF 2.4
+python3 eval.py aw_change_a AutowareAuto 1 1 1 Proposed_LLF 2.5
+python3 eval.py aw_change_a AutowareAuto 1 1 1 Proposed_LLF 2.6
+python3 eval.py aw_change_a AutowareAuto 1 1 1 Proposed_LLF 2.7
+python3 eval.py aw_change_a AutowareAuto 1 1 1 Proposed_LLF 2.8
+python3 eval.py aw_change_a AutowareAuto 1 1 1 Proposed_LLF 2.9
+python3 eval.py aw_change_a AutowareAuto 1 1 1 Proposed_LLF 3.0
 wait
 
 
@@ -148,24 +148,24 @@ python3 eval.py aw_change_a AutowareAuto 1 2 1 EDF 2.9
 python3 eval.py aw_change_a AutowareAuto 1 2 1 EDF 3.0
 wait
 
-# LLF
-python3 eval.py aw_change_a AutowareAuto 1 2 1 LLF 1.4
-python3 eval.py aw_change_a AutowareAuto 1 2 1 LLF 1.5
-python3 eval.py aw_change_a AutowareAuto 1 2 1 LLF 1.6
-python3 eval.py aw_change_a AutowareAuto 1 2 1 LLF 1.7
-python3 eval.py aw_change_a AutowareAuto 1 2 1 LLF 1.8
-python3 eval.py aw_change_a AutowareAuto 1 2 1 LLF 1.9
-python3 eval.py aw_change_a AutowareAuto 1 2 1 LLF 2.0
-python3 eval.py aw_change_a AutowareAuto 1 2 1 LLF 2.1
-python3 eval.py aw_change_a AutowareAuto 1 2 1 LLF 2.2
-python3 eval.py aw_change_a AutowareAuto 1 2 1 LLF 2.3
-python3 eval.py aw_change_a AutowareAuto 1 2 1 LLF 2.4
-python3 eval.py aw_change_a AutowareAuto 1 2 1 LLF 2.5
-python3 eval.py aw_change_a AutowareAuto 1 2 1 LLF 2.6
-python3 eval.py aw_change_a AutowareAuto 1 2 1 LLF 2.7
-python3 eval.py aw_change_a AutowareAuto 1 2 1 LLF 2.8
-python3 eval.py aw_change_a AutowareAuto 1 2 1 LLF 2.9
-python3 eval.py aw_change_a AutowareAuto 1 2 1 LLF 3.0
+# Proposed_LLF
+python3 eval.py aw_change_a AutowareAuto 1 2 1 Proposed_LLF 1.4
+python3 eval.py aw_change_a AutowareAuto 1 2 1 Proposed_LLF 1.5
+python3 eval.py aw_change_a AutowareAuto 1 2 1 Proposed_LLF 1.6
+python3 eval.py aw_change_a AutowareAuto 1 2 1 Proposed_LLF 1.7
+python3 eval.py aw_change_a AutowareAuto 1 2 1 Proposed_LLF 1.8
+python3 eval.py aw_change_a AutowareAuto 1 2 1 Proposed_LLF 1.9
+python3 eval.py aw_change_a AutowareAuto 1 2 1 Proposed_LLF 2.0
+python3 eval.py aw_change_a AutowareAuto 1 2 1 Proposed_LLF 2.1
+python3 eval.py aw_change_a AutowareAuto 1 2 1 Proposed_LLF 2.2
+python3 eval.py aw_change_a AutowareAuto 1 2 1 Proposed_LLF 2.3
+python3 eval.py aw_change_a AutowareAuto 1 2 1 Proposed_LLF 2.4
+python3 eval.py aw_change_a AutowareAuto 1 2 1 Proposed_LLF 2.5
+python3 eval.py aw_change_a AutowareAuto 1 2 1 Proposed_LLF 2.6
+python3 eval.py aw_change_a AutowareAuto 1 2 1 Proposed_LLF 2.7
+python3 eval.py aw_change_a AutowareAuto 1 2 1 Proposed_LLF 2.8
+python3 eval.py aw_change_a AutowareAuto 1 2 1 Proposed_LLF 2.9
+python3 eval.py aw_change_a AutowareAuto 1 2 1 Proposed_LLF 3.0
 wait
 
 
@@ -230,24 +230,24 @@ python3 eval.py aw_change_a AutowareAuto 1 3 1 EDF 2.9
 python3 eval.py aw_change_a AutowareAuto 1 3 1 EDF 3.0
 wait
 
-# LLF
-python3 eval.py aw_change_a AutowareAuto 1 3 1 LLF 1.4
-python3 eval.py aw_change_a AutowareAuto 1 3 1 LLF 1.5
-python3 eval.py aw_change_a AutowareAuto 1 3 1 LLF 1.6
-python3 eval.py aw_change_a AutowareAuto 1 3 1 LLF 1.7
-python3 eval.py aw_change_a AutowareAuto 1 3 1 LLF 1.8
-python3 eval.py aw_change_a AutowareAuto 1 3 1 LLF 1.9
-python3 eval.py aw_change_a AutowareAuto 1 3 1 LLF 2.0
-python3 eval.py aw_change_a AutowareAuto 1 3 1 LLF 2.1
-python3 eval.py aw_change_a AutowareAuto 1 3 1 LLF 2.2
-python3 eval.py aw_change_a AutowareAuto 1 3 1 LLF 2.3
-python3 eval.py aw_change_a AutowareAuto 1 3 1 LLF 2.4
-python3 eval.py aw_change_a AutowareAuto 1 3 1 LLF 2.5
-python3 eval.py aw_change_a AutowareAuto 1 3 1 LLF 2.6
-python3 eval.py aw_change_a AutowareAuto 1 3 1 LLF 2.7
-python3 eval.py aw_change_a AutowareAuto 1 3 1 LLF 2.8
-python3 eval.py aw_change_a AutowareAuto 1 3 1 LLF 2.9
-python3 eval.py aw_change_a AutowareAuto 1 3 1 LLF 3.0
+# Proposed_LLF
+python3 eval.py aw_change_a AutowareAuto 1 3 1 Proposed_LLF 1.4
+python3 eval.py aw_change_a AutowareAuto 1 3 1 Proposed_LLF 1.5
+python3 eval.py aw_change_a AutowareAuto 1 3 1 Proposed_LLF 1.6
+python3 eval.py aw_change_a AutowareAuto 1 3 1 Proposed_LLF 1.7
+python3 eval.py aw_change_a AutowareAuto 1 3 1 Proposed_LLF 1.8
+python3 eval.py aw_change_a AutowareAuto 1 3 1 Proposed_LLF 1.9
+python3 eval.py aw_change_a AutowareAuto 1 3 1 Proposed_LLF 2.0
+python3 eval.py aw_change_a AutowareAuto 1 3 1 Proposed_LLF 2.1
+python3 eval.py aw_change_a AutowareAuto 1 3 1 Proposed_LLF 2.2
+python3 eval.py aw_change_a AutowareAuto 1 3 1 Proposed_LLF 2.3
+python3 eval.py aw_change_a AutowareAuto 1 3 1 Proposed_LLF 2.4
+python3 eval.py aw_change_a AutowareAuto 1 3 1 Proposed_LLF 2.5
+python3 eval.py aw_change_a AutowareAuto 1 3 1 Proposed_LLF 2.6
+python3 eval.py aw_change_a AutowareAuto 1 3 1 Proposed_LLF 2.7
+python3 eval.py aw_change_a AutowareAuto 1 3 1 Proposed_LLF 2.8
+python3 eval.py aw_change_a AutowareAuto 1 3 1 Proposed_LLF 2.9
+python3 eval.py aw_change_a AutowareAuto 1 3 1 Proposed_LLF 3.0
 wait
 
 
@@ -312,24 +312,24 @@ python3 eval.py aw_change_a AutowareAuto 1 4 1 EDF 2.9
 python3 eval.py aw_change_a AutowareAuto 1 4 1 EDF 3.0
 wait
 
-# LLF
-python3 eval.py aw_change_a AutowareAuto 1 4 1 LLF 1.4
-python3 eval.py aw_change_a AutowareAuto 1 4 1 LLF 1.5
-python3 eval.py aw_change_a AutowareAuto 1 4 1 LLF 1.6
-python3 eval.py aw_change_a AutowareAuto 1 4 1 LLF 1.7
-python3 eval.py aw_change_a AutowareAuto 1 4 1 LLF 1.8
-python3 eval.py aw_change_a AutowareAuto 1 4 1 LLF 1.9
-python3 eval.py aw_change_a AutowareAuto 1 4 1 LLF 2.0
-python3 eval.py aw_change_a AutowareAuto 1 4 1 LLF 2.1
-python3 eval.py aw_change_a AutowareAuto 1 4 1 LLF 2.2
-python3 eval.py aw_change_a AutowareAuto 1 4 1 LLF 2.3
-python3 eval.py aw_change_a AutowareAuto 1 4 1 LLF 2.4
-python3 eval.py aw_change_a AutowareAuto 1 4 1 LLF 2.5
-python3 eval.py aw_change_a AutowareAuto 1 4 1 LLF 2.6
-python3 eval.py aw_change_a AutowareAuto 1 4 1 LLF 2.7
-python3 eval.py aw_change_a AutowareAuto 1 4 1 LLF 2.8
-python3 eval.py aw_change_a AutowareAuto 1 4 1 LLF 2.9
-python3 eval.py aw_change_a AutowareAuto 1 4 1 LLF 3.0
+# Proposed_LLF
+python3 eval.py aw_change_a AutowareAuto 1 4 1 Proposed_LLF 1.4
+python3 eval.py aw_change_a AutowareAuto 1 4 1 Proposed_LLF 1.5
+python3 eval.py aw_change_a AutowareAuto 1 4 1 Proposed_LLF 1.6
+python3 eval.py aw_change_a AutowareAuto 1 4 1 Proposed_LLF 1.7
+python3 eval.py aw_change_a AutowareAuto 1 4 1 Proposed_LLF 1.8
+python3 eval.py aw_change_a AutowareAuto 1 4 1 Proposed_LLF 1.9
+python3 eval.py aw_change_a AutowareAuto 1 4 1 Proposed_LLF 2.0
+python3 eval.py aw_change_a AutowareAuto 1 4 1 Proposed_LLF 2.1
+python3 eval.py aw_change_a AutowareAuto 1 4 1 Proposed_LLF 2.2
+python3 eval.py aw_change_a AutowareAuto 1 4 1 Proposed_LLF 2.3
+python3 eval.py aw_change_a AutowareAuto 1 4 1 Proposed_LLF 2.4
+python3 eval.py aw_change_a AutowareAuto 1 4 1 Proposed_LLF 2.5
+python3 eval.py aw_change_a AutowareAuto 1 4 1 Proposed_LLF 2.6
+python3 eval.py aw_change_a AutowareAuto 1 4 1 Proposed_LLF 2.7
+python3 eval.py aw_change_a AutowareAuto 1 4 1 Proposed_LLF 2.8
+python3 eval.py aw_change_a AutowareAuto 1 4 1 Proposed_LLF 2.9
+python3 eval.py aw_change_a AutowareAuto 1 4 1 Proposed_LLF 3.0
 wait
 
 
@@ -394,24 +394,24 @@ python3 eval.py aw_change_a AutowareAuto 1 5 1 EDF 2.9
 python3 eval.py aw_change_a AutowareAuto 1 5 1 EDF 3.0
 wait
 
-# LLF
-python3 eval.py aw_change_a AutowareAuto 1 5 1 LLF 1.4
-python3 eval.py aw_change_a AutowareAuto 1 5 1 LLF 1.5
-python3 eval.py aw_change_a AutowareAuto 1 5 1 LLF 1.6
-python3 eval.py aw_change_a AutowareAuto 1 5 1 LLF 1.7
-python3 eval.py aw_change_a AutowareAuto 1 5 1 LLF 1.8
-python3 eval.py aw_change_a AutowareAuto 1 5 1 LLF 1.9
-python3 eval.py aw_change_a AutowareAuto 1 5 1 LLF 2.0
-python3 eval.py aw_change_a AutowareAuto 1 5 1 LLF 2.1
-python3 eval.py aw_change_a AutowareAuto 1 5 1 LLF 2.2
-python3 eval.py aw_change_a AutowareAuto 1 5 1 LLF 2.3
-python3 eval.py aw_change_a AutowareAuto 1 5 1 LLF 2.4
-python3 eval.py aw_change_a AutowareAuto 1 5 1 LLF 2.5
-python3 eval.py aw_change_a AutowareAuto 1 5 1 LLF 2.6
-python3 eval.py aw_change_a AutowareAuto 1 5 1 LLF 2.7
-python3 eval.py aw_change_a AutowareAuto 1 5 1 LLF 2.8
-python3 eval.py aw_change_a AutowareAuto 1 5 1 LLF 2.9
-python3 eval.py aw_change_a AutowareAuto 1 5 1 LLF 3.0
+# Proposed_LLF
+python3 eval.py aw_change_a AutowareAuto 1 5 1 Proposed_LLF 1.4
+python3 eval.py aw_change_a AutowareAuto 1 5 1 Proposed_LLF 1.5
+python3 eval.py aw_change_a AutowareAuto 1 5 1 Proposed_LLF 1.6
+python3 eval.py aw_change_a AutowareAuto 1 5 1 Proposed_LLF 1.7
+python3 eval.py aw_change_a AutowareAuto 1 5 1 Proposed_LLF 1.8
+python3 eval.py aw_change_a AutowareAuto 1 5 1 Proposed_LLF 1.9
+python3 eval.py aw_change_a AutowareAuto 1 5 1 Proposed_LLF 2.0
+python3 eval.py aw_change_a AutowareAuto 1 5 1 Proposed_LLF 2.1
+python3 eval.py aw_change_a AutowareAuto 1 5 1 Proposed_LLF 2.2
+python3 eval.py aw_change_a AutowareAuto 1 5 1 Proposed_LLF 2.3
+python3 eval.py aw_change_a AutowareAuto 1 5 1 Proposed_LLF 2.4
+python3 eval.py aw_change_a AutowareAuto 1 5 1 Proposed_LLF 2.5
+python3 eval.py aw_change_a AutowareAuto 1 5 1 Proposed_LLF 2.6
+python3 eval.py aw_change_a AutowareAuto 1 5 1 Proposed_LLF 2.7
+python3 eval.py aw_change_a AutowareAuto 1 5 1 Proposed_LLF 2.8
+python3 eval.py aw_change_a AutowareAuto 1 5 1 Proposed_LLF 2.9
+python3 eval.py aw_change_a AutowareAuto 1 5 1 Proposed_LLF 3.0
 wait
 
 
@@ -476,24 +476,24 @@ python3 eval.py aw_change_a AutowareAuto 1 6 1 EDF 2.9
 python3 eval.py aw_change_a AutowareAuto 1 6 1 EDF 3.0
 wait
 
-# LLF
-python3 eval.py aw_change_a AutowareAuto 1 6 1 LLF 1.4
-python3 eval.py aw_change_a AutowareAuto 1 6 1 LLF 1.5
-python3 eval.py aw_change_a AutowareAuto 1 6 1 LLF 1.6
-python3 eval.py aw_change_a AutowareAuto 1 6 1 LLF 1.7
-python3 eval.py aw_change_a AutowareAuto 1 6 1 LLF 1.8
-python3 eval.py aw_change_a AutowareAuto 1 6 1 LLF 1.9
-python3 eval.py aw_change_a AutowareAuto 1 6 1 LLF 2.0
-python3 eval.py aw_change_a AutowareAuto 1 6 1 LLF 2.1
-python3 eval.py aw_change_a AutowareAuto 1 6 1 LLF 2.2
-python3 eval.py aw_change_a AutowareAuto 1 6 1 LLF 2.3
-python3 eval.py aw_change_a AutowareAuto 1 6 1 LLF 2.4
-python3 eval.py aw_change_a AutowareAuto 1 6 1 LLF 2.5
-python3 eval.py aw_change_a AutowareAuto 1 6 1 LLF 2.6
-python3 eval.py aw_change_a AutowareAuto 1 6 1 LLF 2.7
-python3 eval.py aw_change_a AutowareAuto 1 6 1 LLF 2.8
-python3 eval.py aw_change_a AutowareAuto 1 6 1 LLF 2.9
-python3 eval.py aw_change_a AutowareAuto 1 6 1 LLF 3.0
+# Proposed_LLF
+python3 eval.py aw_change_a AutowareAuto 1 6 1 Proposed_LLF 1.4
+python3 eval.py aw_change_a AutowareAuto 1 6 1 Proposed_LLF 1.5
+python3 eval.py aw_change_a AutowareAuto 1 6 1 Proposed_LLF 1.6
+python3 eval.py aw_change_a AutowareAuto 1 6 1 Proposed_LLF 1.7
+python3 eval.py aw_change_a AutowareAuto 1 6 1 Proposed_LLF 1.8
+python3 eval.py aw_change_a AutowareAuto 1 6 1 Proposed_LLF 1.9
+python3 eval.py aw_change_a AutowareAuto 1 6 1 Proposed_LLF 2.0
+python3 eval.py aw_change_a AutowareAuto 1 6 1 Proposed_LLF 2.1
+python3 eval.py aw_change_a AutowareAuto 1 6 1 Proposed_LLF 2.2
+python3 eval.py aw_change_a AutowareAuto 1 6 1 Proposed_LLF 2.3
+python3 eval.py aw_change_a AutowareAuto 1 6 1 Proposed_LLF 2.4
+python3 eval.py aw_change_a AutowareAuto 1 6 1 Proposed_LLF 2.5
+python3 eval.py aw_change_a AutowareAuto 1 6 1 Proposed_LLF 2.6
+python3 eval.py aw_change_a AutowareAuto 1 6 1 Proposed_LLF 2.7
+python3 eval.py aw_change_a AutowareAuto 1 6 1 Proposed_LLF 2.8
+python3 eval.py aw_change_a AutowareAuto 1 6 1 Proposed_LLF 2.9
+python3 eval.py aw_change_a AutowareAuto 1 6 1 Proposed_LLF 3.0
 wait
 
 
@@ -558,24 +558,24 @@ python3 eval.py aw_change_a AutowareAuto 1 7 1 EDF 2.9
 python3 eval.py aw_change_a AutowareAuto 1 7 1 EDF 3.0
 wait
 
-# LLF
-python3 eval.py aw_change_a AutowareAuto 1 7 1 LLF 1.4
-python3 eval.py aw_change_a AutowareAuto 1 7 1 LLF 1.5
-python3 eval.py aw_change_a AutowareAuto 1 7 1 LLF 1.6
-python3 eval.py aw_change_a AutowareAuto 1 7 1 LLF 1.7
-python3 eval.py aw_change_a AutowareAuto 1 7 1 LLF 1.8
-python3 eval.py aw_change_a AutowareAuto 1 7 1 LLF 1.9
-python3 eval.py aw_change_a AutowareAuto 1 7 1 LLF 2.0
-python3 eval.py aw_change_a AutowareAuto 1 7 1 LLF 2.1
-python3 eval.py aw_change_a AutowareAuto 1 7 1 LLF 2.2
-python3 eval.py aw_change_a AutowareAuto 1 7 1 LLF 2.3
-python3 eval.py aw_change_a AutowareAuto 1 7 1 LLF 2.4
-python3 eval.py aw_change_a AutowareAuto 1 7 1 LLF 2.5
-python3 eval.py aw_change_a AutowareAuto 1 7 1 LLF 2.6
-python3 eval.py aw_change_a AutowareAuto 1 7 1 LLF 2.7
-python3 eval.py aw_change_a AutowareAuto 1 7 1 LLF 2.8
-python3 eval.py aw_change_a AutowareAuto 1 7 1 LLF 2.9
-python3 eval.py aw_change_a AutowareAuto 1 7 1 LLF 3.0
+# Proposed_LLF
+python3 eval.py aw_change_a AutowareAuto 1 7 1 Proposed_LLF 1.4
+python3 eval.py aw_change_a AutowareAuto 1 7 1 Proposed_LLF 1.5
+python3 eval.py aw_change_a AutowareAuto 1 7 1 Proposed_LLF 1.6
+python3 eval.py aw_change_a AutowareAuto 1 7 1 Proposed_LLF 1.7
+python3 eval.py aw_change_a AutowareAuto 1 7 1 Proposed_LLF 1.8
+python3 eval.py aw_change_a AutowareAuto 1 7 1 Proposed_LLF 1.9
+python3 eval.py aw_change_a AutowareAuto 1 7 1 Proposed_LLF 2.0
+python3 eval.py aw_change_a AutowareAuto 1 7 1 Proposed_LLF 2.1
+python3 eval.py aw_change_a AutowareAuto 1 7 1 Proposed_LLF 2.2
+python3 eval.py aw_change_a AutowareAuto 1 7 1 Proposed_LLF 2.3
+python3 eval.py aw_change_a AutowareAuto 1 7 1 Proposed_LLF 2.4
+python3 eval.py aw_change_a AutowareAuto 1 7 1 Proposed_LLF 2.5
+python3 eval.py aw_change_a AutowareAuto 1 7 1 Proposed_LLF 2.6
+python3 eval.py aw_change_a AutowareAuto 1 7 1 Proposed_LLF 2.7
+python3 eval.py aw_change_a AutowareAuto 1 7 1 Proposed_LLF 2.8
+python3 eval.py aw_change_a AutowareAuto 1 7 1 Proposed_LLF 2.9
+python3 eval.py aw_change_a AutowareAuto 1 7 1 Proposed_LLF 3.0
 wait
 
 
@@ -640,24 +640,24 @@ python3 eval.py aw_change_a AutowareAuto 1 8 1 EDF 2.9
 python3 eval.py aw_change_a AutowareAuto 1 8 1 EDF 3.0
 wait
 
-# LLF
-python3 eval.py aw_change_a AutowareAuto 1 8 1 LLF 1.4
-python3 eval.py aw_change_a AutowareAuto 1 8 1 LLF 1.5
-python3 eval.py aw_change_a AutowareAuto 1 8 1 LLF 1.6
-python3 eval.py aw_change_a AutowareAuto 1 8 1 LLF 1.7
-python3 eval.py aw_change_a AutowareAuto 1 8 1 LLF 1.8
-python3 eval.py aw_change_a AutowareAuto 1 8 1 LLF 1.9
-python3 eval.py aw_change_a AutowareAuto 1 8 1 LLF 2.0
-python3 eval.py aw_change_a AutowareAuto 1 8 1 LLF 2.1
-python3 eval.py aw_change_a AutowareAuto 1 8 1 LLF 2.2
-python3 eval.py aw_change_a AutowareAuto 1 8 1 LLF 2.3
-python3 eval.py aw_change_a AutowareAuto 1 8 1 LLF 2.4
-python3 eval.py aw_change_a AutowareAuto 1 8 1 LLF 2.5
-python3 eval.py aw_change_a AutowareAuto 1 8 1 LLF 2.6
-python3 eval.py aw_change_a AutowareAuto 1 8 1 LLF 2.7
-python3 eval.py aw_change_a AutowareAuto 1 8 1 LLF 2.8
-python3 eval.py aw_change_a AutowareAuto 1 8 1 LLF 2.9
-python3 eval.py aw_change_a AutowareAuto 1 8 1 LLF 3.0
+# Proposed_LLF
+python3 eval.py aw_change_a AutowareAuto 1 8 1 Proposed_LLF 1.4
+python3 eval.py aw_change_a AutowareAuto 1 8 1 Proposed_LLF 1.5
+python3 eval.py aw_change_a AutowareAuto 1 8 1 Proposed_LLF 1.6
+python3 eval.py aw_change_a AutowareAuto 1 8 1 Proposed_LLF 1.7
+python3 eval.py aw_change_a AutowareAuto 1 8 1 Proposed_LLF 1.8
+python3 eval.py aw_change_a AutowareAuto 1 8 1 Proposed_LLF 1.9
+python3 eval.py aw_change_a AutowareAuto 1 8 1 Proposed_LLF 2.0
+python3 eval.py aw_change_a AutowareAuto 1 8 1 Proposed_LLF 2.1
+python3 eval.py aw_change_a AutowareAuto 1 8 1 Proposed_LLF 2.2
+python3 eval.py aw_change_a AutowareAuto 1 8 1 Proposed_LLF 2.3
+python3 eval.py aw_change_a AutowareAuto 1 8 1 Proposed_LLF 2.4
+python3 eval.py aw_change_a AutowareAuto 1 8 1 Proposed_LLF 2.5
+python3 eval.py aw_change_a AutowareAuto 1 8 1 Proposed_LLF 2.6
+python3 eval.py aw_change_a AutowareAuto 1 8 1 Proposed_LLF 2.7
+python3 eval.py aw_change_a AutowareAuto 1 8 1 Proposed_LLF 2.8
+python3 eval.py aw_change_a AutowareAuto 1 8 1 Proposed_LLF 2.9
+python3 eval.py aw_change_a AutowareAuto 1 8 1 Proposed_LLF 3.0
 wait
 
 
@@ -722,24 +722,24 @@ python3 eval.py aw_change_a AutowareAuto 1 9 1 EDF 2.9
 python3 eval.py aw_change_a AutowareAuto 1 9 1 EDF 3.0
 wait
 
-# LLF
-python3 eval.py aw_change_a AutowareAuto 1 9 1 LLF 1.4
-python3 eval.py aw_change_a AutowareAuto 1 9 1 LLF 1.5
-python3 eval.py aw_change_a AutowareAuto 1 9 1 LLF 1.6
-python3 eval.py aw_change_a AutowareAuto 1 9 1 LLF 1.7
-python3 eval.py aw_change_a AutowareAuto 1 9 1 LLF 1.8
-python3 eval.py aw_change_a AutowareAuto 1 9 1 LLF 1.9
-python3 eval.py aw_change_a AutowareAuto 1 9 1 LLF 2.0
-python3 eval.py aw_change_a AutowareAuto 1 9 1 LLF 2.1
-python3 eval.py aw_change_a AutowareAuto 1 9 1 LLF 2.2
-python3 eval.py aw_change_a AutowareAuto 1 9 1 LLF 2.3
-python3 eval.py aw_change_a AutowareAuto 1 9 1 LLF 2.4
-python3 eval.py aw_change_a AutowareAuto 1 9 1 LLF 2.5
-python3 eval.py aw_change_a AutowareAuto 1 9 1 LLF 2.6
-python3 eval.py aw_change_a AutowareAuto 1 9 1 LLF 2.7
-python3 eval.py aw_change_a AutowareAuto 1 9 1 LLF 2.8
-python3 eval.py aw_change_a AutowareAuto 1 9 1 LLF 2.9
-python3 eval.py aw_change_a AutowareAuto 1 9 1 LLF 3.0
+# Proposed_LLF
+python3 eval.py aw_change_a AutowareAuto 1 9 1 Proposed_LLF 1.4
+python3 eval.py aw_change_a AutowareAuto 1 9 1 Proposed_LLF 1.5
+python3 eval.py aw_change_a AutowareAuto 1 9 1 Proposed_LLF 1.6
+python3 eval.py aw_change_a AutowareAuto 1 9 1 Proposed_LLF 1.7
+python3 eval.py aw_change_a AutowareAuto 1 9 1 Proposed_LLF 1.8
+python3 eval.py aw_change_a AutowareAuto 1 9 1 Proposed_LLF 1.9
+python3 eval.py aw_change_a AutowareAuto 1 9 1 Proposed_LLF 2.0
+python3 eval.py aw_change_a AutowareAuto 1 9 1 Proposed_LLF 2.1
+python3 eval.py aw_change_a AutowareAuto 1 9 1 Proposed_LLF 2.2
+python3 eval.py aw_change_a AutowareAuto 1 9 1 Proposed_LLF 2.3
+python3 eval.py aw_change_a AutowareAuto 1 9 1 Proposed_LLF 2.4
+python3 eval.py aw_change_a AutowareAuto 1 9 1 Proposed_LLF 2.5
+python3 eval.py aw_change_a AutowareAuto 1 9 1 Proposed_LLF 2.6
+python3 eval.py aw_change_a AutowareAuto 1 9 1 Proposed_LLF 2.7
+python3 eval.py aw_change_a AutowareAuto 1 9 1 Proposed_LLF 2.8
+python3 eval.py aw_change_a AutowareAuto 1 9 1 Proposed_LLF 2.9
+python3 eval.py aw_change_a AutowareAuto 1 9 1 Proposed_LLF 3.0
 wait
 
 
@@ -804,24 +804,24 @@ python3 eval.py aw_change_a AutowareAuto 1 10 1 EDF 2.9
 python3 eval.py aw_change_a AutowareAuto 1 10 1 EDF 3.0
 wait
 
-# LLF
-python3 eval.py aw_change_a AutowareAuto 1 10 1 LLF 1.4
-python3 eval.py aw_change_a AutowareAuto 1 10 1 LLF 1.5
-python3 eval.py aw_change_a AutowareAuto 1 10 1 LLF 1.6
-python3 eval.py aw_change_a AutowareAuto 1 10 1 LLF 1.7
-python3 eval.py aw_change_a AutowareAuto 1 10 1 LLF 1.8
-python3 eval.py aw_change_a AutowareAuto 1 10 1 LLF 1.9
-python3 eval.py aw_change_a AutowareAuto 1 10 1 LLF 2.0
-python3 eval.py aw_change_a AutowareAuto 1 10 1 LLF 2.1
-python3 eval.py aw_change_a AutowareAuto 1 10 1 LLF 2.2
-python3 eval.py aw_change_a AutowareAuto 1 10 1 LLF 2.3
-python3 eval.py aw_change_a AutowareAuto 1 10 1 LLF 2.4
-python3 eval.py aw_change_a AutowareAuto 1 10 1 LLF 2.5
-python3 eval.py aw_change_a AutowareAuto 1 10 1 LLF 2.6
-python3 eval.py aw_change_a AutowareAuto 1 10 1 LLF 2.7
-python3 eval.py aw_change_a AutowareAuto 1 10 1 LLF 2.8
-python3 eval.py aw_change_a AutowareAuto 1 10 1 LLF 2.9
-python3 eval.py aw_change_a AutowareAuto 1 10 1 LLF 3.0
+# Proposed_LLF
+python3 eval.py aw_change_a AutowareAuto 1 10 1 Proposed_LLF 1.4
+python3 eval.py aw_change_a AutowareAuto 1 10 1 Proposed_LLF 1.5
+python3 eval.py aw_change_a AutowareAuto 1 10 1 Proposed_LLF 1.6
+python3 eval.py aw_change_a AutowareAuto 1 10 1 Proposed_LLF 1.7
+python3 eval.py aw_change_a AutowareAuto 1 10 1 Proposed_LLF 1.8
+python3 eval.py aw_change_a AutowareAuto 1 10 1 Proposed_LLF 1.9
+python3 eval.py aw_change_a AutowareAuto 1 10 1 Proposed_LLF 2.0
+python3 eval.py aw_change_a AutowareAuto 1 10 1 Proposed_LLF 2.1
+python3 eval.py aw_change_a AutowareAuto 1 10 1 Proposed_LLF 2.2
+python3 eval.py aw_change_a AutowareAuto 1 10 1 Proposed_LLF 2.3
+python3 eval.py aw_change_a AutowareAuto 1 10 1 Proposed_LLF 2.4
+python3 eval.py aw_change_a AutowareAuto 1 10 1 Proposed_LLF 2.5
+python3 eval.py aw_change_a AutowareAuto 1 10 1 Proposed_LLF 2.6
+python3 eval.py aw_change_a AutowareAuto 1 10 1 Proposed_LLF 2.7
+python3 eval.py aw_change_a AutowareAuto 1 10 1 Proposed_LLF 2.8
+python3 eval.py aw_change_a AutowareAuto 1 10 1 Proposed_LLF 2.9
+python3 eval.py aw_change_a AutowareAuto 1 10 1 Proposed_LLF 3.0
 wait
 
 
@@ -886,24 +886,24 @@ python3 eval.py aw_change_a AutowareAuto 1 11 1 EDF 2.9
 python3 eval.py aw_change_a AutowareAuto 1 11 1 EDF 3.0
 wait
 
-# LLF
-python3 eval.py aw_change_a AutowareAuto 1 11 1 LLF 1.4
-python3 eval.py aw_change_a AutowareAuto 1 11 1 LLF 1.5
-python3 eval.py aw_change_a AutowareAuto 1 11 1 LLF 1.6
-python3 eval.py aw_change_a AutowareAuto 1 11 1 LLF 1.7
-python3 eval.py aw_change_a AutowareAuto 1 11 1 LLF 1.8
-python3 eval.py aw_change_a AutowareAuto 1 11 1 LLF 1.9
-python3 eval.py aw_change_a AutowareAuto 1 11 1 LLF 2.0
-python3 eval.py aw_change_a AutowareAuto 1 11 1 LLF 2.1
-python3 eval.py aw_change_a AutowareAuto 1 11 1 LLF 2.2
-python3 eval.py aw_change_a AutowareAuto 1 11 1 LLF 2.3
-python3 eval.py aw_change_a AutowareAuto 1 11 1 LLF 2.4
-python3 eval.py aw_change_a AutowareAuto 1 11 1 LLF 2.5
-python3 eval.py aw_change_a AutowareAuto 1 11 1 LLF 2.6
-python3 eval.py aw_change_a AutowareAuto 1 11 1 LLF 2.7
-python3 eval.py aw_change_a AutowareAuto 1 11 1 LLF 2.8
-python3 eval.py aw_change_a AutowareAuto 1 11 1 LLF 2.9
-python3 eval.py aw_change_a AutowareAuto 1 11 1 LLF 3.0
+# Proposed_LLF
+python3 eval.py aw_change_a AutowareAuto 1 11 1 Proposed_LLF 1.4
+python3 eval.py aw_change_a AutowareAuto 1 11 1 Proposed_LLF 1.5
+python3 eval.py aw_change_a AutowareAuto 1 11 1 Proposed_LLF 1.6
+python3 eval.py aw_change_a AutowareAuto 1 11 1 Proposed_LLF 1.7
+python3 eval.py aw_change_a AutowareAuto 1 11 1 Proposed_LLF 1.8
+python3 eval.py aw_change_a AutowareAuto 1 11 1 Proposed_LLF 1.9
+python3 eval.py aw_change_a AutowareAuto 1 11 1 Proposed_LLF 2.0
+python3 eval.py aw_change_a AutowareAuto 1 11 1 Proposed_LLF 2.1
+python3 eval.py aw_change_a AutowareAuto 1 11 1 Proposed_LLF 2.2
+python3 eval.py aw_change_a AutowareAuto 1 11 1 Proposed_LLF 2.3
+python3 eval.py aw_change_a AutowareAuto 1 11 1 Proposed_LLF 2.4
+python3 eval.py aw_change_a AutowareAuto 1 11 1 Proposed_LLF 2.5
+python3 eval.py aw_change_a AutowareAuto 1 11 1 Proposed_LLF 2.6
+python3 eval.py aw_change_a AutowareAuto 1 11 1 Proposed_LLF 2.7
+python3 eval.py aw_change_a AutowareAuto 1 11 1 Proposed_LLF 2.8
+python3 eval.py aw_change_a AutowareAuto 1 11 1 Proposed_LLF 2.9
+python3 eval.py aw_change_a AutowareAuto 1 11 1 Proposed_LLF 3.0
 wait
 
 
@@ -968,24 +968,24 @@ python3 eval.py aw_change_a AutowareAuto 1 12 1 EDF 2.9
 python3 eval.py aw_change_a AutowareAuto 1 12 1 EDF 3.0
 wait
 
-# LLF
-python3 eval.py aw_change_a AutowareAuto 1 12 1 LLF 1.4
-python3 eval.py aw_change_a AutowareAuto 1 12 1 LLF 1.5
-python3 eval.py aw_change_a AutowareAuto 1 12 1 LLF 1.6
-python3 eval.py aw_change_a AutowareAuto 1 12 1 LLF 1.7
-python3 eval.py aw_change_a AutowareAuto 1 12 1 LLF 1.8
-python3 eval.py aw_change_a AutowareAuto 1 12 1 LLF 1.9
-python3 eval.py aw_change_a AutowareAuto 1 12 1 LLF 2.0
-python3 eval.py aw_change_a AutowareAuto 1 12 1 LLF 2.1
-python3 eval.py aw_change_a AutowareAuto 1 12 1 LLF 2.2
-python3 eval.py aw_change_a AutowareAuto 1 12 1 LLF 2.3
-python3 eval.py aw_change_a AutowareAuto 1 12 1 LLF 2.4
-python3 eval.py aw_change_a AutowareAuto 1 12 1 LLF 2.5
-python3 eval.py aw_change_a AutowareAuto 1 12 1 LLF 2.6
-python3 eval.py aw_change_a AutowareAuto 1 12 1 LLF 2.7
-python3 eval.py aw_change_a AutowareAuto 1 12 1 LLF 2.8
-python3 eval.py aw_change_a AutowareAuto 1 12 1 LLF 2.9
-python3 eval.py aw_change_a AutowareAuto 1 12 1 LLF 3.0
+# Proposed_LLF
+python3 eval.py aw_change_a AutowareAuto 1 12 1 Proposed_LLF 1.4
+python3 eval.py aw_change_a AutowareAuto 1 12 1 Proposed_LLF 1.5
+python3 eval.py aw_change_a AutowareAuto 1 12 1 Proposed_LLF 1.6
+python3 eval.py aw_change_a AutowareAuto 1 12 1 Proposed_LLF 1.7
+python3 eval.py aw_change_a AutowareAuto 1 12 1 Proposed_LLF 1.8
+python3 eval.py aw_change_a AutowareAuto 1 12 1 Proposed_LLF 1.9
+python3 eval.py aw_change_a AutowareAuto 1 12 1 Proposed_LLF 2.0
+python3 eval.py aw_change_a AutowareAuto 1 12 1 Proposed_LLF 2.1
+python3 eval.py aw_change_a AutowareAuto 1 12 1 Proposed_LLF 2.2
+python3 eval.py aw_change_a AutowareAuto 1 12 1 Proposed_LLF 2.3
+python3 eval.py aw_change_a AutowareAuto 1 12 1 Proposed_LLF 2.4
+python3 eval.py aw_change_a AutowareAuto 1 12 1 Proposed_LLF 2.5
+python3 eval.py aw_change_a AutowareAuto 1 12 1 Proposed_LLF 2.6
+python3 eval.py aw_change_a AutowareAuto 1 12 1 Proposed_LLF 2.7
+python3 eval.py aw_change_a AutowareAuto 1 12 1 Proposed_LLF 2.8
+python3 eval.py aw_change_a AutowareAuto 1 12 1 Proposed_LLF 2.9
+python3 eval.py aw_change_a AutowareAuto 1 12 1 Proposed_LLF 3.0
 wait
 
 
@@ -1050,24 +1050,24 @@ python3 eval.py aw_change_a AutowareAuto 1 13 1 EDF 2.9
 python3 eval.py aw_change_a AutowareAuto 1 13 1 EDF 3.0
 wait
 
-# LLF
-python3 eval.py aw_change_a AutowareAuto 1 13 1 LLF 1.4
-python3 eval.py aw_change_a AutowareAuto 1 13 1 LLF 1.5
-python3 eval.py aw_change_a AutowareAuto 1 13 1 LLF 1.6
-python3 eval.py aw_change_a AutowareAuto 1 13 1 LLF 1.7
-python3 eval.py aw_change_a AutowareAuto 1 13 1 LLF 1.8
-python3 eval.py aw_change_a AutowareAuto 1 13 1 LLF 1.9
-python3 eval.py aw_change_a AutowareAuto 1 13 1 LLF 2.0
-python3 eval.py aw_change_a AutowareAuto 1 13 1 LLF 2.1
-python3 eval.py aw_change_a AutowareAuto 1 13 1 LLF 2.2
-python3 eval.py aw_change_a AutowareAuto 1 13 1 LLF 2.3
-python3 eval.py aw_change_a AutowareAuto 1 13 1 LLF 2.4
-python3 eval.py aw_change_a AutowareAuto 1 13 1 LLF 2.5
-python3 eval.py aw_change_a AutowareAuto 1 13 1 LLF 2.6
-python3 eval.py aw_change_a AutowareAuto 1 13 1 LLF 2.7
-python3 eval.py aw_change_a AutowareAuto 1 13 1 LLF 2.8
-python3 eval.py aw_change_a AutowareAuto 1 13 1 LLF 2.9
-python3 eval.py aw_change_a AutowareAuto 1 13 1 LLF 3.0
+# Proposed_LLF
+python3 eval.py aw_change_a AutowareAuto 1 13 1 Proposed_LLF 1.4
+python3 eval.py aw_change_a AutowareAuto 1 13 1 Proposed_LLF 1.5
+python3 eval.py aw_change_a AutowareAuto 1 13 1 Proposed_LLF 1.6
+python3 eval.py aw_change_a AutowareAuto 1 13 1 Proposed_LLF 1.7
+python3 eval.py aw_change_a AutowareAuto 1 13 1 Proposed_LLF 1.8
+python3 eval.py aw_change_a AutowareAuto 1 13 1 Proposed_LLF 1.9
+python3 eval.py aw_change_a AutowareAuto 1 13 1 Proposed_LLF 2.0
+python3 eval.py aw_change_a AutowareAuto 1 13 1 Proposed_LLF 2.1
+python3 eval.py aw_change_a AutowareAuto 1 13 1 Proposed_LLF 2.2
+python3 eval.py aw_change_a AutowareAuto 1 13 1 Proposed_LLF 2.3
+python3 eval.py aw_change_a AutowareAuto 1 13 1 Proposed_LLF 2.4
+python3 eval.py aw_change_a AutowareAuto 1 13 1 Proposed_LLF 2.5
+python3 eval.py aw_change_a AutowareAuto 1 13 1 Proposed_LLF 2.6
+python3 eval.py aw_change_a AutowareAuto 1 13 1 Proposed_LLF 2.7
+python3 eval.py aw_change_a AutowareAuto 1 13 1 Proposed_LLF 2.8
+python3 eval.py aw_change_a AutowareAuto 1 13 1 Proposed_LLF 2.9
+python3 eval.py aw_change_a AutowareAuto 1 13 1 Proposed_LLF 3.0
 wait
 
 
@@ -1132,24 +1132,24 @@ python3 eval.py aw_change_a AutowareAuto 1 14 1 EDF 2.9
 python3 eval.py aw_change_a AutowareAuto 1 14 1 EDF 3.0
 wait
 
-# LLF
-python3 eval.py aw_change_a AutowareAuto 1 14 1 LLF 1.4
-python3 eval.py aw_change_a AutowareAuto 1 14 1 LLF 1.5
-python3 eval.py aw_change_a AutowareAuto 1 14 1 LLF 1.6
-python3 eval.py aw_change_a AutowareAuto 1 14 1 LLF 1.7
-python3 eval.py aw_change_a AutowareAuto 1 14 1 LLF 1.8
-python3 eval.py aw_change_a AutowareAuto 1 14 1 LLF 1.9
-python3 eval.py aw_change_a AutowareAuto 1 14 1 LLF 2.0
-python3 eval.py aw_change_a AutowareAuto 1 14 1 LLF 2.1
-python3 eval.py aw_change_a AutowareAuto 1 14 1 LLF 2.2
-python3 eval.py aw_change_a AutowareAuto 1 14 1 LLF 2.3
-python3 eval.py aw_change_a AutowareAuto 1 14 1 LLF 2.4
-python3 eval.py aw_change_a AutowareAuto 1 14 1 LLF 2.5
-python3 eval.py aw_change_a AutowareAuto 1 14 1 LLF 2.6
-python3 eval.py aw_change_a AutowareAuto 1 14 1 LLF 2.7
-python3 eval.py aw_change_a AutowareAuto 1 14 1 LLF 2.8
-python3 eval.py aw_change_a AutowareAuto 1 14 1 LLF 2.9
-python3 eval.py aw_change_a AutowareAuto 1 14 1 LLF 3.0
+# Proposed_LLF
+python3 eval.py aw_change_a AutowareAuto 1 14 1 Proposed_LLF 1.4
+python3 eval.py aw_change_a AutowareAuto 1 14 1 Proposed_LLF 1.5
+python3 eval.py aw_change_a AutowareAuto 1 14 1 Proposed_LLF 1.6
+python3 eval.py aw_change_a AutowareAuto 1 14 1 Proposed_LLF 1.7
+python3 eval.py aw_change_a AutowareAuto 1 14 1 Proposed_LLF 1.8
+python3 eval.py aw_change_a AutowareAuto 1 14 1 Proposed_LLF 1.9
+python3 eval.py aw_change_a AutowareAuto 1 14 1 Proposed_LLF 2.0
+python3 eval.py aw_change_a AutowareAuto 1 14 1 Proposed_LLF 2.1
+python3 eval.py aw_change_a AutowareAuto 1 14 1 Proposed_LLF 2.2
+python3 eval.py aw_change_a AutowareAuto 1 14 1 Proposed_LLF 2.3
+python3 eval.py aw_change_a AutowareAuto 1 14 1 Proposed_LLF 2.4
+python3 eval.py aw_change_a AutowareAuto 1 14 1 Proposed_LLF 2.5
+python3 eval.py aw_change_a AutowareAuto 1 14 1 Proposed_LLF 2.6
+python3 eval.py aw_change_a AutowareAuto 1 14 1 Proposed_LLF 2.7
+python3 eval.py aw_change_a AutowareAuto 1 14 1 Proposed_LLF 2.8
+python3 eval.py aw_change_a AutowareAuto 1 14 1 Proposed_LLF 2.9
+python3 eval.py aw_change_a AutowareAuto 1 14 1 Proposed_LLF 3.0
 wait
 
 
@@ -1214,24 +1214,24 @@ python3 eval.py aw_change_a AutowareAuto 1 15 1 EDF 2.9
 python3 eval.py aw_change_a AutowareAuto 1 15 1 EDF 3.0
 wait
 
-# LLF
-python3 eval.py aw_change_a AutowareAuto 1 15 1 LLF 1.4
-python3 eval.py aw_change_a AutowareAuto 1 15 1 LLF 1.5
-python3 eval.py aw_change_a AutowareAuto 1 15 1 LLF 1.6
-python3 eval.py aw_change_a AutowareAuto 1 15 1 LLF 1.7
-python3 eval.py aw_change_a AutowareAuto 1 15 1 LLF 1.8
-python3 eval.py aw_change_a AutowareAuto 1 15 1 LLF 1.9
-python3 eval.py aw_change_a AutowareAuto 1 15 1 LLF 2.0
-python3 eval.py aw_change_a AutowareAuto 1 15 1 LLF 2.1
-python3 eval.py aw_change_a AutowareAuto 1 15 1 LLF 2.2
-python3 eval.py aw_change_a AutowareAuto 1 15 1 LLF 2.3
-python3 eval.py aw_change_a AutowareAuto 1 15 1 LLF 2.4
-python3 eval.py aw_change_a AutowareAuto 1 15 1 LLF 2.5
-python3 eval.py aw_change_a AutowareAuto 1 15 1 LLF 2.6
-python3 eval.py aw_change_a AutowareAuto 1 15 1 LLF 2.7
-python3 eval.py aw_change_a AutowareAuto 1 15 1 LLF 2.8
-python3 eval.py aw_change_a AutowareAuto 1 15 1 LLF 2.9
-python3 eval.py aw_change_a AutowareAuto 1 15 1 LLF 3.0
+# Proposed_LLF
+python3 eval.py aw_change_a AutowareAuto 1 15 1 Proposed_LLF 1.4
+python3 eval.py aw_change_a AutowareAuto 1 15 1 Proposed_LLF 1.5
+python3 eval.py aw_change_a AutowareAuto 1 15 1 Proposed_LLF 1.6
+python3 eval.py aw_change_a AutowareAuto 1 15 1 Proposed_LLF 1.7
+python3 eval.py aw_change_a AutowareAuto 1 15 1 Proposed_LLF 1.8
+python3 eval.py aw_change_a AutowareAuto 1 15 1 Proposed_LLF 1.9
+python3 eval.py aw_change_a AutowareAuto 1 15 1 Proposed_LLF 2.0
+python3 eval.py aw_change_a AutowareAuto 1 15 1 Proposed_LLF 2.1
+python3 eval.py aw_change_a AutowareAuto 1 15 1 Proposed_LLF 2.2
+python3 eval.py aw_change_a AutowareAuto 1 15 1 Proposed_LLF 2.3
+python3 eval.py aw_change_a AutowareAuto 1 15 1 Proposed_LLF 2.4
+python3 eval.py aw_change_a AutowareAuto 1 15 1 Proposed_LLF 2.5
+python3 eval.py aw_change_a AutowareAuto 1 15 1 Proposed_LLF 2.6
+python3 eval.py aw_change_a AutowareAuto 1 15 1 Proposed_LLF 2.7
+python3 eval.py aw_change_a AutowareAuto 1 15 1 Proposed_LLF 2.8
+python3 eval.py aw_change_a AutowareAuto 1 15 1 Proposed_LLF 2.9
+python3 eval.py aw_change_a AutowareAuto 1 15 1 Proposed_LLF 3.0
 wait
 
 
@@ -1296,22 +1296,22 @@ python3 eval.py aw_change_a AutowareAuto 1 16 1 EDF 2.9
 python3 eval.py aw_change_a AutowareAuto 1 16 1 EDF 3.0
 wait
 
-# LLF
-python3 eval.py aw_change_a AutowareAuto 1 16 1 LLF 1.4
-python3 eval.py aw_change_a AutowareAuto 1 16 1 LLF 1.5
-python3 eval.py aw_change_a AutowareAuto 1 16 1 LLF 1.6
-python3 eval.py aw_change_a AutowareAuto 1 16 1 LLF 1.7
-python3 eval.py aw_change_a AutowareAuto 1 16 1 LLF 1.8
-python3 eval.py aw_change_a AutowareAuto 1 16 1 LLF 1.9
-python3 eval.py aw_change_a AutowareAuto 1 16 1 LLF 2.0
-python3 eval.py aw_change_a AutowareAuto 1 16 1 LLF 2.1
-python3 eval.py aw_change_a AutowareAuto 1 16 1 LLF 2.2
-python3 eval.py aw_change_a AutowareAuto 1 16 1 LLF 2.3
-python3 eval.py aw_change_a AutowareAuto 1 16 1 LLF 2.4
-python3 eval.py aw_change_a AutowareAuto 1 16 1 LLF 2.5
-python3 eval.py aw_change_a AutowareAuto 1 16 1 LLF 2.6
-python3 eval.py aw_change_a AutowareAuto 1 16 1 LLF 2.7
-python3 eval.py aw_change_a AutowareAuto 1 16 1 LLF 2.8
-python3 eval.py aw_change_a AutowareAuto 1 16 1 LLF 2.9
-python3 eval.py aw_change_a AutowareAuto 1 16 1 LLF 3.0
+# Proposed_LLF
+python3 eval.py aw_change_a AutowareAuto 1 16 1 Proposed_LLF 1.4
+python3 eval.py aw_change_a AutowareAuto 1 16 1 Proposed_LLF 1.5
+python3 eval.py aw_change_a AutowareAuto 1 16 1 Proposed_LLF 1.6
+python3 eval.py aw_change_a AutowareAuto 1 16 1 Proposed_LLF 1.7
+python3 eval.py aw_change_a AutowareAuto 1 16 1 Proposed_LLF 1.8
+python3 eval.py aw_change_a AutowareAuto 1 16 1 Proposed_LLF 1.9
+python3 eval.py aw_change_a AutowareAuto 1 16 1 Proposed_LLF 2.0
+python3 eval.py aw_change_a AutowareAuto 1 16 1 Proposed_LLF 2.1
+python3 eval.py aw_change_a AutowareAuto 1 16 1 Proposed_LLF 2.2
+python3 eval.py aw_change_a AutowareAuto 1 16 1 Proposed_LLF 2.3
+python3 eval.py aw_change_a AutowareAuto 1 16 1 Proposed_LLF 2.4
+python3 eval.py aw_change_a AutowareAuto 1 16 1 Proposed_LLF 2.5
+python3 eval.py aw_change_a AutowareAuto 1 16 1 Proposed_LLF 2.6
+python3 eval.py aw_change_a AutowareAuto 1 16 1 Proposed_LLF 2.7
+python3 eval.py aw_change_a AutowareAuto 1 16 1 Proposed_LLF 2.8
+python3 eval.py aw_change_a AutowareAuto 1 16 1 Proposed_LLF 2.9
+python3 eval.py aw_change_a AutowareAuto 1 16 1 Proposed_LLF 3.0
 wait

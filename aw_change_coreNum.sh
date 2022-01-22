@@ -62,23 +62,23 @@ python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 EDF 0.5
 python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 EDF 0.5
 wait
 
-# LLF
-python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 LLF 0.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 LLF 0.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 LLF 0.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 LLF 0.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 LLF 0.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 LLF 0.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 LLF 0.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 LLF 0.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 LLF 0.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 LLF 0.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 LLF 0.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 LLF 0.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 LLF 0.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 LLF 0.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 LLF 0.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 LLF 0.5
+# Proposed_LLF
+python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 Proposed_LLF 0.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 Proposed_LLF 0.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 Proposed_LLF 0.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 Proposed_LLF 0.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 Proposed_LLF 0.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 Proposed_LLF 0.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 Proposed_LLF 0.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 Proposed_LLF 0.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 Proposed_LLF 0.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 Proposed_LLF 0.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 Proposed_LLF 0.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 Proposed_LLF 0.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 Proposed_LLF 0.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 Proposed_LLF 0.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 Proposed_LLF 0.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 Proposed_LLF 0.5
 wait
 
 
@@ -140,23 +140,23 @@ python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 EDF 0.6
 python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 EDF 0.6
 wait
 
-# LLF
-python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 LLF 0.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 LLF 0.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 LLF 0.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 LLF 0.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 LLF 0.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 LLF 0.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 LLF 0.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 LLF 0.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 LLF 0.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 LLF 0.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 LLF 0.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 LLF 0.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 LLF 0.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 LLF 0.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 LLF 0.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 LLF 0.6
+# Proposed_LLF
+python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 Proposed_LLF 0.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 Proposed_LLF 0.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 Proposed_LLF 0.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 Proposed_LLF 0.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 Proposed_LLF 0.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 Proposed_LLF 0.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 Proposed_LLF 0.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 Proposed_LLF 0.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 Proposed_LLF 0.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 Proposed_LLF 0.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 Proposed_LLF 0.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 Proposed_LLF 0.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 Proposed_LLF 0.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 Proposed_LLF 0.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 Proposed_LLF 0.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 Proposed_LLF 0.6
 wait
 
 
@@ -218,23 +218,23 @@ python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 EDF 0.7
 python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 EDF 0.7
 wait
 
-# LLF
-python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 LLF 0.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 LLF 0.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 LLF 0.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 LLF 0.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 LLF 0.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 LLF 0.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 LLF 0.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 LLF 0.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 LLF 0.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 LLF 0.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 LLF 0.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 LLF 0.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 LLF 0.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 LLF 0.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 LLF 0.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 LLF 0.7
+# Proposed_LLF
+python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 Proposed_LLF 0.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 Proposed_LLF 0.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 Proposed_LLF 0.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 Proposed_LLF 0.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 Proposed_LLF 0.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 Proposed_LLF 0.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 Proposed_LLF 0.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 Proposed_LLF 0.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 Proposed_LLF 0.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 Proposed_LLF 0.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 Proposed_LLF 0.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 Proposed_LLF 0.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 Proposed_LLF 0.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 Proposed_LLF 0.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 Proposed_LLF 0.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 Proposed_LLF 0.7
 wait
 
 
@@ -296,23 +296,23 @@ python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 EDF 0.8
 python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 EDF 0.8
 wait
 
-# LLF
-python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 LLF 0.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 LLF 0.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 LLF 0.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 LLF 0.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 LLF 0.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 LLF 0.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 LLF 0.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 LLF 0.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 LLF 0.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 LLF 0.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 LLF 0.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 LLF 0.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 LLF 0.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 LLF 0.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 LLF 0.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 LLF 0.8
+# Proposed_LLF
+python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 Proposed_LLF 0.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 Proposed_LLF 0.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 Proposed_LLF 0.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 Proposed_LLF 0.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 Proposed_LLF 0.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 Proposed_LLF 0.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 Proposed_LLF 0.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 Proposed_LLF 0.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 Proposed_LLF 0.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 Proposed_LLF 0.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 Proposed_LLF 0.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 Proposed_LLF 0.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 Proposed_LLF 0.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 Proposed_LLF 0.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 Proposed_LLF 0.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 Proposed_LLF 0.8
 wait
 
 
@@ -374,23 +374,23 @@ python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 EDF 0.9
 python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 EDF 0.9
 wait
 
-# LLF
-python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 LLF 0.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 LLF 0.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 LLF 0.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 LLF 0.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 LLF 0.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 LLF 0.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 LLF 0.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 LLF 0.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 LLF 0.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 LLF 0.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 LLF 0.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 LLF 0.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 LLF 0.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 LLF 0.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 LLF 0.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 LLF 0.9
+# Proposed_LLF
+python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 Proposed_LLF 0.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 Proposed_LLF 0.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 Proposed_LLF 0.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 Proposed_LLF 0.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 Proposed_LLF 0.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 Proposed_LLF 0.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 Proposed_LLF 0.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 Proposed_LLF 0.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 Proposed_LLF 0.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 Proposed_LLF 0.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 Proposed_LLF 0.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 Proposed_LLF 0.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 Proposed_LLF 0.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 Proposed_LLF 0.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 Proposed_LLF 0.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 Proposed_LLF 0.9
 wait
 
 
@@ -452,23 +452,23 @@ python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 EDF 1.0
 python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 EDF 1.0
 wait
 
-# LLF
-python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 LLF 1.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 LLF 1.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 LLF 1.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 LLF 1.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 LLF 1.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 LLF 1.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 LLF 1.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 LLF 1.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 LLF 1.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 LLF 1.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 LLF 1.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 LLF 1.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 LLF 1.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 LLF 1.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 LLF 1.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 LLF 1.0
+# Proposed_LLF
+python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 Proposed_LLF 1.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 Proposed_LLF 1.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 Proposed_LLF 1.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 Proposed_LLF 1.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 Proposed_LLF 1.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 Proposed_LLF 1.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 Proposed_LLF 1.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 Proposed_LLF 1.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 Proposed_LLF 1.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 Proposed_LLF 1.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 Proposed_LLF 1.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 Proposed_LLF 1.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 Proposed_LLF 1.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 Proposed_LLF 1.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 Proposed_LLF 1.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 Proposed_LLF 1.0
 wait
 
 
@@ -530,23 +530,23 @@ python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 EDF 1.1
 python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 EDF 1.1
 wait
 
-# LLF
-python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 LLF 1.1
-python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 LLF 1.1
-python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 LLF 1.1
-python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 LLF 1.1
-python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 LLF 1.1
-python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 LLF 1.1
-python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 LLF 1.1
-python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 LLF 1.1
-python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 LLF 1.1
-python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 LLF 1.1
-python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 LLF 1.1
-python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 LLF 1.1
-python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 LLF 1.1
-python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 LLF 1.1
-python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 LLF 1.1
-python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 LLF 1.1
+# Proposed_LLF
+python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 Proposed_LLF 1.1
+python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 Proposed_LLF 1.1
+python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 Proposed_LLF 1.1
+python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 Proposed_LLF 1.1
+python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 Proposed_LLF 1.1
+python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 Proposed_LLF 1.1
+python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 Proposed_LLF 1.1
+python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 Proposed_LLF 1.1
+python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 Proposed_LLF 1.1
+python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 Proposed_LLF 1.1
+python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 Proposed_LLF 1.1
+python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 Proposed_LLF 1.1
+python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 Proposed_LLF 1.1
+python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 Proposed_LLF 1.1
+python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 Proposed_LLF 1.1
+python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 Proposed_LLF 1.1
 wait
 
 
@@ -608,23 +608,23 @@ python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 EDF 1.2
 python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 EDF 1.2
 wait
 
-# LLF
-python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 LLF 1.2
-python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 LLF 1.2
-python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 LLF 1.2
-python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 LLF 1.2
-python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 LLF 1.2
-python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 LLF 1.2
-python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 LLF 1.2
-python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 LLF 1.2
-python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 LLF 1.2
-python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 LLF 1.2
-python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 LLF 1.2
-python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 LLF 1.2
-python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 LLF 1.2
-python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 LLF 1.2
-python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 LLF 1.2
-python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 LLF 1.2
+# Proposed_LLF
+python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 Proposed_LLF 1.2
+python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 Proposed_LLF 1.2
+python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 Proposed_LLF 1.2
+python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 Proposed_LLF 1.2
+python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 Proposed_LLF 1.2
+python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 Proposed_LLF 1.2
+python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 Proposed_LLF 1.2
+python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 Proposed_LLF 1.2
+python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 Proposed_LLF 1.2
+python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 Proposed_LLF 1.2
+python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 Proposed_LLF 1.2
+python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 Proposed_LLF 1.2
+python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 Proposed_LLF 1.2
+python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 Proposed_LLF 1.2
+python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 Proposed_LLF 1.2
+python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 Proposed_LLF 1.2
 wait
 
 
@@ -686,23 +686,23 @@ python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 EDF 1.3
 python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 EDF 1.3
 wait
 
-# LLF
-python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 LLF 1.3
-python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 LLF 1.3
-python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 LLF 1.3
-python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 LLF 1.3
-python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 LLF 1.3
-python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 LLF 1.3
-python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 LLF 1.3
-python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 LLF 1.3
-python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 LLF 1.3
-python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 LLF 1.3
-python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 LLF 1.3
-python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 LLF 1.3
-python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 LLF 1.3
-python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 LLF 1.3
-python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 LLF 1.3
-python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 LLF 1.3
+# Proposed_LLF
+python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 Proposed_LLF 1.3
+python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 Proposed_LLF 1.3
+python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 Proposed_LLF 1.3
+python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 Proposed_LLF 1.3
+python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 Proposed_LLF 1.3
+python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 Proposed_LLF 1.3
+python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 Proposed_LLF 1.3
+python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 Proposed_LLF 1.3
+python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 Proposed_LLF 1.3
+python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 Proposed_LLF 1.3
+python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 Proposed_LLF 1.3
+python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 Proposed_LLF 1.3
+python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 Proposed_LLF 1.3
+python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 Proposed_LLF 1.3
+python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 Proposed_LLF 1.3
+python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 Proposed_LLF 1.3
 wait
 
 
@@ -764,23 +764,23 @@ python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 EDF 1.4
 python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 EDF 1.4
 wait
 
-# LLF
-python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 LLF 1.4
-python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 LLF 1.4
-python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 LLF 1.4
-python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 LLF 1.4
-python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 LLF 1.4
-python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 LLF 1.4
-python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 LLF 1.4
-python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 LLF 1.4
-python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 LLF 1.4
-python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 LLF 1.4
-python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 LLF 1.4
-python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 LLF 1.4
-python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 LLF 1.4
-python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 LLF 1.4
-python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 LLF 1.4
-python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 LLF 1.4
+# Proposed_LLF
+python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 Proposed_LLF 1.4
+python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 Proposed_LLF 1.4
+python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 Proposed_LLF 1.4
+python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 Proposed_LLF 1.4
+python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 Proposed_LLF 1.4
+python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 Proposed_LLF 1.4
+python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 Proposed_LLF 1.4
+python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 Proposed_LLF 1.4
+python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 Proposed_LLF 1.4
+python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 Proposed_LLF 1.4
+python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 Proposed_LLF 1.4
+python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 Proposed_LLF 1.4
+python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 Proposed_LLF 1.4
+python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 Proposed_LLF 1.4
+python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 Proposed_LLF 1.4
+python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 Proposed_LLF 1.4
 wait
 
 
@@ -842,23 +842,23 @@ python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 EDF 1.5
 python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 EDF 1.5
 wait
 
-# LLF
-python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 LLF 1.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 LLF 1.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 LLF 1.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 LLF 1.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 LLF 1.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 LLF 1.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 LLF 1.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 LLF 1.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 LLF 1.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 LLF 1.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 LLF 1.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 LLF 1.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 LLF 1.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 LLF 1.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 LLF 1.5
-python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 LLF 1.5
+# Proposed_LLF
+python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 Proposed_LLF 1.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 Proposed_LLF 1.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 Proposed_LLF 1.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 Proposed_LLF 1.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 Proposed_LLF 1.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 Proposed_LLF 1.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 Proposed_LLF 1.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 Proposed_LLF 1.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 Proposed_LLF 1.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 Proposed_LLF 1.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 Proposed_LLF 1.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 Proposed_LLF 1.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 Proposed_LLF 1.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 Proposed_LLF 1.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 Proposed_LLF 1.5
+python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 Proposed_LLF 1.5
 wait
 
 
@@ -920,23 +920,23 @@ python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 EDF 1.6
 python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 EDF 1.6
 wait
 
-# LLF
-python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 LLF 1.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 LLF 1.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 LLF 1.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 LLF 1.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 LLF 1.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 LLF 1.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 LLF 1.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 LLF 1.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 LLF 1.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 LLF 1.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 LLF 1.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 LLF 1.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 LLF 1.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 LLF 1.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 LLF 1.6
-python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 LLF 1.6
+# Proposed_LLF
+python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 Proposed_LLF 1.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 Proposed_LLF 1.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 Proposed_LLF 1.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 Proposed_LLF 1.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 Proposed_LLF 1.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 Proposed_LLF 1.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 Proposed_LLF 1.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 Proposed_LLF 1.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 Proposed_LLF 1.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 Proposed_LLF 1.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 Proposed_LLF 1.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 Proposed_LLF 1.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 Proposed_LLF 1.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 Proposed_LLF 1.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 Proposed_LLF 1.6
+python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 Proposed_LLF 1.6
 wait
 
 
@@ -998,23 +998,23 @@ python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 EDF 1.7
 python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 EDF 1.7
 wait
 
-# LLF
-python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 LLF 1.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 LLF 1.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 LLF 1.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 LLF 1.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 LLF 1.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 LLF 1.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 LLF 1.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 LLF 1.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 LLF 1.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 LLF 1.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 LLF 1.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 LLF 1.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 LLF 1.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 LLF 1.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 LLF 1.7
-python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 LLF 1.7
+# Proposed_LLF
+python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 Proposed_LLF 1.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 Proposed_LLF 1.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 Proposed_LLF 1.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 Proposed_LLF 1.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 Proposed_LLF 1.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 Proposed_LLF 1.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 Proposed_LLF 1.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 Proposed_LLF 1.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 Proposed_LLF 1.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 Proposed_LLF 1.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 Proposed_LLF 1.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 Proposed_LLF 1.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 Proposed_LLF 1.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 Proposed_LLF 1.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 Proposed_LLF 1.7
+python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 Proposed_LLF 1.7
 wait
 
 
@@ -1076,23 +1076,23 @@ python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 EDF 1.8
 python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 EDF 1.8
 wait
 
-# LLF
-python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 LLF 1.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 LLF 1.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 LLF 1.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 LLF 1.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 LLF 1.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 LLF 1.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 LLF 1.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 LLF 1.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 LLF 1.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 LLF 1.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 LLF 1.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 LLF 1.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 LLF 1.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 LLF 1.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 LLF 1.8
-python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 LLF 1.8
+# Proposed_LLF
+python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 Proposed_LLF 1.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 Proposed_LLF 1.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 Proposed_LLF 1.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 Proposed_LLF 1.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 Proposed_LLF 1.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 Proposed_LLF 1.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 Proposed_LLF 1.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 Proposed_LLF 1.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 Proposed_LLF 1.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 Proposed_LLF 1.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 Proposed_LLF 1.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 Proposed_LLF 1.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 Proposed_LLF 1.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 Proposed_LLF 1.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 Proposed_LLF 1.8
+python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 Proposed_LLF 1.8
 wait
 
 
@@ -1154,23 +1154,23 @@ python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 EDF 1.9
 python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 EDF 1.9
 wait
 
-# LLF
-python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 LLF 1.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 LLF 1.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 LLF 1.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 LLF 1.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 LLF 1.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 LLF 1.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 LLF 1.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 LLF 1.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 LLF 1.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 LLF 1.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 LLF 1.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 LLF 1.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 LLF 1.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 LLF 1.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 LLF 1.9
-python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 LLF 1.9
+# Proposed_LLF
+python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 Proposed_LLF 1.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 Proposed_LLF 1.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 Proposed_LLF 1.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 Proposed_LLF 1.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 Proposed_LLF 1.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 Proposed_LLF 1.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 Proposed_LLF 1.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 Proposed_LLF 1.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 Proposed_LLF 1.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 Proposed_LLF 1.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 Proposed_LLF 1.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 Proposed_LLF 1.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 Proposed_LLF 1.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 Proposed_LLF 1.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 Proposed_LLF 1.9
+python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 Proposed_LLF 1.9
 wait
 
 
@@ -1232,21 +1232,21 @@ python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 EDF 2.0
 python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 EDF 2.0
 wait
 
-# LLF
-python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 LLF 2.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 LLF 2.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 LLF 2.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 LLF 2.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 LLF 2.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 LLF 2.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 LLF 2.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 LLF 2.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 LLF 2.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 LLF 2.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 LLF 2.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 LLF 2.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 LLF 2.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 LLF 2.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 LLF 2.0
-python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 LLF 2.0
+# Proposed_LLF
+python3 eval.py aw_change_coreNum AutowareAuto 1 16 1 Proposed_LLF 2.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 15 1 Proposed_LLF 2.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 14 1 Proposed_LLF 2.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 13 1 Proposed_LLF 2.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 12 1 Proposed_LLF 2.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 11 1 Proposed_LLF 2.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 10 1 Proposed_LLF 2.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 9 1 Proposed_LLF 2.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 8 1 Proposed_LLF 2.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 7 1 Proposed_LLF 2.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 6 1 Proposed_LLF 2.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 5 1 Proposed_LLF 2.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 4 1 Proposed_LLF 2.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 3 1 Proposed_LLF 2.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 2 1 Proposed_LLF 2.0
+python3 eval.py aw_change_coreNum AutowareAuto 1 1 1 Proposed_LLF 2.0
 wait

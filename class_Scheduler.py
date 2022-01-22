@@ -8,16 +8,17 @@ import time
 
 class Scheduler:
     # ＜コンストラクタ＞
-    def __init__(self, dag, target, jld_analyzer, laxity_table, alg_name, gen_ratio):
+    def __init__(self, dag, target, jld_analyzer, proposed_laxity_table, alg_name, gen_ratio, priority_table=[]):
         '''
         scheduling_list : スケジューリングリスト．ジョブがトリガーされたらこのリストに格納され，待ちジョブが他にもある場合，優先度順にソートされる
         dag : 割り当てるDAG
         target : ノードを割り当てるターゲットプロセッサ
         jld_analyzer : jld_analyzer
-        laxity_table : 提案手法によって生成された，各ジョブのラキシティ
+        proposed_laxity_table : 提案手法によって生成された，各ジョブのラキシティ
         rank_table : 各ジョブの rank
         alg_name : 使用するアルゴリズム名
         gen_ratio : stress job の生成確率
+        priority_table : 各ジョブの優先度を格納するテーブル
         result_core[i][j] : クラスタiのコアjの割り当て結果. [ノード番号, ジョブ番号, 処理開始時間, 処理終了時間]
         result_job[i][k] : t_{i,k} の割り当て結果. [割り当てられたクラスタ番号, 割り当てられたコア番号 , 処理開始時間, 処理終了時間]
         finish_jobs : 処理が終わったジョブ
@@ -34,8 +35,9 @@ class Scheduler:
         self.dag = dag
         self.target = target
         self.jld_analyzer = jld_analyzer
-        self.laxity_table = laxity_table
+        self.proposed_laxity_table = proposed_laxity_table
         self.alg_name = alg_name
+        self.priority_table = priority_table
         
         self.gen_ratio = float(gen_ratio)
         if(self.gen_ratio > 0) : self.setting_stress_job()  # 負荷を掛けたい場合
@@ -63,7 +65,6 @@ class Scheduler:
         self.num_stress_job = 0
         
         self.schedule()
-        print("a")
         
     
     # ＜メソッド＞
@@ -185,18 +186,18 @@ class Scheduler:
             
             # head の min_EST が提案手法の laxity を超えていた場合，早期検知
             if(self.dag.node[head[0]].isStress == False):
-                if(self.laxity_table[head[0]][head[1]] > 90000000000000000):  # laxity が計算されていないジョブの場合
+                if(self.proposed_laxity_table[head[0]][head[1]] > 90000000000000000):  # laxity が計算されていないジョブの場合
                     i = 0
-                    while(self.laxity_table[head[0]][head[1] + i] > 90000000000000000):  # laxity が計算されている後続ジョブまで
+                    while(self.proposed_laxity_table[head[0]][head[1] + i] > 90000000000000000):  # laxity が計算されている後続ジョブまで
                         if(head[1] + i == self.jld_analyzer.get_num_trigger_hp(head[0]) - 1):
                             break
                         
                         i += 1
                     
-                    laxity = self.laxity_table[head[0]][head[1] + i]
+                    laxity = self.proposed_laxity_table[head[0]][head[1] + i]
                 
                 else:
-                        laxity = self.laxity_table[head[0]][head[1]]
+                        laxity = self.proposed_laxity_table[head[0]][head[1]]
                 
                 # 判定
                 if(min_EST > laxity):
@@ -336,41 +337,32 @@ class Scheduler:
                         break
                 
         
-        # Proposed LLF
+        # LLF
         if(self.alg_name == "LLF"):
-            if(self.laxity_table[self.scheduling_list[-1][0]][self.scheduling_list[-1][1]] > 90000000000000000):  # laxity が計算されていないジョブの場合
-                self.discard_jobs.append(self.scheduling_list[-1])
-                head = self.scheduling_list.pop(-1)
-                self.result_job[head[0]][head[1]] = ["Discard"]
-                return 0
-            
-            else:
-                # 末尾から比較していく
-                for index in range(1, len(self.scheduling_list)):
-                    if(self.dag.node[self.scheduling_list[-(index+1)][0]].isStress == False):  # stress job は無視
-                        end_job_laxity = self.laxity_table[self.scheduling_list[-index][0]][self.scheduling_list[-index][1]]
-                        before_job_laxity = self.laxity_table[self.scheduling_list[-(index+1)][0]][self.scheduling_list[-(index+1)][1]]
+            # 末尾から比較していく
+            for index in range(1, len(self.scheduling_list)):
+                if(self.dag.node[self.scheduling_list[-(index+1)][0]].isStress == False):  # stress job は無視
+                    end_job_laxity = self.priority_table[self.scheduling_list[-index][0]][self.scheduling_list[-index][1]]
+                    before_job_laxity = self.priority_table[self.scheduling_list[-(index+1)][0]][self.scheduling_list[-(index+1)][1]]
+                    
+                    if(end_job_laxity < before_job_laxity):
+                        # 末尾と一個前を入れ替え
+                        temp_end_job = self.scheduling_list[-index]
+                        self.scheduling_list[-index] = self.scheduling_list[-(index+1)]
+                        self.scheduling_list[-(index+1)] = temp_end_job
                         
-                        if(end_job_laxity < before_job_laxity):
-                            if(self.scheduling_list[-index][0] != self.scheduling_list[-(index+1)][0]):  # 同じノードから生成されたジョブでなければ
-                                # 末尾と一個前を入れ替え
-                                temp_end_job = self.scheduling_list[-index]
-                                self.scheduling_list[-index] = self.scheduling_list[-(index+1)]
-                                self.scheduling_list[-(index+1)] = temp_end_job
+                    elif(end_job_laxity == before_job_laxity):  # laxity が同じ場合，トリガー時刻が早いジョブを優先
+                        end_job_trigger_time = self.dag.node[self.scheduling_list[-index][0]].trigger_time_list[self.scheduling_list[-index][1]]
+                        before_job_trigger_time = self.dag.node[self.scheduling_list[-(index+1)][0]].trigger_time_list[self.scheduling_list[-(index+1)][1]]
+                        
+                        if(end_job_trigger_time < before_job_trigger_time):
+                            # 末尾と一個前を入れ替え
+                            temp_end_job = self.scheduling_list[-index]
+                            self.scheduling_list[-index] = self.scheduling_list[-(index+1)]
+                            self.scheduling_list[-(index+1)] = temp_end_job
                             
-                        elif(end_job_laxity == before_job_laxity):  # laxity が同じ場合，トリガー時刻が早いジョブを優先
-                            end_job_trigger_time = self.dag.node[self.scheduling_list[-index][0]].trigger_time_list[self.scheduling_list[-index][1]]
-                            before_job_trigger_time = self.dag.node[self.scheduling_list[-(index+1)][0]].trigger_time_list[self.scheduling_list[-(index+1)][1]]
-                            
-                            if(end_job_trigger_time < before_job_trigger_time):
-                                if(self.scheduling_list[-index][0] != self.scheduling_list[-(index+1)][0]):  # 同じノードから生成されたジョブでなければ
-                                    # 末尾と一個前を入れ替え
-                                    temp_end_job = self.scheduling_list[-index]
-                                    self.scheduling_list[-index] = self.scheduling_list[-(index+1)]
-                                    self.scheduling_list[-(index+1)] = temp_end_job
-                                
-                        else:  # 1個前のジョブの方が laxity が小さい場合，ソート終了
-                            break
+                    else:  # 1個前のジョブの方が laxity が小さい場合，ソート終了
+                        break
             
     
     # -- timer-driven node の trigger_time_list をセット --

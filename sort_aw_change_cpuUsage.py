@@ -2,7 +2,7 @@
 
 # パラメータ
 a_values = ["1.4", "1.5", "1.6", "1.7", "1.8", "1.9", "2.0"]
-alg_names = ["FIFO", "RMS", "EDF", "LLF"]
+alg_names = ["EDF", "Proposed_LLF", "Igarashi_LLF", "Salah_LLF"]
 
 
 for a_value in a_values:

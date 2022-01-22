@@ -9,10 +9,10 @@ for ((numCore=1 ; numCore<8 ; numCore++))
 do
     for ((i=0 ; i<$1 ; i++))
     do
-        python3 eval.py tgff_change_numCore new_random_tf_${i} 1 ${numCore} 1 FIFO 3.0 0
-        python3 eval.py tgff_change_numCore new_random_tf_${i} 1 ${numCore} 1 RMS 3.0 0
-        python3 eval.py tgff_change_numCore new_random_tf_${i} 1 ${numCore} 1 EDF 3.0 0
-        python3 eval.py tgff_change_numCore new_random_tf_${i} 1 ${numCore} 1 LLF 3.0 0
+        python3 eval.py tgff_change_numCore new_random_tf_${i} 1 ${numCore} 1 EDF None 3.0 0
+        python3 eval.py tgff_change_numCore new_random_tf_${i} 1 ${numCore} 1 LLF Proposed 3.0 0
+        python3 eval.py tgff_change_numCore new_random_tf_${i} 1 ${numCore} 1 LLF Igarashi 3.0 0
+        python3 eval.py tgff_change_numCore new_random_tf_${i} 1 ${numCore} 1 LLF Salah 3.0 0
     done
 done
 

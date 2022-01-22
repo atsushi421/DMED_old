@@ -11,7 +11,7 @@ class AwResultAnalyzer:
         # パラメータ
         self.a_values = ["1.4", "1.5", "1.6", "1.7", "1.8", "1.9", "2.0"]
         self.cpu_usages = ["60", "65", "70", "75", "80", "85", "90", "95"]
-        self.alg_names = ["FIFO", "RMS", "EDF", "LLF"]
+        self.alg_names = ["FIFO", "RMS", "EDF", "Proposed_LLF"]
     
     
     # <メソッド>
@@ -191,7 +191,7 @@ class AwResultAnalyzer:
                             if(alg_name == "FIFO"): FIFO_sum_earlier_time += (int(line_list[3]) - int(line_list[1]))
                             if(alg_name == "RMS"): RMS_sum_earlier_time += (int(line_list[3]) - int(line_list[1]))
                             if(alg_name == "EDF"): EDF_sum_earlier_time += (int(line_list[3]) - int(line_list[1]))
-                            if(alg_name == "LLF"): LLF_sum_earlier_time += (int(line_list[3]) - int(line_list[1]))
+                            if(alg_name == "Proposed_LLF"): LLF_sum_earlier_time += (int(line_list[3]) - int(line_list[1]))
                     
                     read_file.close()
         
@@ -215,7 +215,7 @@ class TgffResultAnalyzer:
     # <コンストラクタ>
     def __init__(self):
         # パラメータ
-        self.alg_names = ["FIFO", "RMS", "EDF", "LLF"]
+        self.alg_names = ["FIFO", "RMS", "EDF", "Proposed_LLF"]
         self.cpuUsages = ["1", "2", "3", "4", "5", "6", "7", "8"]
         self.cpuUsages = ["10", "20", "30", "40", "50", "60", "70", "80", "90", "100"]
         

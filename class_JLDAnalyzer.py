@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import numpy as np
 
 
 class JLDAnalyzer:
@@ -25,6 +26,8 @@ class JLDAnalyzer:
             self.proposed_analyze_tail_to_join()
         elif(self.method_name == "Igarashi"):
             self.igarashi_analyze_tail_to_join()
+        elif(self.method_name == "Salah"):
+            self.salah_analyze_tail_to_join()
         
         
     # <メソッド>
@@ -301,3 +304,34 @@ class JLDAnalyzer:
                         if(self.dag.node[succ_join].st_list[s] < self.dag.node[tail_index].st_list[k]): break   # tail node job の st が 後続の st を超えていたら探索終了
                         
                     self.job_succ[tail_index][min_st_diff_tail_index].append([succ_join, s])  # 依存関係の追加
+    
+    
+    # -- TMS/DEVS 2019 における tail~join 間の依存関係を解析 --
+    def salah_analyze_tail_to_join(self):
+        tail_list = self.get_tail_list()
+        join_list = self.get_join_list()
+        
+        for tail_index in tail_list:
+            if(self.dag.exit[tail_index] == 1): continue  # exit node は後続が無いのでスキップ
+            
+            self.set_job_succ_size(tail_index)
+            tail_succ_list = self.dag.succ[tail_index]
+            succ_join_list = list(set(tail_succ_list) & set(join_list))  # 見ている tail node の後続の join node の添え字のリスト
+            
+            for succ_join in succ_join_list:
+                tail_period = self.get_period(tail_index)
+                join_period = self.get_period(succ_join)
+                
+                if(tail_period > join_period):  # slow to fast
+                    for k in range(1, self.get_num_trigger_hp(tail_index)):  # 0 は除く
+                        join_job_index = int(np.ceil(k * tail_period / join_period))
+                        if(join_job_index >= self.get_num_trigger_hp(succ_join)): break
+                        
+                        self.job_succ[tail_index][k].append([succ_join, join_job_index])  # 依存関係の追加
+                        
+                elif(tail_period < join_period):  # fast to slow
+                    for s in range(1, self.get_num_trigger_hp(succ_join)):  # 0 は除く
+                        tail_job_index = int(np.floor(s * join_period / tail_period))
+                        if(tail_job_index >= self.get_num_trigger_hp(tail_index)): break
+                        
+                        self.job_succ[tail_index][tail_job_index].append([succ_join, s])  # 依存関係の追加
