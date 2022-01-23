@@ -11,7 +11,7 @@ class AwResultAnalyzer:
         # パラメータ
         self.a_values = ["1.4", "1.5", "1.6", "1.7", "1.8", "1.9", "2.0"]
         self.cpu_usages = ["60", "65", "70", "75", "80", "85", "90", "95"]
-        self.alg_names = ["FIFO", "RMS", "EDF", "Proposed_LLF"]
+        self.alg_names = ["EDF", "Proposed_LLF", "Igarashi_LLF", "Salah_LLF"]
     
     
     # <メソッド>
@@ -173,10 +173,10 @@ class AwResultAnalyzer:
     #  -- 「デッドラインミスした and 早期検知した」場合の平均削減時間データ作成（横軸はアルゴリズム） --
     def early_time_bar_graph_by_alg(self):
         sum_result = 0  # 計測結果の数の合計
-        FIFO_sum_earlier_time = 0
-        RMS_sum_earlier_time = 0
+        Igarashi_LLF_sum_earlier_time = 0
+        Salah_LLF_sum_earlier_time = 0
         EDF_sum_earlier_time = 0
-        LLF_sum_earlier_time = 0
+        Proposed_LLF_sum_earlier_time = 0
         
         for a_value in self.a_values:
             for cpu_usage in self.cpu_usages:
@@ -188,23 +188,23 @@ class AwResultAnalyzer:
                         
                         if(int(line_list[0]) == 1 and int(line_list[2]) == 1):
                             sum_result += 1
-                            if(alg_name == "FIFO"): FIFO_sum_earlier_time += (int(line_list[3]) - int(line_list[1]))
-                            if(alg_name == "RMS"): RMS_sum_earlier_time += (int(line_list[3]) - int(line_list[1]))
+                            if(alg_name == "Igarashi_LLF"): Igarashi_LLF_sum_earlier_time += (int(line_list[3]) - int(line_list[1]))
+                            if(alg_name == "Salah_LLF"): Salah_LLF_sum_earlier_time += (int(line_list[3]) - int(line_list[1]))
                             if(alg_name == "EDF"): EDF_sum_earlier_time += (int(line_list[3]) - int(line_list[1]))
-                            if(alg_name == "Proposed_LLF"): LLF_sum_earlier_time += (int(line_list[3]) - int(line_list[1]))
+                            if(alg_name == "Proposed_LLF"): Proposed_LLF_sum_earlier_time += (int(line_list[3]) - int(line_list[1]))
                     
                     read_file.close()
         
         # 計算
         sum_result /= 4
-        FIFO_ave_earlier_time = FIFO_sum_earlier_time / sum_result
-        RMS_ave_earlier_time = RMS_sum_earlier_time / sum_result
+        Igarashi_LLF_ave_earlier_time = Igarashi_LLF_sum_earlier_time / sum_result
+        Salah_LLF_ave_earlier_time = Salah_LLF_sum_earlier_time / sum_result
         EDF_ave_earlier_time = EDF_sum_earlier_time / sum_result
-        LLF_ave_earlier_time = LLF_sum_earlier_time / sum_result
+        Proposed_LLF_ave_earlier_time = Proposed_LLF_sum_earlier_time / sum_result
         
         
         # 出力
-        result_list = [FIFO_ave_earlier_time, RMS_ave_earlier_time, EDF_ave_earlier_time, LLF_ave_earlier_time]
+        result_list = [Igarashi_LLF_ave_earlier_time, Salah_LLF_ave_earlier_time, EDF_ave_earlier_time, Proposed_LLF_ave_earlier_time]
         df = pd.DataFrame(result_list, index=self.alg_names)
         df.to_csv("early_time_bar_graph_by_alg.csv")
 
@@ -302,10 +302,11 @@ class TgffResultAnalyzer:
 
 
 if __name__ == "__main__":
-    args = sys.argv
     aw = AwResultAnalyzer()
+    aw.early_time_bar_graph_by_alg()
+    
     # aw.early_time_bar_graph_by_alg()
     # aw.ratio_line_graph_by_change_a()
     
-    tgff = TgffResultAnalyzer()
-    tgff.deadline_miss_ratio_line_graph_by_change_cpuUsage()
+    # tgff = TgffResultAnalyzer()
+    # tgff.deadline_miss_ratio_line_graph_by_change_cpuUsage()
