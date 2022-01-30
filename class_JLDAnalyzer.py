@@ -143,12 +143,6 @@ class JLDAnalyzer:
             return True
         else:
             return False
-        
-
-        if(node_index in self.divG[subG_index].head_list):
-            return True
-        else:
-            return False
     
     
     # -- ni が所属する subG の添え字を返す --

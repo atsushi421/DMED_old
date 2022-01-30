@@ -277,38 +277,6 @@ class Scheduler:
     def sort_scheduling_list(self):
         if(len(self.scheduling_list) == 1): return 0  # scheduling_list 内にジョブが1つなら何もしない
         
-        # FIFO
-        if(self.alg_name == "FIFO"):
-            return 0  # 何もしない
-        
-        # RMS
-        if(self.alg_name == "RMS"):
-            # 末尾から比較していく
-            for index in range(1, len(self.scheduling_list)):
-                if(self.dag.node[self.scheduling_list[-(index+1)][0]].isStress == False):  # stress job は無視
-                    end_job_period = self.jld_analyzer.get_period(self.scheduling_list[-index][0])
-                    before_job_period = self.jld_analyzer.get_period(self.scheduling_list[-(index+1)][0])
-                    
-                    if(end_job_period < before_job_period):
-                        # 末尾と一個前を入れ替え
-                        temp_end_job = self.scheduling_list[-index]
-                        self.scheduling_list[-index] = self.scheduling_list[-(index+1)]
-                        self.scheduling_list[-(index+1)] = temp_end_job
-                        
-                    elif(end_job_period == before_job_period):  # 周期が同じ場合，トリガー時刻が早いジョブを優先
-                        end_job_trigger_time = self.dag.node[self.scheduling_list[-index][0]].trigger_time_list[self.scheduling_list[-index][1]]
-                        before_job_trigger_time = self.dag.node[self.scheduling_list[-(index+1)][0]].trigger_time_list[self.scheduling_list[-(index+1)][1]]
-                        
-                        if(end_job_trigger_time < before_job_trigger_time):
-                            # 末尾と一個前を入れ替え
-                            temp_end_job = self.scheduling_list[-index]
-                            self.scheduling_list[-index] = self.scheduling_list[-(index+1)]
-                            self.scheduling_list[-(index+1)] = temp_end_job
-                            
-                    else:  # 1個前のジョブの方が周期が小さい場合，ソート終了
-                        break
-        
-        
         # EDF
         if(self.alg_name == "EDF"):
             # 末尾から比較していく
@@ -339,13 +307,6 @@ class Scheduler:
         
         # LLF
         if(self.alg_name == "LLF"):
-            # if(self.priority_table[self.scheduling_list[-1][0]][self.scheduling_list[-1][1]] > 90000000000000000):  # laxity が計算されていないジョブの場合破棄．
-            #     self.discard_jobs.append(self.scheduling_list[-1])
-            #     head = self.scheduling_list.pop(-1)
-            #     self.result_job[head[0]][head[1]] = ["Discard"]
-            #     return 0
-            
-            # else:
             # 末尾から比較していく
             for index in range(1, len(self.scheduling_list)):
                 if(self.dag.node[self.scheduling_list[-(index+1)][0]].isStress == False):  # stress job は無視
