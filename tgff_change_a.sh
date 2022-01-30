@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 
-# # remove result
-# find /mnt/c/Users/atsushi/Documents/Study/M1/master_thesis/Code/result/TGFF/tgff_change_numCore/ -name *.txt | xargs rm
-# wait
+# remove result
+find /mnt/c/Users/atsushi/Documents/Study/M1/master_thesis/Code/result/TGFF/tgff_change_numCore/ -name *.txt | xargs rm
+wait
 
 
 
@@ -15,8 +15,3 @@ do
         python3 eval.py tgff_change_a new_random_tf_${i} 1 4 1 LLF Salah ${a} 0
     done
 done
-
-
-
-# wait
-# python3 sort_tgff_change_numCore.py

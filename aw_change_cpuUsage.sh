@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 
 # remove result
-# find /mnt/c/Users/atsushi/Documents/Study/M1/master_thesis/Code/result/Autoware/aw_change_cpuUsage/ -name *.txt | xargs rm
-# wait
+find /mnt/c/Users/atsushi/Documents/Study/M1/master_thesis/Code/result/Autoware/aw_change_cpuUsage/ -name *.txt | xargs rm
+wait
 
 
 for a in $(seq $2 0.1 $3); do
