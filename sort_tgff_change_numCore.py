@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # パラメータ
-numCores = ["1", "5", "6", "7", "8"]
+numCores = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"]
 alg_names = ["EDF", "Proposed_LLF", "Igarashi_LLF", "Salah_LLF"]
 
 

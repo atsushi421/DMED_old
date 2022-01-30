@@ -8,7 +8,7 @@ wait
 
 for ((i=0 ; i<$1 ; i++))
 do
-    python3 eval.py tgff_run_time new_random_tf_${i} 1 1 1 FIFO 1 1
+    python3 eval.py tgff_run_time new_random_tf_${i} 1 1 1 LLF Proposed 15.0 0
 
     if [ $((i % 10)) -eq 0 ]; then
         wait

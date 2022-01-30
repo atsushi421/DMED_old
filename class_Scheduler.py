@@ -339,6 +339,13 @@ class Scheduler:
         
         # LLF
         if(self.alg_name == "LLF"):
+            # if(self.priority_table[self.scheduling_list[-1][0]][self.scheduling_list[-1][1]] > 90000000000000000):  # laxity が計算されていないジョブの場合破棄．
+            #     self.discard_jobs.append(self.scheduling_list[-1])
+            #     head = self.scheduling_list.pop(-1)
+            #     self.result_job[head[0]][head[1]] = ["Discard"]
+            #     return 0
+            
+            # else:
             # 末尾から比較していく
             for index in range(1, len(self.scheduling_list)):
                 if(self.dag.node[self.scheduling_list[-(index+1)][0]].isStress == False):  # stress job は無視
