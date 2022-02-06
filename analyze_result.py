@@ -220,7 +220,7 @@ class TgffResultAnalyzer:
     def __init__(self):
         # パラメータ
         self.alg_names = ["EDF", "Proposed_LLF", "Igarashi_LLF", "Salah_LLF"]
-        self.numCores = ["1", "2", "3", "4", "5", "6", "7", "8"]
+        self.numCores = ["2", "3", "4", "5", "6", "7", "8"]
         self.a_values = ["1.0", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "1.7", "1.8", "1.9", "2.0"]
         self.cpuUsages = ["10", "20", "30", "40", "50", "60", "70", "80", "90", "100"]
         
@@ -293,7 +293,6 @@ class TgffResultAnalyzer:
         
         for numCore in self.numCores:
             for alg_name in self.alg_names:
-                if(numCore == "1"): one_list = np.append(one_list, self.get_deadline_miss_ratio(numCore, alg_name))
                 if(numCore == "2"): two_list = np.append(two_list, self.get_deadline_miss_ratio(numCore, alg_name))
                 if(numCore == "3"): three_list = np.append(three_list, self.get_deadline_miss_ratio(numCore, alg_name))
                 if(numCore == "4"): four_list = np.append(four_list, self.get_deadline_miss_ratio(numCore, alg_name))
@@ -311,7 +310,7 @@ class TgffResultAnalyzer:
                 # if(numCore == "16"): sixteen_list = np.append(sixteen_list, self.get_deadline_miss_ratio(numCore, alg_name))
                 
         # result_table = np.stack([one_list, two_list, three_list, four_list, five_list, six_list, seven_list, eight_list, nine_list, ten_list, eleven_list, twelve_list, thirteen_list, forteen_list, fifteen_list, sixteen_list])  # 縦に結合
-        result_table = np.stack([one_list, two_list, three_list, four_list, five_list, six_list, seven_list, eight_list])  # 縦に結合
+        result_table = np.stack([two_list, three_list, four_list, five_list, six_list, seven_list, eight_list])  # 縦に結合
         # 出力
         col = self.alg_names
         ind = self.numCores
@@ -414,8 +413,5 @@ class TgffResultAnalyzer:
 
 
 if __name__ == "__main__":
-    aw = AwResultAnalyzer()
-    aw.early_time_by_alg()
-    
-    # aw.early_time_bar_graph_by_alg()
-    # aw.ratio_line_graph_by_change_a()
+    tgff = TgffResultAnalyzer()
+    tgff.run_time_line_graph_by_change_jobNum()
