@@ -278,7 +278,7 @@ if __name__ == "__main__":
             # -- entry node を timer driven node に変換 --
             dag.node[entry_index].isEvent = False
             dag.node[entry_index].isTimer = True
-            dag.node[entry_index].period = random.choice([10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120])
+            dag.node[entry_index].period = random.choice([10, 20, 30, 40, 50, 60, 80, 100, 120])
         
             # -- entry node に後続がない場合，entry node 以外に繋ぐ --
             if(dag.exit[entry_index] == 1):
@@ -311,7 +311,7 @@ if __name__ == "__main__":
                 dag.node[node_index].isJoin = True
                 dag.node[node_index].isEvent = False
                 dag.node[node_index].isTimer = True
-                dag.node[node_index].period = random.choice([10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120])
+                dag.node[node_index].period = random.choice([10, 20, 30, 40, 50, 60, 80, 100, 120])
         
         
         # -- timer driven node に繋がるエッジを全て update edge に変換 --

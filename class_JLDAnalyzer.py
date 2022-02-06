@@ -1,24 +1,33 @@
 # -*- coding: utf-8 -*-
+import numpy as np
 
 
 class JLDAnalyzer:
     # <コンストラクタ>
-    def __init__(self, dag, divG, a):
+    def __init__(self, dag, divG, a, method_name):
         '''
         dag : 解析対象の DAG
         divG : subG の集合に切り分けられた DAG
         a : Eq. (1) の a の値
         job_succ[i][j] : n_(i,j) の後続ジョブの添え字を格納するリスト
+        method_name : 依存関係を決めるのに使用する手法の名前
         '''
         self.dag = dag
         self.divG = divG
         self.a = float(a)
         self.job_succ = [[] for i in range(len(self.dag.node))]
+        self.method_name = method_name
         
         self.calc_ideal_st_ft()
         self.calc_duration()
         self.analyze_in_subG()
-        self.critical_analyze_tail_to_join()
+        
+        if(self.method_name == "Proposed"):
+            self.proposed_analyze_tail_to_join()
+        elif(self.method_name == "Igarashi"):
+            self.igarashi_analyze_tail_to_join()
+        elif(self.method_name == "Salah"):
+            self.salah_analyze_tail_to_join()
         
         
     # <メソッド>
@@ -27,7 +36,7 @@ class JLDAnalyzer:
         if(self.dag.entry[node_index] == 1):  # 対象ノードが entry node
             return self.dag.node[node_index].st_list[job_index]
         
-        elif(self.dag.node[node_index].isJoin == True):
+        elif(self.dag.node[node_index].isJoin == True):  # join node でタイムスタンプが更新されるため
             return self.dag.node[node_index].st_list[job_index]
         
         else:
@@ -134,12 +143,6 @@ class JLDAnalyzer:
             return True
         else:
             return False
-        
-
-        if(node_index in self.divG[subG_index].head_list):
-            return True
-        else:
-            return False
     
     
     # -- ni が所属する subG の添え字を返す --
@@ -235,33 +238,10 @@ class JLDAnalyzer:
                     
             # 終了判定
             if(finish_flag == True): break
-    
-    
-    # -- tail~join 間の依存関係を解析 --
-    def analyze_tail_to_join(self):
-        tail_list = self.get_tail_list()
-        join_list = self.get_join_list()
-        
-        for tail_index in tail_list:
-            if(self.dag.exit[tail_index] == 1): continue  # exit node は後続が無いのでスキップ
-            
-            self.set_job_succ_size(tail_index)
-            tail_succ_list = self.dag.succ[tail_index]
-            succ_join_list = list(set(tail_succ_list) & set(join_list))  # 見ている tail node の後続の join node の添え字のリスト
-            
-            for succ_join in succ_join_list:
-                for k in reversed(range(len(self.dag.node[tail_index].ft_list))):  # 後ろから見ていく
-                    for s in range(len(self.dag.node[succ_join].st_list)):
-                        if(s == 0):  # s の最初は条件式の範囲を超えるので，別の処理を行う
-                            if(self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1] <= self.dag.node[succ_join].st_list[s]) :  # 1 つ目の条件のみ
-                                self.job_succ[tail_index][k].append([succ_join, s])
-                        
-                        if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s]):  # Definition 1 - 条件 1
-                            self.job_succ[tail_index][k].append([succ_join, s])
 
     
-    # -- デッドラインミスに関わる tail~join 間の依存関係を解析 --
-    def critical_analyze_tail_to_join(self):
+    # -- 提案手法における tail~join 間の依存関係を解析 --
+    def proposed_analyze_tail_to_join(self):
         tail_list = self.get_tail_list()
         join_list = self.get_join_list()
         
@@ -278,3 +258,74 @@ class JLDAnalyzer:
                         # Definition 1
                         if((self.dag.node[tail_index].ft_list[k] + self.dag.edge[tail_index][succ_join][1]) <= self.dag.node[succ_join].st_list[s] and (self.dag.node[succ_join].st_list[s] - self.get_ideal_timestamp(tail_index, k)) <= (self.a * self.get_period(tail_index))):
                             self.job_succ[tail_index][k].append([succ_join, s])
+    
+    
+    # -- timer-driven node とした場合の st を返す --
+    def get_igarashi_timer_st(self, node_index, job_index):
+        if(self.dag.node[node_index].isTimer == True):
+            return self.dag.node[node_index].st_list[job_index]
+        
+        else:
+            # 同一 sg 上の前任ノードをたどる
+            trigger_nodes = self.dag.node[node_index].trigger_list
+            return self.get_igarashi_timer_st(trigger_nodes[0], job_index)
+    
+    
+    # -- DS-RT 2019 における tail~join 間の依存関係を解析 --
+    def igarashi_analyze_tail_to_join(self):
+        tail_list = self.get_tail_list()
+        join_list = self.get_join_list()
+        
+        for tail_index in tail_list:
+            if(self.dag.exit[tail_index] == 1): continue  # exit node は後続が無いのでスキップ
+            
+            self.set_job_succ_size(tail_index)
+            tail_succ_list = self.dag.succ[tail_index]
+            succ_join_list = list(set(tail_succ_list) & set(join_list))  # 見ている tail node の後続の join node の添え字のリスト
+            
+            for succ_join in succ_join_list:
+                for s in range(self.get_num_trigger_hp(succ_join)):  # 後続ノードの st を 1 つずつ取り出す
+                    if(s == 0): continue  # 後続の 0 番目のジョブはスキップで良い
+                    
+                    min_st_diff = 999999999999999999999  # 最小の st の差
+                    min_st_diff_tail_index = -1  # 最小の st の差を持つ tail node job の添え字
+                    for k in range(len(self.dag.node[tail_index].st_list)):  # tail node の st を 1 つずつ取り出す
+                        st_diff = abs(self.get_igarashi_timer_st(succ_join, s) - self.get_igarashi_timer_st(tail_index, k))
+                        if(st_diff < min_st_diff):
+                            min_st_diff = st_diff
+                            min_st_diff_tail_index = k
+                        
+                        if(self.dag.node[succ_join].st_list[s] < self.dag.node[tail_index].st_list[k]): break   # tail node job の st が 後続の st を超えていたら探索終了
+                        
+                    self.job_succ[tail_index][min_st_diff_tail_index].append([succ_join, s])  # 依存関係の追加
+    
+    
+    # -- TMS/DEVS 2019 における tail~join 間の依存関係を解析 --
+    def salah_analyze_tail_to_join(self):
+        tail_list = self.get_tail_list()
+        join_list = self.get_join_list()
+        
+        for tail_index in tail_list:
+            if(self.dag.exit[tail_index] == 1): continue  # exit node は後続が無いのでスキップ
+            
+            self.set_job_succ_size(tail_index)
+            tail_succ_list = self.dag.succ[tail_index]
+            succ_join_list = list(set(tail_succ_list) & set(join_list))  # 見ている tail node の後続の join node の添え字のリスト
+            
+            for succ_join in succ_join_list:
+                tail_period = self.get_period(tail_index)
+                join_period = self.get_period(succ_join)
+                
+                if(tail_period > join_period):  # slow to fast
+                    for k in range(1, self.get_num_trigger_hp(tail_index)):  # 0 は除く
+                        join_job_index = int(np.ceil(k * tail_period / join_period))
+                        if(join_job_index >= self.get_num_trigger_hp(succ_join)): break
+                        
+                        self.job_succ[tail_index][k].append([succ_join, join_job_index])  # 依存関係の追加
+                        
+                elif(tail_period < join_period):  # fast to slow
+                    for s in range(1, self.get_num_trigger_hp(succ_join)):  # 0 は除く
+                        tail_job_index = int(np.floor(s * join_period / tail_period))
+                        if(tail_job_index >= self.get_num_trigger_hp(tail_index)): break
+                        
+                        self.job_succ[tail_index][tail_job_index].append([succ_join, s])  # 依存関係の追加

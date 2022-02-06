@@ -2,6 +2,7 @@
 
 import sys
 import time
+import copy
 from class_DAG import DAG
 from divide_subG import divide_subG
 from class_ClusteredManyCore import ClusteredManyCoreProcessor
@@ -27,8 +28,9 @@ class Evaluater:
         self.DAG_NAME = args[2]
         self.TARGET = ClusteredManyCoreProcessor(int(args[3]), int(args[4]), float(args[5]))
         self.ALG_NAME = args[6]
-        self.VALUE_OF_A = float(args[7])
-        self.GEN_RATIO = float(args[8])
+        self.METHOD_NAME = args[7]
+        self.VALUE_OF_A = float(args[8])
+        self.GEN_RATIO = float(args[9])
         
         self.RESULT_PATH = self.set_result_path()
         self.evaluate()
@@ -43,6 +45,7 @@ class Evaluater:
         if(self.EVA_NAME == "aw_change_cpuUsage"): self.aw_change_cpuUsage()
         if(self.EVA_NAME == "tgff_run_time"): self.tgff_run_time()
         if(self.EVA_NAME == "tgff_change_numCore"): self.tgff_change_numCore()
+        if(self.EVA_NAME == "tgff_change_a"): self.tgff_change_a()
     
     
     # -- 評価名に基づいて, result_path を決める --
@@ -57,10 +60,22 @@ class Evaluater:
             return "./result/Autoware/aw_change_a/coreNum_" + str(self.TARGET.num_of_core) + "/" + str(self.ALG_NAME) + ".txt"
 
         if(self.EVA_NAME == "aw_change_cpuUsage"):
-            return "./result/Autoware/aw_change_cpuUsage/a_" + str(self.VALUE_OF_A) + "/" + str(self.ALG_NAME) + ".txt"
+            if(self.METHOD_NAME != "None"):
+                return "./result/Autoware/aw_change_cpuUsage/a_" + str(self.VALUE_OF_A) + "/" + str(self.METHOD_NAME) + "_" + str(self.ALG_NAME) + ".txt"
+            else:  # 依存関係が関係ないアルゴリズムの場合
+                return "./result/Autoware/aw_change_cpuUsage/a_" + str(self.VALUE_OF_A) + "/" + str(self.ALG_NAME) + ".txt"
         
         if(self.EVA_NAME == "tgff_change_numCore"):
-            return "./result/TGFF/tgff_change_numCore/numCore_" + str(self.TARGET.num_of_core) + "/" + str(self.ALG_NAME) + ".txt"
+            if(self.METHOD_NAME != "None"):
+                return "./result/TGFF/tgff_change_numCore/numCore_" + str(self.TARGET.num_of_core) + "/" + str(self.METHOD_NAME) + "_" + str(self.ALG_NAME) + ".txt"
+            else:
+                return "./result/TGFF/tgff_change_numCore/numCore_" + str(self.TARGET.num_of_core) + "/" + str(self.ALG_NAME) + ".txt"
+            
+        if(self.EVA_NAME == "tgff_change_a"):
+            if(self.METHOD_NAME != "None"):
+                return "./result/TGFF/tgff_change_a/a_" + str(self.VALUE_OF_A) + "/" + str(self.METHOD_NAME) + "_" + str(self.ALG_NAME) + ".txt"
+            else:
+                return "./result/TGFF/tgff_change_a/a_" + str(self.VALUE_OF_A) + "/" + str(self.ALG_NAME) + ".txt"
         
         if(self.EVA_NAME == "tgff_run_time"):
             return "./result/TGFF/tgff_run_time/run_time.txt"
@@ -68,12 +83,22 @@ class Evaluater:
     
     # -- aw_change_cpuUsage --
     def aw_change_cpuUsage(self):
-        dag = DAG(self.DAG_NAME)
-        divg = divide_subG(dag)
-        jld_analyzer = JLDAnalyzer(dag, divg, self.VALUE_OF_A)
-        laxity = Laxity(jld_analyzer)
-        target = ClusteredManyCoreProcessor(1, self.TARGET.num_of_core, 1)  # コア数以外は関係ない
-        scheduler = Scheduler(dag, target, jld_analyzer, laxity.laxity_table, self.ALG_NAME, self.GEN_RATIO)
+        # 提案手法による laxity を計算
+        dag_t = DAG(self.DAG_NAME)
+        divg = divide_subG(dag_t)
+        jld_analyzer_t = JLDAnalyzer(dag_t, divg, self.VALUE_OF_A, "Proposed")
+        laxity_t = Laxity(jld_analyzer_t)
+        laxity_table = copy.deepcopy(laxity_t.laxity_table)
+        
+        if(self.METHOD_NAME != "None"):
+            dag = DAG(self.DAG_NAME)
+            jld_analyzer = JLDAnalyzer(dag, divg, self.VALUE_OF_A, self.METHOD_NAME)
+            laxity = Laxity(jld_analyzer)
+            target = ClusteredManyCoreProcessor(1, self.TARGET.num_of_core, 1)  # コア数以外は関係ない
+            scheduler = Scheduler(dag, target, jld_analyzer, laxity_table, self.ALG_NAME, self.GEN_RATIO, laxity.laxity_table)
+        else:
+            target = ClusteredManyCoreProcessor(1, self.TARGET.num_of_core, 1)  # コア数以外は関係ない
+            scheduler = Scheduler(dag_t, target, jld_analyzer_t, laxity_table, self.ALG_NAME, self.GEN_RATIO)
         
         # 結果を記入
         # "早期検知したか" + "\t" + "早期検知時刻" + "\t" + "デッドラインミスが発生したか" + "\t" + "デッドラインミス時刻" + "\t" + "平均CPU利用率"
@@ -152,7 +177,7 @@ class Evaluater:
         
         run_start_time = time.time()  # 計測開始
         divg = divide_subG(dag)
-        jld_analyzer = JLDAnalyzer(dag, divg, self.VALUE_OF_A)
+        jld_analyzer = JLDAnalyzer(dag, divg, self.VALUE_OF_A, "Proposed")
         laxity = Laxity(jld_analyzer)
         run_finish_time = time.time()  # 計測終了
         elapsed_time = run_finish_time - run_start_time  # DAG の入力から laxity_table の出力までにかかった時間
@@ -171,12 +196,49 @@ class Evaluater:
     
     # -- tgff_change_numCore --
     def tgff_change_numCore(self):
-        dag = DAG("tgff/new_random_dag/tf/" + self.DAG_NAME)
-        divg = divide_subG(dag)
-        jld_analyzer = JLDAnalyzer(dag, divg, self.VALUE_OF_A)
-        laxity = Laxity(jld_analyzer)
-        target = ClusteredManyCoreProcessor(1, self.TARGET.num_of_core, 1)  # コア数以外は関係ない
-        scheduler = Scheduler(dag, target, jld_analyzer, laxity.laxity_table, self.ALG_NAME, self.GEN_RATIO)
+        # 提案手法における laxity の値を計算
+        dag_t = DAG("tgff/new_random_dag/tf/" + self.DAG_NAME)
+        divg = divide_subG(dag_t)
+        jld_analyzer_t = JLDAnalyzer(dag_t, divg, self.VALUE_OF_A, "Proposed")
+        laxity = Laxity(jld_analyzer_t)
+        laxity_table = copy.deepcopy(laxity.laxity_table)
+        
+        if(self.METHOD_NAME != "None"):
+            dag = DAG("tgff/new_random_dag/tf/" + self.DAG_NAME)
+            jld_analyzer = JLDAnalyzer(dag, divg, self.VALUE_OF_A, self.METHOD_NAME)
+            laxity = Laxity(jld_analyzer)
+            target = ClusteredManyCoreProcessor(1, self.TARGET.num_of_core, 1)  # コア数以外は関係ない
+            scheduler = Scheduler(dag, target, jld_analyzer, laxity_table, self.ALG_NAME, self.GEN_RATIO, laxity.laxity_table)
+        else:
+            target = ClusteredManyCoreProcessor(1, self.TARGET.num_of_core, 1)  # コア数以外は関係ない
+            scheduler = Scheduler(dag_t, target, jld_analyzer_t, laxity_table, self.ALG_NAME, self.GEN_RATIO)
+        
+        # 結果を記入
+        # "早期検知したか" + "\t" + "早期検知時刻" + "\t" + "デッドラインミスが発生したか" + "\t" + "デッドラインミス時刻" + "\t" + "平均CPU利用率"
+        
+        f = open(self.RESULT_PATH, "a")
+        f.write(str(scheduler.early_detection_flag) + "\t" + str(scheduler.early_detection_time) + "\t" + str(scheduler.deadline_miss_flag) + "\t" + str(scheduler.deadline_miss_time) + "\t" + str(scheduler.calc_cpu_usage()) + "\n")
+        f.close()
+        
+        
+    # -- tgff_change_a --
+    def tgff_change_a(self):
+        # 提案手法における laxity の値を計算
+        dag_t = DAG("tgff/new_random_dag/tf/" + self.DAG_NAME)
+        divg = divide_subG(dag_t)
+        jld_analyzer_t = JLDAnalyzer(dag_t, divg, self.VALUE_OF_A, "Proposed")
+        laxity = Laxity(jld_analyzer_t)
+        laxity_table = copy.deepcopy(laxity.laxity_table)
+        
+        if(self.METHOD_NAME != "None"):
+            dag = DAG("tgff/new_random_dag/tf/" + self.DAG_NAME)
+            jld_analyzer = JLDAnalyzer(dag, divg, self.VALUE_OF_A, self.METHOD_NAME)
+            laxity = Laxity(jld_analyzer)
+            target = ClusteredManyCoreProcessor(1, self.TARGET.num_of_core, 1)  # コア数以外は関係ない
+            scheduler = Scheduler(dag, target, jld_analyzer, laxity_table, self.ALG_NAME, self.GEN_RATIO, laxity.laxity_table)
+        else:
+            target = ClusteredManyCoreProcessor(1, self.TARGET.num_of_core, 1)  # コア数以外は関係ない
+            scheduler = Scheduler(dag_t, target, jld_analyzer_t, laxity_table, self.ALG_NAME, self.GEN_RATIO)
         
         # 結果を記入
         # "早期検知したか" + "\t" + "早期検知時刻" + "\t" + "デッドラインミスが発生したか" + "\t" + "デッドラインミス時刻" + "\t" + "平均CPU利用率"
